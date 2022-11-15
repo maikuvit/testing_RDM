@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Output = void 0;
+const utils_1 = require("../../utils/utils");
 const dlv_model_1 = require("../interfaces/dlv_model");
-const utils_1 = require("../utils/utils");
 const answer_set_1 = require("./answer_set");
 class Output extends dlv_model_1.DlvModel {
     answers;

@@ -29,7 +29,7 @@ const fs = __importStar(require("fs"));
 class Parser {
     static parse(raw_input) {
         if (/INCONSISTENT/i.test(raw_input))
-            throw new Error(`output is 'INCONSISTENT'`);
+            return new output_1.Output([]);
         return output_1.Output.parse(raw_input);
     }
     static parse_file(path) {

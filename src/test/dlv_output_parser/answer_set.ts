@@ -20,7 +20,7 @@ describe('Basic answer set parsing', function() {
             true
         )
         let expected = "ANSWER\natomo(1). atomo(2). atomo(3).\nOPTIMUM"
-        assert.equal(AnswerSet.to_string(input), expected);
+        assert.equal(input.stringify(), expected);
     });
     it('should stringify', function() {
         let input = new AnswerSet(
@@ -29,7 +29,7 @@ describe('Basic answer set parsing', function() {
             true
         )
         let expected = "ANSWER\natomo(1). atomo(2). atomo(3).\nCOST 1@2 2@3\nOPTIMUM"
-        assert.equal(AnswerSet.to_string(input), expected);
+        assert.equal(input.stringify(), expected);
     });
     it('should stringify', function() {
         let input = new AnswerSet(
@@ -38,6 +38,6 @@ describe('Basic answer set parsing', function() {
             false
         )
         let expected = "ANSWER\natomo(1). atomo(2). atomo(3).\nCOST 1@2 2@3"
-        assert.equal(AnswerSet.to_string(input), expected);
+        assert.equal(input.stringify(), expected);
     });
 });

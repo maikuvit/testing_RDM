@@ -8,11 +8,14 @@ export class Output extends DlvModel {
         super()
     }
 
-    public static get regex(): RegExp {
-        return new RegExp(AnswerSet.regex, 'g')
+    public static override get regex(): RegExp {
+        return new RegExp(/(?:INCONSISTENT)|(?:^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*((?:OPTIMUM)*)*$)/gm)
     }
 
-    protected static tranform(matches: RegExpMatchArray): Output {
+    protected static override tranform(matches: RegExpMatchArray): Output {
+
+        if(matches.length === 1 && matches[0] === "INCONSISTENT") return new Output([])
+
         let answer_sets: AnswerSet[] = matches.map((raw_answer: string) => AnswerSet.parse(raw_answer) as AnswerSet)
 
         for(let i = 0; i < answer_sets.length; i++){
@@ -33,7 +36,7 @@ export class Output extends DlvModel {
         return new Output(answer_sets);
     }
 
-    public static to_string(model: Output): string {
-        return `${model.answers.map(a => AnswerSet.to_string(a)).join("\n")}`
+    public override stringify(): string {
+        return `${this.answers.map(ans => ans.stringify()).join("\n")}`
     }
 }

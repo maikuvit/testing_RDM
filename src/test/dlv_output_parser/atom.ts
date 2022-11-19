@@ -10,6 +10,6 @@ describe('Basic atom parsing', function() {
     it('should stringify', function() {
         let input = new Atom("name", ["1"])
         let expected = "name(1)."
-        assert.equal(Atom.to_string(input), expected);
+        assert.equal(input.stringify(), expected);
     });
 });

@@ -10,6 +10,6 @@ describe('Basic cost parsing', function() {
     it('should stringify', function() {
         let input = new Cost(1,2)
         let expected = "1@2"
-        assert.equal(Cost.to_string(input), expected);
+        assert.equal(input.stringify(), expected);
     });
 });

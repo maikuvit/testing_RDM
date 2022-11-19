@@ -16,7 +16,7 @@ export abstract class DlvModel {
         throw new Error(`${this.name} could not parse '${raw_input}' with '${this.regex}'`)
     }
 
-    public static to_string(model : DlvModel) : string {
+    public stringify() : string {
         throw new Error(`method not implemented`)
     }
 }

@@ -7,17 +7,17 @@ export class Atom extends DlvModel {
         super()
     }
 
-    public static get regex(): RegExp {
+    public static override get regex(): RegExp {
         return /^([a-z]\w*)\((\w+(?:,\w+)*)\)\.$/
     }
 
-    protected static tranform(match: RegExpMatchArray): Atom {
+    protected static override tranform(match: RegExpMatchArray): Atom {
         let name : string = match[1]
         let literals : string[] = match[2].split(',')
         return new Atom(name, literals)
     }
 
-    public static to_string(model: Atom): string {
-        return `${model.name}(${model.literals.join(',')}).`
+    public override stringify(): string {
+        return `${this.name}(${this.literals.join(',')}).`
     }
 }

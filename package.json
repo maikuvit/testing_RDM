@@ -6,8 +6,8 @@
   "scripts": {
     "test": "ts-mocha ./src/test/**/*.ts",
     "build": "tsc --build",
-    "start" : "node ./dist/index.js",
-    "build_start" : "npm run build && npm run start"
+    "start": "node ./dist/index.js",
+    "build_start": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",

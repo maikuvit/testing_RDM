@@ -8,7 +8,7 @@ export class Cost extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return /^(\d+)@(\d+)$/
+        return /^(\d+)@(\d+)\n*$/
     }
 
     protected static override tranform(match: RegExpMatchArray): Cost {

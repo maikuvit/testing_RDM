@@ -16,4 +16,8 @@ export class Cost extends DlvModel {
         let level : number = Number.parseInt(match[2])
         return new Cost(weight, level)
     }
+
+    public static to_string(model: Cost): string {
+        return `${model.weight}@${model.level}`
+    }
 }

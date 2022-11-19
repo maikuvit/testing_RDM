@@ -33,4 +33,7 @@ export class Output extends DlvModel {
         return new Output(answer_sets);
     }
 
+    public static to_string(model: Output): string {
+        return `${model.answers.map(a => AnswerSet.to_string(a)).join("\n")}`
+    }
 }

@@ -4,8 +4,8 @@ import { Parser } from '../../dlv_output_parser/parser';
 
 describe('Basic parser functionalities', function() {
     it('should parse', function() {
-        let output_string = "INCONSISTENT"
-        let output_object = new Output([])
-        assert.deepEqual(Parser.parse(output_string), output_object);
+        let input = "INCONSISTENT"
+        let expected = new Output([])
+        assert.deepEqual(Parser.parse(input), expected);
     });
 });

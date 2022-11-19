@@ -16,5 +16,8 @@ export class Atom extends DlvModel {
         let literals : string[] = match[2].split(',')
         return new Atom(name, literals)
     }
-    
+
+    public static to_string(model: Atom): string {
+        return `${model.name}(${model.literals.join(',')}).`
+    }
 }

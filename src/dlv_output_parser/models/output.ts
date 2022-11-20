@@ -9,7 +9,7 @@ export class Output extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return new RegExp(/(?:INCONSISTENT)|(?:^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*((?:OPTIMUM)*)*$)/gm)
+        return new RegExp(/^(INCONSISTENT)|^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*(?:(OPTIMUM)*$)*/gm)
     }
 
     protected static override tranform(matches: RegExpMatchArray): Output {

@@ -11,7 +11,7 @@ export class AnswerSet extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return /^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*((?:OPTIMUM)*)*$/
+        return /^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*(?:(OPTIMUM)*$)*/
     }
 
     protected static override tranform(match: RegExpMatchArray): AnswerSet {

@@ -1,3 +1,5 @@
+import { utils } from "mocha";
+import { areArrayEqualNoOrder, areObjectEqual } from "../../utils/utils";
 import { DlvModel } from "../interfaces/dlv_model";
 import { Atom } from "./atom";
 import { Cost } from "./cost";
@@ -26,5 +28,10 @@ export class AnswerSet extends DlvModel {
         let cost : string = this.costs.length > 0 ? `\nCOST ${this.costs.map(cost => cost.stringify()).join(' ')}` : ""
         let opt : string = this.optimum ? "\nOPTIMUM" : ""
         return `${ans}${cost}${opt}`
+    }
+
+    public assertEqualCost(costToAssert : string) : boolean{
+        let constInput : Cost[] = costToAssert.split(' ').map((cost_raw : string) => Cost.parse(cost_raw) as Cost) ?? []
+        return areArrayEqualNoOrder(constInput, this.costs);
     }
 }

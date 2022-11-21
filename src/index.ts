@@ -15,7 +15,7 @@ if(args.length <= 0){
 let inputPath : string = args.shift()!
 let costCheck : string = args.shift() || ""
 
-let output = execSync(`./bin/dlv2_macos.app ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
+let output = execSync(`./bin/dlv2_macos ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
 let res = output.toString()
 console.log(res);
 

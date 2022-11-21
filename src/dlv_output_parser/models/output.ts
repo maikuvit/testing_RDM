@@ -37,12 +37,14 @@ export class Output extends DlvModel {
         //propaga ottimalità e costi in caso di piu answer_set (significa che ha weak ed è stato lanciato con -n0)
         //se ho piu di un answer_set sono tutti ottimi e hanno tutto lo stesso costo
         if(answer_sets.length > 1){
-            let propagation_costs : Cost[] = answer_sets.find((ans) => ans.costs.length > 0)!.costs
-            answer_sets = answer_sets.map(answer => {
-                answer.costs = propagation_costs
-                answer.optimum = true
-                return answer;
-            })
+            let propagation_answer : AnswerSet | undefined = answer_sets.find((ans) => ans.costs.length > 0)
+            if(propagation_answer){
+                answer_sets = answer_sets.map(answer => {
+                    answer.costs = propagation_answer?.costs || []
+                    answer.optimum = true
+                    return answer;
+                })
+            }
         }
 
         return new Output(answer_sets);

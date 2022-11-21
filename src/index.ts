@@ -1,6 +1,6 @@
 import { exec, execSync } from 'child_process'
-import * as fs from 'fs'
 import { Output } from './dlv_output_parser/models/output'
+import * as fs from 'fs';
 
 var args = process.argv
 
@@ -12,16 +12,25 @@ for (let i = 0; i < 2; i++) {
 if(args.length <= 0){
     throw new Error("Please enter required parameters")
 }
-let inputPath : string = args.shift()!
-let costCheck : string = args.shift() || ""
+let command : string = args.shift()!
+let path : string = args.shift()!
+// let costCheck : string = args.shift() || ""
 
-let output = execSync(`./bin/dlv2_macos ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
-let res = output.toString()
+let res : string = ""
+
+if(command == "input"){
+    let output = execSync(`./bin/dlv2_macos ${path} ${args.map((arg) => `-${arg}`).join(' ')} `)
+    res = output.toString()
+}
+else if(command == "output"){
+    res = fs.readFileSync(path, {encoding: 'utf-8'})
+}
+
 console.log(res);
-
-
 let out : Output = Output.parse(res) as Output;
 console.log(out);
 console.log(out.stringify());
 
-console.log(out.answers[0].assertEqualCost(costCheck));
+if(out.answers.length > 0){
+    console.log(out.answers[0].assertEqualCost("0@1"));
+}

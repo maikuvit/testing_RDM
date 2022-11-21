@@ -1,3 +1,0 @@
-ANSWER
-state(a). state(b). state(c). state(d). border(a,b). border(b,a). border(a,c). border(c,a). border(c,d). border(d,c). col(a,blue). col(b,green). col(c,green). col(d,red).
-

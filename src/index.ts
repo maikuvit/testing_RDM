@@ -28,8 +28,6 @@ else if(command == "output"){
 
 console.log(res);
 let out : Output = Output.parse(res) as Output;
-console.log(out);
-console.log(out.stringify());
 
 if(out.answers.length > 0){
     console.log(out.answers[0].assertEqualCost("0@1"));

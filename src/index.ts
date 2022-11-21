@@ -9,18 +9,21 @@ for (let i = 0; i < 2; i++) {
     args.shift()
 }
 
-if(args.length <= 1){
+if(args.length <= 0){
     throw new Error("Please enter required parameters")
 }
 let inputPath : string = args.shift()!
 let costCheck : string = args.shift()!
 
-let output = execSync(`./bin/dlv2_macos.app ${inputPath} `)
+let output = execSync(`./bin/dlv2_linux ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
 let res = output.toString()
-let res_splitted = res.split("\n")
-res_splitted = res_splitted.filter((v, i) => i > 1)
-res = res_splitted.join("\n")
+
+/* 
 console.log(res);
 console.log(Output.parse(res));
 console.log(Output.parse(res).stringify());
 
+*/
+let out : Output = Output.parse(res) as Output;
+
+console.log(out.answers[0].assertEqualCost(costCheck));

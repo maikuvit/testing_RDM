@@ -14,7 +14,7 @@ if(args.length <= 0){
 }
 let command : string = args.shift()!
 let path : string = args.shift()!
-// let costCheck : string = args.shift() || ""
+let costToCheck : string = args.shift()!
 
 let res : string = ""
 
@@ -30,5 +30,5 @@ console.log(res);
 let out : Output = Output.parse(res) as Output;
 
 if(out.answers.length > 0){
-    console.log(out.answers[0].assertEqualCost("0@1"));
+    console.log(out.answers[0].assertEqualCost(costToCheck));
 }

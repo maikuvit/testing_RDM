@@ -15,13 +15,11 @@ if(args.length <= 0){
 let inputPath : string = args.shift()!
 let costCheck : string = args.shift() || ""
 
-let output = execSync(`./bin/dlv2_macos.app ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
+let output = execSync(`./bin/dlv2_linux ${inputPath} ${args.map((arg) => `-${arg}`).join(' ')} `)
 let res = output.toString()
-console.log(res);
 
+//console.log(res);
 
 let out : Output = Output.parse(res) as Output;
-console.log(out);
-console.log(out.stringify());
 
-console.log(out.answers[0].assertEqualCost(costCheck));
+console.log( (out.answers.length > 0) ? out.answers[0].assertEqualCost(costCheck): "no answer set");

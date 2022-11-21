@@ -1,6 +1,7 @@
 import { areArrayEqualNoOrder, fillMissingValues } from "../../utils/utils";
 import { DlvModel } from "../interfaces/dlv_model";
 import { AnswerSet } from "./answer_set";
+import { Cost } from "./cost";
 
 export class Output extends DlvModel {
     constructor(
@@ -31,6 +32,17 @@ export class Output extends DlvModel {
                     answer_sets.splice(j, 1)
                 }
             }
+        }
+
+        //propaga ottimalità e costi in caso di piu answer_set (significa che ha weak ed è stato lanciato con -n0)
+        //se ho piu di un answer_set sono tutti ottimi e hanno tutto lo stesso costo
+        if(answer_sets.length > 1){
+            let propagation_costs : Cost[] = answer_sets.find((ans) => ans.costs.length > 0)!.costs
+            answer_sets = answer_sets.map(answer => {
+                answer.costs = propagation_costs
+                answer.optimum = true
+                return answer;
+            })
         }
 
         return new Output(answer_sets);

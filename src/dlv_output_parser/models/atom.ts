@@ -8,7 +8,7 @@ export class Atom extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return /^([a-z]\w*)\((\w+(?:,\w+)*)\)\.\n*$/
+        return /^([a-z]\w*)\((\w+(?:,\w+)*)\)\,*\n*$/
     }
 
     protected static override tranform(match: RegExpMatchArray): Atom {

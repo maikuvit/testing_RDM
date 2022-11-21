@@ -11,10 +11,10 @@ export class AnswerSet extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return /^ANSWER\n((?:[a-z]\w*\((?:\w+(?:,\w+)*)\)\.\s*)+)\n(?:COST (?:((?:\d+@\d+\s*)+)*)\n*)*(?:(OPTIMUM)*$)*/
+        return /^{((?:(?:[a-z]\w*)\((?:\w+(?:,\w+)*)\)[,\s]*)+)}(?:\nCOST ((?:\d+@\d+[\s\n]*)+))*\n*(OPTIMUM)*/
     }
 
-    protected static override tranform(match: RegExpMatchArray): AnswerSet {
+    protected static override tranform(match: RegExpMatchArray): AnswerSet {        
         let atoms : Atom[] = match[1]?.split(' ').map((atom_raw : string) => Atom.parse(atom_raw) as Atom) ?? []
         let costs : Cost[] = match[2]?.split(' ').map((cost_raw : string) => Cost.parse(cost_raw) as Cost) ?? []
         let optimum : boolean = match[3] === 'OPTIMUM' ?? false
@@ -27,5 +27,4 @@ export class AnswerSet extends DlvModel {
         let opt : string = this.optimum ? "\nOPTIMUM" : ""
         return `${ans}${cost}${opt}`
     }
-
 }

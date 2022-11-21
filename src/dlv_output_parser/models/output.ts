@@ -10,12 +10,12 @@ export class Output extends DlvModel {
     }
 
     public static override get regex(): RegExp {
-        return /^{((?:(?:[a-z]\w*)\((?:\w+(?:,\w+)*)\)[,\s]*)+)}(?:\nCOST ((?:\d+@\d+[\s\n]*)+))*\n*(OPTIMUM)*/gm
+        return /^(INCOHERENT)|{((?:(?:[a-z]\w*)\((?:\w+(?:,\w+)*)\)[,\s]*)+)}(?:\nCOST ((?:\d+@\d+[\s\n]*)+))*\n*(OPTIMUM)*/gm
     }
 
     protected static override tranform(matches: RegExpMatchArray): Output {
 
-        if(matches.length === 1 && matches[0] === "INCONSISTENT") return new Output([])
+        if(matches.length === 1 && matches[0] === "INCOHERENT") return new Output([])
 
         let answer_sets: AnswerSet[] = matches.map((raw_answer: string) => AnswerSet.parse(raw_answer) as AnswerSet)
 

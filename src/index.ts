@@ -8,7 +8,7 @@ var args = process.argv
 for (let i = 0; i < 2; i++) {
     args.shift()
 }
-
+//prova
 if(args.length <= 0){
     throw new Error("Please enter required parameters")
 }

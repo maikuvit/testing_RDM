@@ -51,7 +51,7 @@ describe('Basic output parsing', function () {
                 )
             ]
         )
-        let expected = "ANSWER\natomo(1,ciao). atomo(2,come). atomo(3,stai).\nOPTIMUM\nANSWER\natomo(1,come). atomo(2,stai). atomo(3,ciao).\nCOST 1@2"
+        let expected = "ANSWER\natomo(1,ciao). atomo(2,come). atomo(3,stai).\nOPTIMUM\n\nANSWER\natomo(1,come). atomo(2,stai). atomo(3,ciao).\nCOST 1@2"
         assert.equal(input.stringify(), expected);
     });
 });

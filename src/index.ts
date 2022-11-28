@@ -8,7 +8,7 @@ const program = new Command();
 program
   .name('tasper')
   .description('CLI to ASP testing framework')
-  .version('0.1.0', '-v, --version', 'Output the current version');
+  .version('1.0.0', '-v, --version', 'Output the current version');
 
 program.command('parse')
   .description('Parse an ASP output file')

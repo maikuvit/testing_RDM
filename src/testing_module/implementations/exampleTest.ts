@@ -5,7 +5,7 @@ import { Test } from "../interfaces/Test";
 export class ExampleTest extends Test{
 
     constructor(
-        public _testName: string,
+        private _testName: string,
         private _scope: string[],
         private _input: Atom[],
         private _assert: DlvAssert[]) {

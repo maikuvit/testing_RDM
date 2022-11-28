@@ -14,7 +14,9 @@ program.command('parse')
   .description('Parse an ASP output file')
   .argument('<path>', 'Path to file')
   .action((path) => {
-    console.log(Parser.parse_output_file(path).stringify());
+    let output = Parser.parse_output_file(path)
+    console.log(output);
+    console.log(output.stringify())
   });
 
 program.parse(process.argv);

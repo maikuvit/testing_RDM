@@ -5,11 +5,15 @@ import { Test } from "../interfaces/Test";
 export class ExampleTest extends Test{
 
     constructor(
-        public name: string,
+        public _testName: string,
         private _scope: string[],
         private _input: Atom[],
         private _assert: DlvAssert[]) {
             super()
+    }
+
+    public override get testName(): string {
+        return this._testName;
     }
 
     public override get scope(): string[] {

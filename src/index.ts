@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { Parser } from "./dlv_output_parser/parser";

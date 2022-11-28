@@ -1,8 +1,8 @@
 import { DlvAssert } from "../../asserts/interfaces/dlvAssert";
 import { Atom } from "../../dlv_output_parser/models/atom";
-import { Test } from "../interfaces/Test";
+import { TestInterface } from "../interfaces/testInterface";
 
-export class ExampleTest extends Test{
+export class ExampleTest extends TestInterface{
 
     constructor(
         private _testName: string,

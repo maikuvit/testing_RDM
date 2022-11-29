@@ -19,7 +19,7 @@ export class TestSolver {
     }
 
     //temp implementation!
-    private exec_solver() : DlvModel{
+    private exec_solver(configPath : string) : DlvModel{
         return new Output([]);
     } 
 

@@ -1,0 +1,21 @@
+name: main
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs:on: ubuntu-latest
+    steps:
+      uses: actions/checkout@v3
+      - name: Node.js setup
+        uses: actions/setup-node@v3
+        cache: 'npm'
+      - run: |
+        npm ci
+        npm run build
+  tests:
+    needs: build
+    steps:
+      - name: Project tests 
+        run: npm run test

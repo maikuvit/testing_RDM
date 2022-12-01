@@ -1,5 +1,5 @@
+import { DlvAssert } from "../asserts/interfaces/dlvAssert";
 import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
-import { Output } from "../dlv_output_parser/models/output";
 import { Parser } from "../dlv_output_parser/parser";
 import { TestInterface } from "../testing_module/interfaces/testInterface";
 import { FilesHandler } from "../utils/FilesHandler/FilesHandler";
@@ -19,8 +19,20 @@ export class TestSolver {
     // private met genFile <- set input 
 
     //temp implementation! return list di assert di lunghezza asserts - 1
-    public solve(Test : TestInterface) : [boolean] {
-        return [true];
+    public solve(Test : TestInterface) : Object {
+
+        //prendo gli asserts, poi per ognuno di esso combino input e faccio call sul solver ...
+        // for s in asserts:
+        //      s.assert(input)
+        let input = "";
+        let testAsserts : object = [];
+
+        let out : object = {};
+        for(let s in testAsserts){
+            // out["${s.getName()}"] = s.assert(input)
+        }
+
+        return out;
     }
 
     //temp implementation! return l'output model (da modificare nel return!)
@@ -46,7 +58,6 @@ export class TestSolver {
 
     //temp implementation! return il path del file di input
     private genTempFile() : String{
-
         return "";
     }
 

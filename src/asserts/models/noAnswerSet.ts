@@ -4,7 +4,7 @@ import { DlvAssert } from "../interfaces/dlvAssert";
 
 export class NoAnswerSet extends DlvAssert {
     public PreConditions(): object {
-        throw {};
+        return {};
     }
     protected FullfilRequirements(model : Output): DlvModel {
         // no requirements at all ...

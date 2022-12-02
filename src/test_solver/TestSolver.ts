@@ -1,9 +1,11 @@
-import { DlvAssert } from "../asserts/interfaces/dlvAssert";
 import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
+import { Output } from "../dlv_output_parser/models/output";
 import { Parser } from "../dlv_output_parser/parser";
 import { TestInterface } from "../testing_module/interfaces/testInterface";
 import { FilesHandler } from "../utils/FilesHandler/FilesHandler";
 import { MockConfigFile } from "../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler";
+import { DLV2ProcessExecutor } from "./DLV2ProcessExecutor";
+import { ProcessExecutor } from "./ProcessExecutor";
 const { exec } = require('node:child_process');
 
 
@@ -21,6 +23,11 @@ export class TestSolver {
     //temp implementation! return list di assert di lunghezza asserts - 1
     public solve(Test : TestInterface) : Object {
 
+        let config = new MockConfigFile("")
+        // qui controllo futuro per vari solver, per ora creo solo DLV che basta
+        let executor = new DLV2ProcessExecutor(JSON.parse(config.readFromFile())["exe_path"]) 
+
+        
         //prendo gli asserts, poi per ognuno di esso combino input e faccio call sul solver ...
         // for s in asserts:
         //      s.assert(input)
@@ -34,27 +41,6 @@ export class TestSolver {
 
         return out;
     }
-
-    //temp implementation! return l'output model (da modificare nel return!)
-    public async exec_solver(InputFilePath : string) : Promise<DlvModel>{
-
-        let config = new MockConfigFile("")
-
-        return new Promise(() => {
-            let exec_path = JSON.parse(config.readFromFile())["exe_path"]
-
-            if(!FilesHandler.checkFileExist(exec_path))
-                throw new Error("Could not find the path to the exe")
-            if( !FilesHandler.checkFileExist(InputFilePath)) 
-                throw new Error("Could not find the generated input file")
-            
-            exec(`${exec_path} ${InputFilePath}`, (error : string, stdout : string, stderr : string) => {
-                if(error) return error;
-                return Parser.parse(stdout); //
-            })
-
-        });
-    } 
 
     //temp implementation! return il path del file di input
     private genTempFile() : String{

@@ -1,21 +1,22 @@
 name: main
 on:
-  # push:
-  #   branches: [main]
-  # workflow_dispatch:
   [push, workflow_dispatch]
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
     steps:
       - uses: actions/checkout@v3
-      - name: Node.js setup
+      - name: ${{matrix.os}} - Node.js setup
         uses: actions/setup-node@v3
         with:
           cache: 'npm'
-      - name: Build Project
+      - name: ${{matrix.os}} - Build Project
         run: |
           npm ci
           npm run build
-      - name: Execute project tests
+      - name: ${{matrix.os}} - Execute project tests
         run: npm run test

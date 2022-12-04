@@ -14,7 +14,7 @@ const config_template = {
 export class ConfigFilesHandler extends FilesHandler{
 
     
-    public writeToFile(): boolean {
+    public writeToFile(content: string): boolean {
         throw new Error("Method not implemented.");
     }
     public readFromFile(): string {

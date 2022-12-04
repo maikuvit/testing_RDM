@@ -13,7 +13,8 @@ export class MockConfigFile extends FilesHandler
             {
                 //brutto il path, ma si risolve togliendo il mock ...
             'exe_path' : path.join(__dirname,'../../../../bin/dlv2_linux'),
-            'solver_type' : 'DLV2' 
+            'solver_type' : 'DLV2',
+            'temp_file_direcory' : '/home/maiku/Desktop/tempfilesAsp'
             }
         );
     }

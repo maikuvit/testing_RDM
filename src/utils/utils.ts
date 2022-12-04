@@ -1,3 +1,5 @@
+import { existsSync } from "fs";
+import path from "path";
 import { Atom } from "../dlv_output_parser/models/atom";
 
 export function areObjectEqual<T>(obj1: T, obj2: T): boolean {
@@ -45,4 +47,9 @@ export function convertedAtoms(atoms:string[]) : Atom[]{
         }
     }
     return convertedAtoms
+    
+}
+
+export function checkFileExist(filepath :string) : boolean{
+    return existsSync(filepath);
 }

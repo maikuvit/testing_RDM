@@ -1,3 +1,5 @@
+import { getRandomValues } from "crypto";
+import path from "path";
 import { DlvAssert } from "../asserts/interfaces/dlvAssert";
 import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
 import { Atom } from "../dlv_output_parser/models/atom";
@@ -6,6 +8,7 @@ import { Parser } from "../dlv_output_parser/parser";
 import { Input } from "../input_parser/implementations/input";
 import { SimpleTest } from "../testing_module/implementations/simpleTest";
 import { TestInterface } from "../testing_module/interfaces/testInterface";
+import { AspFilesHandler } from "../utils/FilesHandler/AspFilesHandler";
 import { FilesHandler } from "../utils/FilesHandler/FilesHandler";
 import { MockConfigFile } from "../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler";
 import { DLV2ProcessExecutor } from "./DLV2ProcessExecutor";
@@ -16,7 +19,9 @@ const { exec } = require('node:child_process');
 // ----maiku---- //
 export class TestSolver {
 
-    executor: DLV2ProcessExecutor= new DLV2ProcessExecutor(MockConfigFile._path); 
+    config = new MockConfigFile("")
+
+    executor: DLV2ProcessExecutor= new DLV2ProcessExecutor(JSON.parse(this.config.readFromFile())["exe_path"]); 
 
     //ho una obj test che contiene tutte le info:
     // mi serve: 
@@ -27,36 +32,49 @@ export class TestSolver {
     // private met genFile <- set input 
 
     //temp implementation! return list di assert di lunghezza asserts - 1
-    public async solve(test : SimpleTest) : Promise<Object> {
+    public async solve(test : SimpleTest, inputAsp : Input) : Promise<{ [id: string] : boolean }> {
 
-        let config = new MockConfigFile("")
         // qui controllo futuro per vari solver, per ora creo solo DLV che basta
-        let executor = new DLV2ProcessExecutor(JSON.parse(config.readFromFile())["exe_path"]) 
+        let executor = new DLV2ProcessExecutor(JSON.parse(this.config.readFromFile())["exe_path"]) 
 
         
         //prendo gli asserts, poi per ognuno di esso combino input e faccio call sul solver ...
         // for s in asserts:
         //      s.assert(input)
-        
-        let input = test.scope;
+        let tempFilePath = JSON.parse(this.config.readFromFile())["temp_file_direcory"]
+
+        let inputRules = test.scope;
 
         let testAsserts = test.assert;
 
+        let input = test.input;
 
-        var out: { [id: string] : boolean; } = {};
-        testAsserts.forEach(async (s) => { 
+        let rules: string[] = [];
+
+        inputRules.forEach(rule => {
+            let temp = inputAsp.rules.get(rule)?.content
+            if(temp != undefined)
+                rules.push(temp)
+        });
+
+        var out: { [id: string] : boolean } = {};
+        testAsserts.forEach(async (s,index) => { 
             //per ogni assert creo l'input e poi chiamo un solver ... 
-            let output = await executor.exec_solver(this.genTempFile(input))
-            out["${s.getName()}"] = s.assert(output)
+
+            let filepath = path.join(tempFilePath, "test1.txt")
+            let fileWriter = new AspFilesHandler(filepath)
+
+            //writing rules ...
+            fileWriter.writeToFile(rules)
+
+            let atoms : string[] = input.map(el => el.stringify()) 
+            //writing atoms ... 
+            fileWriter.writeToFile(atoms)
+
+            let output = await executor.exec_solver(filepath)
+            out[index] = s.assert(output)
         } )
-        
 
         return out;
     }
-
-    //temp implementation! return il path del file di input
-    private genTempFile(input : string) : string{
-        return "";
-    }
-
 }

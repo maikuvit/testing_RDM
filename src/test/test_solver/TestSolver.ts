@@ -1,42 +1,52 @@
 import assert from 'assert';
 import path from 'path';
-import {DLV2ProcessExecutor} from '../../../src/test_solver/DLV2ProcessExecutor';
+import {TestSolver} from '../../../src/test_solver/TestSolver';
+import { TrueInAll } from '../../asserts/models/trueInAll';
 import { DlvModel } from '../../dlv_output_parser/interfaces/dlv_model';
 import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
 import { Atom } from '../../dlv_output_parser/models/atom';
 import { Cost } from '../../dlv_output_parser/models/cost';
 import { Output } from '../../dlv_output_parser/models/output';
+import { Block } from '../../input_parser/implementations/block';
+import { Input } from '../../input_parser/implementations/input';
+import { Rule } from '../../input_parser/implementations/rule';
+import { SimpleTest } from '../../testing_module/implementations/simpleTest';
 import { MockConfigFile } from '../../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler';
 
 
 // ----maiku---- //
-
-
 describe("The solver works properly", () => {
+    
+    it("should solve a basic example", () => {
 
-    /*it("should correctly resolve a test"), () =>{
-        // i need to build a mock-test object ... 
+        /*
+        ----TEST DA RICREARE----
+        %**@rule(name = "r1") **%
+        a(X) :- b(X).
+        %**@rule(name = "r2") **%
+        b(X) :- c(X).
 
-        //TEMPORARY (aspetto conferma da Fabio per un obj Test)
-        assert.equal(true, true)
-    }*/
+        --INPUT DEL TEST-- 
+        c(1). c(2).
 
 
-    it("should interact with the solver", () => {
-        // test la function privata (temporaneamente non più privata, only for dev scope )...
-        let config = new MockConfigFile("")
-        let exec_path = JSON.parse(config.readFromFile())["exe_path"]
-        let executor = new DLV2ProcessExecutor(exec_path)
-        executor.exec_solver(path.join(__dirname,"inp_test1.txt")).then( (out : DlvModel) =>{
-        
-            // creo answer set ad hoc per l'input presente nel file ... 
-            let as = new AnswerSet(
-                [new Atom("a", ["2"]), new Atom("b", ["2"]), new Atom("a", ["1"])],
-                [new Cost(1,2)],
-                 true)
-            let temp = new Output([as])
-             assert.equal(out, temp)
-        }
-        )
+        lancio con @trueInAll(atoms="a(1).")
+
+        */
+        //creo obj di tipo input ...
+        let rules = new Map<string,Rule>();
+        rules.set("r1", new Rule("r1", "a(X) :- b(X)."));
+        rules.set("r2", new Rule("r2", "b(X) :- c(X)."));
+
+        let blocks = new Map<string, Block>();
+
+        let test = new SimpleTest("test1",
+        ["r1","r2"],
+        "c(1). c(2).",
+        [new TrueInAll([new Atom("a",["1"])])])
+        let inputObject = new Input(rules, blocks);
+
+        let solver = new TestSolver();
+        solver.solve(test, inputObject).then(out => (assert.equal(out, {1: true})));
     })
-})
+}) 

@@ -11,5 +11,5 @@ export abstract class DlvAssert {
         return this.validate(this.FullfilRequirements(model));
     }
 
-    public abstract PreConditions() : object
+    public abstract PreConditions() : any
 }

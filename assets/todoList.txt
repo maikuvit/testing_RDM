@@ -1,0 +1,3 @@
+- fare i test in un file separato (formato file YAML oppure JSON)
+- accorpare le annotazioni block e rule
+- aggiungere la fixture

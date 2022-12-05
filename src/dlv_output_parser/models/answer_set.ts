@@ -34,4 +34,22 @@ export class AnswerSet extends DlvModel {
         let constInput : Cost[] = costToAssert.split(' ').map((cost_raw : string) => Cost.parse(cost_raw) as Cost) ?? []
         return areArrayEqualNoOrder(constInput, this.costs);
     }
+
+    public containsAllAtoms(atoms : Atom[]) : boolean{
+        for(let i=0;i<atoms.length;i++) {
+            if(!this.containsAtom(atoms[i])){
+                return false
+            }
+        };
+        return true
+    }
+
+    public containsAtom(atom: Atom) : boolean{
+        for(let i=0;i<this.atoms.length;i++){
+            if(atom.stringify() === this.atoms[i].stringify()){
+                return true
+            }
+        }
+        return false
+    }
 }

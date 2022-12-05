@@ -3,6 +3,9 @@
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { Parser } from "./dlv_output_parser/parser";
+import { Input } from "./input_parser/implementations/input";
+import { TestSolver } from "./test_solver/TestSolver";
+import { TestParser } from "./testing_module/implementations/testParser";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -21,7 +24,6 @@ program
     console.log(output);
     console.log(output.stringify());
   });
-
   
 program
 .command("invoke")
@@ -31,6 +33,17 @@ program
 .action((path, options) => {
   console.log(options);
   console.log(path);
+});
+
+program
+.command("solve")
+.description("Invoke test solver for input file")
+.argument("<path>", "Path to file")
+.action((path) => {
+  let input : Input = Parser.parse_input_file(path);
+  let testparser : TestParser = Parser.parse_test_file(path);
+  let solver = new TestSolver();
+  testparser.tests.forEach((test) => console.log(solver.solve(test, input)))
 });
 
 program.parse(process.argv);
@@ -57,8 +70,9 @@ program.parse(process.argv);
 */
 
 
-/*
 
+
+/*mic
 QUESTO SPRINT
 PER FEDE ESEMPI DI COMMAND (single file, config mockati)
 tasper solve <inputFile>.asp 

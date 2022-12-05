@@ -1,19 +1,21 @@
 // ---- maiku ---- //
 
-import {writeFileSync} from "fs";
+import {appendFileSync,unlinkSync} from "fs";
 import { Atom } from "../../dlv_output_parser/models/atom";
+import { checkFileExist } from "../utils";
 import { FilesHandler } from "./FilesHandler";
 
 export class AspFilesHandler extends FilesHandler{
 
     constructor(path: string ){
+        if(checkFileExist(path)) unlinkSync(path) //remove file if exist, we do not need that
         super(path)
     }
 
     // takes in input a rule set and atoms and writes everything on a new asp file
     public writeToFile(content: string[]): boolean {
         try{
-            content.forEach((line) => writeFileSync(this._path, line,{encoding: "utf8"}))
+            content.forEach((line) => appendFileSync(this._path, `${line}\n`,{encoding: "utf8"}))
         }
         catch{        
             throw new Error("Failed creation of temporary file.");

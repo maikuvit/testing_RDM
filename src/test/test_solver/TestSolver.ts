@@ -13,6 +13,8 @@ import { Rule } from '../../input_parser/implementations/rule';
 import { SimpleTest } from '../../testing_module/implementations/simpleTest';
 import { MockConfigFile } from '../../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler';
 
+import {areArrayEqualNoOrder} from "../../utils/utils"
+
 
 // ----maiku---- //
 describe("The solver works properly", () => {
@@ -47,6 +49,7 @@ describe("The solver works properly", () => {
         let inputObject = new Input(rules, blocks);
 
         let solver = new TestSolver();
-        solver.solve(test, inputObject).then(out => (assert.equal(out, {1: true})));
+        let out = solver.solve(test, inputObject);
+        assert.equal(JSON.stringify(out)==JSON.stringify({0: true}), true);
     })
 }) 

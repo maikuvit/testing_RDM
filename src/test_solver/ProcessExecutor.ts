@@ -8,5 +8,5 @@ export abstract class ProcessExecutor{
     }
 
 
-    public abstract exec_solver(InputFilePath : string) : Promise<DlvModel> 
+    public abstract exec_solver(InputFilePath : string) : DlvModel 
 }

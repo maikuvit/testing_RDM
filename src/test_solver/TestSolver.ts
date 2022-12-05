@@ -32,7 +32,7 @@ export class TestSolver {
     // private met genFile <- set input 
 
     //temp implementation! return list di assert di lunghezza asserts - 1
-    public async solve(test : SimpleTest, inputAsp : Input) : Promise<{ [id: string] : boolean }> {
+    public solve(test : SimpleTest, inputAsp : Input) : { [id: string]: boolean; } {
 
         // qui controllo futuro per vari solver, per ora creo solo DLV che basta
         let executor = new DLV2ProcessExecutor(JSON.parse(this.config.readFromFile())["exe_path"]) 
@@ -58,9 +58,9 @@ export class TestSolver {
         });
 
         var out: { [id: string] : boolean } = {};
-        testAsserts.forEach(async (s,index) => { 
-            //per ogni assert creo l'input e poi chiamo un solver ... 
+        testAsserts.forEach((s,index) => { 
 
+            //per ogni assert creo l'input e poi chiamo un solver ... 
             let filepath = path.join(tempFilePath, "test1.txt")
             let fileWriter = new AspFilesHandler(filepath)
 
@@ -71,10 +71,9 @@ export class TestSolver {
             //writing atoms ... 
             fileWriter.writeToFile(atoms)
 
-            let output = await executor.exec_solver(filepath)
-            out[index] = s.assert(output)
-        } )
+            out[index] = s.assert(executor.exec_solver(filepath))
+            })
 
-        return out;
+            return out;
     }
 }

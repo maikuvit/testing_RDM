@@ -16,16 +16,16 @@ describe("DLV2ProcessExecutor works properly", () => {
         let config = new MockConfigFile("")
         let exec_path = JSON.parse(config.readFromFile())["exe_path"]
         let executor = new DLV2ProcessExecutor(exec_path)
-        executor.exec_solver(path.join(__dirname,"inp_test1.txt")).then( (out : DlvModel) =>{
+        let out = executor.exec_solver(path.join(__dirname,"inp_test1.txt"))
         
-            // creo answer set ad hoc per l'input presente nel file ... 
-            let as = new AnswerSet(
-                [new Atom("a", ["2"]), new Atom("b", ["2"]), new Atom("a", ["1"])],
-                [new Cost(1,2)],
-                 true)
-            let temp = new Output([as])
-             assert.equal(out, temp)
-        }
-        )
+        // creo answer set ad hoc per l'input presente nel file ... 
+        let as = new AnswerSet(
+            [new Atom("a", ["2"]), new Atom("b", ["2"]), new Atom("a", ["1"])],
+            [],
+            false)
+        let temp = new Output([as]);
+        
+        assert.equal(JSON.stringify(out)==JSON.stringify(temp), true);
+        
     })
 })

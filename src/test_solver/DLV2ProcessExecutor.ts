@@ -11,6 +11,8 @@ export class DLV2ProcessExecutor extends ProcessExecutor{
 
     public exec_solver(InputFilePath: string, options : string ): DlvModel {
 
+            console.log(this.exePath)
+
             if(!checkFileExist(this.exePath))
                 throw new Error("Could not find the path to the exe")
             if( !checkFileExist(InputFilePath)) 

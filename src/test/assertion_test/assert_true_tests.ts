@@ -3,9 +3,9 @@ import { AnswerSet } from "../../dlv_output_parser/models/answer_set";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Cost } from "../../dlv_output_parser/models/cost";
 import { Output } from "../../dlv_output_parser/models/output";
-import { AssertNoAnswerSet, AssertTrueInAll, AssertTrueInAtLeast, AssertTrueInAtMost, AssertTrueInExactly } from "../../asserts/models/AssertsTrue";
-
+/*
 describe('AssertTrueInAtLeast Tests', () => {
+    import { AssertNoAnswerSet, AssertTrueInAll, AssertTrueInAtLeast, AssertTrueInAtMost, AssertTrueInExactly } from "../../asserts/models/AssertsTrue";
     it('checking if validate method return correct response true in at least 3 answersets', () =>{
         let answersets: AnswerSet[] = [];
         let atoms_0: Atom[] = [new Atom('atomo',['1']),new Atom('atomo',['2']),new Atom('atomo',['3'])];
@@ -320,3 +320,4 @@ describe('AssertTrueInAll Test', () =>{
         assert.equal(new AssertTrueInAll(list_atoms_to_be_true).validate(input),false);
     });
 });
+*/

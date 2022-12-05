@@ -1,6 +1,7 @@
 import { Annotation } from "../../input_parser/interfaces/annotation";
 import { SimpleTest } from "./simpleTest";
 import { TestGenerator } from "./testGenerator";
+import Ajv, {JTDSchemaType} from "ajv/dist/jtd"
 
 export class TestParser extends Annotation{
     constructor(
@@ -30,7 +31,9 @@ export class TestParser extends Annotation{
         let tests:SimpleTest[] = []
         //console.log(results[0])
         for(let i=0;i<results.length;i++){
-            let testGenerator: TestGenerator = new TestGenerator(JSON.parse(results[i]))
+            //console.log(TestParser.json_parse(results[i]))
+            let parsedResult = TestParser.json_parse(results[i])
+            let testGenerator: TestGenerator = new TestGenerator(parsedResult as TestGenerator)
         //console.log(testGenerator)
         //console.log(testGenerator.assert.toString())
             let test:SimpleTest = testGenerator.parse(testGenerator.assert.toString()) as SimpleTest
@@ -41,4 +44,31 @@ export class TestParser extends Annotation{
     /*public override stringify(): string {
         return `${this.answers.map(ans => ans.stringify()).join("\n")}`
     }*/
+
+    private static json_parse(json:string):object{
+        const ajv = new Ajv()
+        interface MyData {
+            name: string
+            scope: string[]
+            input: string
+            assert: string[]
+        }
+        const schema:JTDSchemaType<MyData> = {
+            properties: {
+                name: {type: "string"},
+                scope: {elements:{type: "string"}},
+                input: {type: "string"},
+                assert: {elements:{type: "string"}},
+            }
+        }
+
+        const parse = ajv.compileParser(schema)
+        
+        const data = parse(json)
+        if (data === undefined) {
+          throw new Error(parse.message+`\nerror position in string: `+parse.position)
+        } else {
+          return data
+        }
+    }
 }

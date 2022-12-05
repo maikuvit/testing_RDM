@@ -14,6 +14,7 @@ export class SimpleTest extends TestInterface{
         private _input: string,
         private _assert: DlvAssert[]) {
             super()
+            this.input
     }
 
     public get testName(): string {

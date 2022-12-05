@@ -40,8 +40,27 @@ program.parse(process.argv);
 
 
 /*
-PER FEDE ESEMPI DI COMMAND
+  PER FEDE STRUTTURA CARTELLA
+  nella cartella avremo:
 
+    project
+    |- input.asp
+    |- configFile.json
+
+  Il configFile.json contiene i parametri necessari
+  ad eseguire il codice. Questi rispettano la forma che sta
+  in utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler.ts
+
+  Possiamo aggiustare nel prossimo sprint, includendo una gerarchia
+  nei test. Per ora possiamo lasciare mockato e cambiare la classe a mano.
+
+*/
+
+
+/*
+
+QUESTO SPRINT
+PER FEDE ESEMPI DI COMMAND (single file, config mockati)
 tasper solve <inputFile>.asp 
 
    prende inputFile, lo passa al codice di Fabio
@@ -58,3 +77,29 @@ tasper solve <inputFile>.asp
     possiamo giusto stampare questo array nella cmdline
 
 */
+
+/*
+
+PROSSIMO SPRINT 
+PER FEDE ESEMPIO DI COMMAND (su folder strutturata, prossimo sprint)
+
+tasper solve
+
+esegue tutti i testFiles nella cartella corrente.
+I testFiles possono essere:
+    files .asp classici
+    files .asp contenenti solo test (con annesso parametro inputFile nell'annotation)
+
+come output abbiamo
+    nome del test : {<object con gli assert>}
+
+  il configFile.json viene cercato nella root directory
+
+  comando liberamente ispirato copiando da pytest (per capirci)
+
+  da definire sintassi per indicare quali files vogliamo eseguire 
+      (cartella test? li chiamiamo test_<qualcosa>.asp? )
+  ci penserà il team4 del futuro nel prossimo sprint.
+
+*/
+

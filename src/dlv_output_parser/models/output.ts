@@ -1,7 +1,6 @@
 import { areArrayEqualNoOrder, fillMissingValues } from "../../utils/utils";
 import { DlvModel } from "../interfaces/dlv_model";
 import { AnswerSet } from "./answer_set";
-import { Cost } from "./cost";
 
 export class Output extends DlvModel {
     constructor(
@@ -51,6 +50,6 @@ export class Output extends DlvModel {
     }
 
     public override stringify(): string {
-        return `${this.answers.map(ans => ans.stringify()).join("\n")}`
+        return `${this.answers.map(ans => ans.stringify()).join("\n\n")}`
     }
 }

@@ -3,7 +3,7 @@ import { Atom } from '../../dlv_output_parser/models/atom';
 
 describe('Basic atom parsing', function() {
     it('should parse', function() {
-        let input = "name(1)."
+        let input = "name(1)"
         let expected = new Atom("name", ["1"])
         assert.deepEqual(Atom.parse(input), expected);
     });

@@ -1,34 +1,39 @@
-import { exec, execSync } from 'child_process'
-import { Output } from './dlv_output_parser/models/output'
-import * as fs from 'fs';
+#!/usr/bin/env node
 
-var args = process.argv
+import * as figlet from "figlet";
+import { Command, Option } from "commander";
+import { Parser } from "./dlv_output_parser/parser";
 
-//remove execution paths
-for (let i = 0; i < 2; i++) {
-    args.shift()
-}
-//prova
-if(args.length <= 0){
-    throw new Error("Please enter required parameters")
-}
-let command : string = args.shift()!
-let path : string = args.shift()!
-let costToCheck : string = args.shift()!
+console.log(figlet.textSync("TASPER"));
+const program = new Command();
 
-let res : string = ""
+program
+  .name("tasper")
+  .description("CLI to ASP testing framework")
+  .version("1.0.0", "-v, --version", "Output the current version");
 
-if(command == "input"){
-    let output = execSync(`./bin/dlv2_macos ${path} ${args.map((arg) => `-${arg}`).join(' ')} `)
-    res = output.toString()
-}
-else if(command == "output"){
-    res = fs.readFileSync(path, {encoding: 'utf-8'})
-}
+program
+  .command("parse")
+  .description("Parse an ASP output file")
+  .argument("<path>", "Path to file")
+  .action((path) => {
+    let output = Parser.parse_output_file(path);
+    console.log(output);
+    console.log(output.stringify());
+  });
 
-console.log(res);
-let out : Output = Output.parse(res) as Output;
+  
+program
+.command("invoke")
+.description("Invoke solver for input file")
+.argument("<path>", "Path to file")
+.addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2']).makeOptionMandatory())
+.action((path, options) => {
+  console.log(options);
+  console.log(path);
+});
 
-if(out.answers.length > 0){
-    console.log(out.answers[0].assertEqualCost(costToCheck));
-}
+program.parse(process.argv);
+
+// const options = program.opts();
+// process.env.VERBOSE = "true";

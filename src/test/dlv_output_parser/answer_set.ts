@@ -5,7 +5,7 @@ import { Cost } from '../../dlv_output_parser/models/cost';
 
 describe('Basic answer set parsing', function() {
     it('should parse', function() {
-        let input = "ANSWER\natomo(1). atomo(2). atomo(3).\nOPTIMUM"
+        let input = "{atomo(1), atomo(2), atomo(3)}\nOPTIMUM"
         let expected = new AnswerSet(
             [new Atom("atomo", ["1"]), new Atom("atomo", ["2"]), new Atom("atomo", ["3"])],
             [],

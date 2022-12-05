@@ -5,9 +5,12 @@ import { Input } from "../input_parser/implementations/input";
 import { TestParser } from "../testing_module/implementations/testParser";
 
 export class Parser {
+    public static parse(raw_output : string) : Output {
+        return Output.parse(raw_output) as Output
+    }
     public static parse_output_file(path: string): Output {
         const file: string = fs.readFileSync(path, {encoding: 'utf-8'})
-        return Output.parse(file) as Output
+        return Parser.parse(file)
     }
 
     public static parse_test_file(path: string): TestParser {

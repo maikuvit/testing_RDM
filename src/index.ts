@@ -37,3 +37,24 @@ program.parse(process.argv);
 
 // const options = program.opts();
 // process.env.VERBOSE = "true";
+
+
+/*
+PER FEDE ESEMPI DI COMMAND
+
+tasper solve <inputFile>.asp 
+
+   prende inputFile, lo passa al codice di Fabio
+   il codice produce un Array di obj SimpleTest
+   su ogni test in SimpleTest viene chiamato il 
+   metodo solve della classe TestSolver che 
+   restituisce un array del tipo 
+    {
+      <index dell'assert> : <true | false>, 
+      ...
+    }
+
+    banalmente per far vedere che le robe funzionano 
+    possiamo giusto stampare questo array nella cmdline
+
+*/

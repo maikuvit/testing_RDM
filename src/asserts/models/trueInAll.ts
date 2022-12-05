@@ -7,7 +7,7 @@ import { DlvAssert } from "../interfaces/dlvAssert";
 export class TrueInAll extends DlvAssert {
     public PreConditions(): object {
         return {
-            "input": [], //TO IMPLEMENT: add constraint for each atom in original input ...
+            "input": [""], //TO IMPLEMENT: add constraint for each atom in original input ...
             "options" : ["-n0"]
         };
     }

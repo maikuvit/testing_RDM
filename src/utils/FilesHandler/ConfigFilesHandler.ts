@@ -6,13 +6,13 @@ import { FilesHandler } from "./FilesHandler";
 
 const config_template = {
     "exe_path" : "",
-    "solver_type" : "DLV2" // to extend to clingo and other solvers
-    // might require other params 
+    "solver_type" : "DLV2",    // to extend to clingo and other solvers
+    'temp_file_direcory' : ""
+    // might require other params ...
 }
 
 export class ConfigFilesHandler extends FilesHandler{
 
-    
     public writeToFile(content: string[]): boolean {
         throw new Error("Method not implemented.");
     }

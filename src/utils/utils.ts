@@ -1,5 +1,4 @@
 import { existsSync } from "fs";
-import path from "path";
 import { Atom } from "../dlv_output_parser/models/atom";
 
 export function areObjectEqual<T>(obj1: T, obj2: T): boolean {

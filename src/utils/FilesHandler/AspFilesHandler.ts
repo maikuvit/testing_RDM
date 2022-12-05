@@ -1,9 +1,8 @@
-// ---- maiku ---- //
-
-import {appendFileSync,unlinkSync} from "fs";
-import { Atom } from "../../dlv_output_parser/models/atom";
+import { appendFileSync, unlinkSync } from "fs";
 import { checkFileExist } from "../utils";
 import { FilesHandler } from "./FilesHandler";
+
+// ----maiku---- //
 
 export class AspFilesHandler extends FilesHandler{
 

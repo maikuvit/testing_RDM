@@ -1,17 +1,14 @@
 import assert from 'assert';
-import path from 'path';
-import {TestSolver} from '../../../src/test_solver/TestSolver';
+import { TestSolver } from '../../../src/test_solver/TestSolver';
 import { TrueInAll } from '../../asserts/models/trueInAll';
-import { DlvModel } from '../../dlv_output_parser/interfaces/dlv_model';
-import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
 import { Atom } from '../../dlv_output_parser/models/atom';
-import { Cost } from '../../dlv_output_parser/models/cost';
 import { Block } from '../../input_parser/implementations/block';
 import { Input } from '../../input_parser/implementations/input';
 import { Rule } from '../../input_parser/implementations/rule';
 import { SimpleTest } from '../../testing_module/implementations/simpleTest';
 
 // ----maiku---- //
+
 describe("The solver works properly", () => {
     
     it("should solve a basic example", () => {

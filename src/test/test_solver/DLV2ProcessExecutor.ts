@@ -1,11 +1,12 @@
 import assert from 'assert';
 import path from 'path';
-import {DLV2ProcessExecutor} from '../../../src/test_solver/DLV2ProcessExecutor';
+import { DLV2ProcessExecutor } from '../../../src/test_solver/DLV2ProcessExecutor';
 import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
 import { Atom } from '../../dlv_output_parser/models/atom';
 import { Output } from '../../dlv_output_parser/models/output';
 import { MockConfigFile } from '../../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler';
 
+// ----maiku---- //
 
 describe("DLV2ProcessExecutor works properly", () => {
 

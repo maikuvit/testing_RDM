@@ -1,5 +1,4 @@
 const path = require('node:path');
-import fs from 'fs';
 
 // ----maiku---- //
 

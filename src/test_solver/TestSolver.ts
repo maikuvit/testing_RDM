@@ -1,22 +1,12 @@
-import { getRandomValues } from "crypto";
 import path from "path";
-import { DlvAssert } from "../asserts/interfaces/dlvAssert";
-import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
-import { Atom } from "../dlv_output_parser/models/atom";
-import { Output } from "../dlv_output_parser/models/output";
-import { Parser } from "../dlv_output_parser/parser";
 import { Input } from "../input_parser/implementations/input";
 import { SimpleTest } from "../testing_module/implementations/simpleTest";
-import { TestInterface } from "../testing_module/interfaces/testInterface";
 import { AspFilesHandler } from "../utils/FilesHandler/AspFilesHandler";
-import { FilesHandler } from "../utils/FilesHandler/FilesHandler";
 import { MockConfigFile } from "../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler";
 import { DLV2ProcessExecutor } from "./DLV2ProcessExecutor";
-import { ProcessExecutor } from "./ProcessExecutor";
-const { exec } = require('node:child_process');
-
 
 // ----maiku---- //
+
 export class TestSolver {
 
     config = new MockConfigFile("")

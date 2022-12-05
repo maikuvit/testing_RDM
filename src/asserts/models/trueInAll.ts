@@ -8,7 +8,7 @@ export class TrueInAll extends DlvAssert {
     public PreConditions(): object {
         return {
             "input": [], //TO IMPLEMENT: add constraint for each atom in original input ...
-            "options" : "-n0" 
+            "options" : ["-n0"]
         };
     }
     protected FullfilRequirements(model: DlvModel): DlvModel {

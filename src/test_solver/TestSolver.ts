@@ -71,7 +71,13 @@ export class TestSolver {
             //writing atoms ... 
             fileWriter.writeToFile(atoms)
 
-            out[index] = s.assert(executor.exec_solver(filepath))
+            let options = "";
+
+            //ho un attimo sclerato venti minuti perchè vscode qua da errore giustamente 
+            //ma poi le cose vanno, lascio commento per spiegare che è solo colpa dell'intellisense
+            if (s.PreConditions().options)
+                options = s.PreConditions().options;
+            out[index] = s.assert(executor.exec_solver(filepath, options))
             })
 
             return out;

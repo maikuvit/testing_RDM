@@ -6,15 +6,10 @@ import { DlvModel } from '../../dlv_output_parser/interfaces/dlv_model';
 import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
 import { Atom } from '../../dlv_output_parser/models/atom';
 import { Cost } from '../../dlv_output_parser/models/cost';
-import { Output } from '../../dlv_output_parser/models/output';
 import { Block } from '../../input_parser/implementations/block';
 import { Input } from '../../input_parser/implementations/input';
 import { Rule } from '../../input_parser/implementations/rule';
 import { SimpleTest } from '../../testing_module/implementations/simpleTest';
-import { MockConfigFile } from '../../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler';
-
-import {areArrayEqualNoOrder} from "../../utils/utils"
-
 
 // ----maiku---- //
 describe("The solver works properly", () => {

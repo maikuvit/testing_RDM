@@ -3,20 +3,12 @@ import { Atom } from "../../dlv_output_parser/models/atom"
 
 export abstract class TestInterface {
 
-    public get testName(): string {
-        throw new Error(`method not implemented`)
-    }
+    public abstract get testName(): string 
 
-    public get scope(): string[] {
-        throw new Error(`method not implemented`)
-    }
+    public abstract get scope(): string[]
 
-    public get input(): Atom[] {
-        throw new Error(`method not implemented`)
-    }
+    public abstract get input(): Atom[]
 
-    public get assert(): DlvAssert[] {
-        throw new Error(`method not implemented`)
-    }
+    public abstract get assert(): DlvAssert[]
     
 }

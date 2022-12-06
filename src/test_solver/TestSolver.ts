@@ -67,6 +67,7 @@ export class TestSolver {
             //ma poi le cose vanno, lascio commento per spiegare che è solo colpa dell'intellisense
             if (s.PreConditions().options)
                 options = s.PreConditions().options;
+
             out[index] = s.assert(executor.exec_solver(filepath, options))
             })
 

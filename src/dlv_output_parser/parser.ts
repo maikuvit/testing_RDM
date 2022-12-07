@@ -18,11 +18,6 @@ export class Parser {
         return TestParser.parse(file) as TestParser
     }
 
-    public static parse_input_file(path: string): Input {
-        const file: string = fs.readFileSync(path, {encoding: 'utf-8'})
-        return Input.parse(file) as Input
-    }
-
     public static write_to_file(path: string, model : DlvModel) {
         return fs.writeFileSync(path, model.stringify(), {encoding: 'utf-8', flag: 'w'})
     }

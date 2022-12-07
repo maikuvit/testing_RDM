@@ -3,7 +3,6 @@
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { Parser } from "./dlv_output_parser/parser";
-import { Input } from "./input_parser/implementations/input";
 import { TestSolver } from "./test_solver/TestSolver";
 import { TestParser } from "./testing_module/implementations/testParser";
 
@@ -40,10 +39,9 @@ program
 .description("Invoke test solver for input file")
 .argument("<path>", "Path to file")
 .action((path) => {
-  let input : Input = Parser.parse_input_file(path);
   let testparser : TestParser = Parser.parse_test_file(path);
   let solver = new TestSolver();
-  testparser.tests.forEach((test) => console.log(solver.solve(test, input)))
+  testparser.tests.forEach((test) => console.log(solver.solve(test)))
 });
 
 program.parse(process.argv);

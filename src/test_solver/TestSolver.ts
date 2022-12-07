@@ -1,5 +1,4 @@
 import path from "path";
-import { Input } from "../input_parser/implementations/input";
 import { SimpleTest } from "../testing_module/implementations/simpleTest";
 import { AspFilesHandler } from "../utils/FilesHandler/AspFilesHandler";
 import { MockConfigFile } from "../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler";
@@ -22,7 +21,7 @@ export class TestSolver {
     // private met genFile <- set input 
 
     //temp implementation! return list di assert di lunghezza asserts - 1
-    public solve(test : SimpleTest, inputAsp : Input) : { [id: string]: boolean; } {
+    public solve(test : SimpleTest) : { [id: string]: boolean; } {
 
         // qui controllo futuro per vari solver, per ora creo solo DLV che basta
         let executor = new DLV2ProcessExecutor(JSON.parse(this.config.readFromFile())["exe_path"]) 
@@ -39,14 +38,6 @@ export class TestSolver {
 
         let input = test.input;
 
-        let rules: string[] = [];
-
-        inputRules.forEach(rule => {
-            let temp = inputAsp.rules.get(rule)?.content
-            if(temp != undefined)
-                rules.push(temp)
-        });
-
         var out: { [id: string] : boolean } = {};
         testAsserts.forEach((s,index) => { 
 
@@ -55,7 +46,7 @@ export class TestSolver {
             let fileWriter = new AspFilesHandler(filepath)
 
             //writing rules ...
-            fileWriter.writeToFile(rules)
+            fileWriter.writeToFile(inputRules)
 
             let atoms : string[] = input.map(el => el.stringify()) 
             //writing atoms ... 

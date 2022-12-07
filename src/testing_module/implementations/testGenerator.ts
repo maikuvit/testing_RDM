@@ -8,11 +8,13 @@ export class TestGenerator {
     scope: string[]
     input: string
     assert: string[]
+    file: string
     constructor(givenTestGenerator: TestGenerator) {
         this.name = givenTestGenerator.name
         this.scope = givenTestGenerator.scope
         this.input = givenTestGenerator.input
         this.assert = givenTestGenerator.assert
+        this.file = givenTestGenerator.file
     }
 
     public static assertion(k:string,parsedAssertion:any): DlvAssert{
@@ -37,7 +39,7 @@ export class TestGenerator {
                 assertions.push(assertion)
             }
         }
-        return new SimpleTest(this.name,this.scope,this.input,assertions)
+        return new SimpleTest(this.name,this.scope,this.input,assertions,this.file)
     }
 
     public parse(raw_input: string) : SimpleTest {

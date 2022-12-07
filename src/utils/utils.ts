@@ -39,7 +39,9 @@ export function convertedAtoms(atoms:string[]) : Atom[]{
         let matches = atoms[i].match(/(\w+)\s*\(([a-zA-Z0-9]+(?:\s*,\s*[a-zA-Z0-9]+)*)\)/m)
         if(matches!== null){
             //console.log(matches[2].split(","))
-            convertedAtoms.push(new Atom(matches[1],matches[2].split(",")))
+            let name = matches[1].trim()
+            let literals = matches[2].trim()
+            convertedAtoms.push(new Atom(name,literals.split(",")))
         }
         else{
             throw new Error(`can't convert atoms`)

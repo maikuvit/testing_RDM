@@ -6,8 +6,6 @@ import { Input } from "../../input_parser/implementations/input"
 import { convertedAtoms } from "../../utils/utils"
 import { TestInterface } from "../interfaces/testInterface"
 import * as fs from 'fs'
-import { Block } from "../../input_parser/implementations/block"
-import { Rule } from "../../input_parser/implementations/rule"
 
 
 export class SimpleTest extends TestInterface{
@@ -25,32 +23,16 @@ export class SimpleTest extends TestInterface{
             this._scope = this.extractRulesContent()
     }
 
-    //Questo metodo verrà modificato nel momento in cui rule e block verranno accorpate
+
     private extractRulesContent():string[]{
         let newScope:string[] = []
         this._scope.forEach(annotation => {
-            if(this._inputFile.rules.has(annotation)){
-                let rule = this._inputFile.rules.get(annotation)
-                if(rule === undefined){
-                    throw new Error(`The annotation ${annotation} is not used in the file ${this._file}`)
-                }
-                newScope.push(rule.content)
-            }
-            else if(Block.sharedMap.rulesPerBlock.has(annotation)){
-                let rulesNames = Block.sharedMap.rulesPerBlock.get(annotation)
-                if(rulesNames === undefined){
-                    throw new Error(`The annotation ${annotation} is not used in the file ${this._file}`)
-                }
-                rulesNames.forEach(ruleName => {
-                    let rule:Rule|undefined = this._inputFile.rules.get(ruleName)
-                    if(rule === undefined){
-                        throw new Error(`The annotation ${annotation} is not used in the file ${this._file}`)
-                    }
-                    newScope.push(rule.content)
-                });
-            }
-            else{
+            let rules = this._inputFile.annotations.get(annotation)
+            if(rules === undefined){
                 throw new Error(`The annotation ${annotation} is not used in the file ${this._file}`)
+            }
+            for (let currentRule of rules){
+                newScope.push(currentRule)
             }
         });
         return newScope

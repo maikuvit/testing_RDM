@@ -1,7 +1,7 @@
 
 import { execSync } from "child_process";
 import { DlvOutputModel } from "../dlv_output_parser/interfaces/dlv_model";
-import { Parser } from "../dlv_output_parser/dlv_output_parser";
+import { DlvOutputParser } from "../dlv_output_parser/dlv_output_parser";
 import { checkFileExist } from "../utils/utils";
 import { ProcessExecutor } from "./ProcessExecutor";
 
@@ -24,7 +24,7 @@ export class DLV2ProcessExecutor extends ProcessExecutor{
                 cmdString = cmdString.concat(options);
             
             let out = execSync(cmdString);
-            return Parser.parse(out.toString());
+            return DlvOutputParser.parse(out.toString());
              
             }
 }

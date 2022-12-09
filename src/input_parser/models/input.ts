@@ -17,9 +17,6 @@ export class Input extends Annotation {
         let annotations: SharedMap = new SharedMap(new Map<string, Set<string>>())
         let rulesnames = new Set<string>()
         for (let i = 0; i < matches.length; i++) {
-            if (!matches[i].match(Rule.regex)) {
-                throw new Error(`sintax error: annotation ` + matches[i])
-            }
             let rule: Rule = Rule.parse(matches[i]) as Rule
             if (rulesnames.has(rule.name)) {
                 throw new Error(`you can't assign the same name to different rules. The name ` + rule.name + ` can't be assigned to different rules`)

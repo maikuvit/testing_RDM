@@ -1,5 +1,6 @@
 import { Assert } from "../../common/interfaces/assert"
 import { Parser } from "../../common/interfaces/parser"
+import { Atom } from "../../dlv_output_parser/models/atom"
 import { NoAnswerSet } from "../../test_solver/asserts/models/no_answer_set"
 import { TrueInExactly } from "../../test_solver/asserts/models/true_in_exactly"
 
@@ -10,6 +11,7 @@ export class AssertParser extends Parser {
     }
 
     public static assertion(k: string, parsedAssertion: any): Assert {
+        parsedAssertion.atoms =  parsedAssertion.atoms ? Atom.convertAtoms(parsedAssertion.atoms) : []
         let assertions: any = {
             "@noAnswerSet": new NoAnswerSet(),
             "@trueInExactly": new TrueInExactly(parsedAssertion.number, parsedAssertion.atoms)
@@ -33,4 +35,7 @@ export class AssertParser extends Parser {
         }
         return assertions;
     }
+
+
+    
 }

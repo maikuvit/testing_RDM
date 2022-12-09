@@ -49,7 +49,7 @@ describe('testing TrueInExactly assertion', function () {
             true
         )
         let output = new Output([answer1, answer2, answer3])
-        let assertion = new TrueInExactly(2, ["atomo(1,2)"])
+        let assertion = new TrueInExactly(2, [new Atom('atomo', ['1', '2'])])
         assert.equal(assertion.assert(output), true)
     });
     it('Atom should be contained exactly in 1 answerSet', function () {
@@ -69,7 +69,7 @@ describe('testing TrueInExactly assertion', function () {
             true
         )
         let answers = new Output([answer1, answer2, answer3])
-        let assertion = new TrueInExactly(1, ["atomo(1,4)"])
+        let assertion = new TrueInExactly(1, [new Atom('atomo', ['1', '4'])])
         assert.equal(assertion.assert(answers), true)
     });
     it('validate method should return false', function () {
@@ -89,7 +89,7 @@ describe('testing TrueInExactly assertion', function () {
             true
         )
         let answers = new Output([answer1, answer2, answer3])
-        let assertion = new TrueInExactly(2, ["atomo(1,4)"])
+        let assertion = new TrueInExactly(2, [new Atom('atomo', ['1', '4'])])
         assert.equal(assertion.assert(answers), false)
     });
     it('validate method should return false', function () {
@@ -109,7 +109,7 @@ describe('testing TrueInExactly assertion', function () {
             true
         )
         let answers = new Output([answer1, answer2, answer3])
-        let assertion = new TrueInExactly(1, ["atomo(1,8)"])
+        let assertion = new TrueInExactly(1, [new Atom('atomo', ['1', '8'])])
         assert.equal(assertion.assert(answers), false)
     });
 });

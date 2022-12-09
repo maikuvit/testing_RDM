@@ -13,7 +13,7 @@ export abstract class Parser {
         if (matches) {
             return this.tranform(matches)
         }
-        throw new Error(`${this.name} could not parse '${raw_input}' with '${this.regex}'`)
+        throw new Error(`Syntax error: could not parse '${raw_input}' with '${this.regex}'`)
     }
 
     public stringify(): string {

@@ -1,6 +1,6 @@
 
 import { execSync } from "child_process";
-import { DlvOutputModel } from "../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../common/interfaces/dlv_model";
 import { DlvOutputParser } from "../dlv_output_parser/dlv_output_parser";
 import { checkFileExist } from "../utils/utils";
 import { ProcessExecutor } from "./ProcessExecutor";

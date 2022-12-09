@@ -20,4 +20,20 @@ export class Atom extends DlvOutputModel {
     public override stringify(): string {
         return `${this.name}(${this.literals.join(',')}).`
     }
+    
+    public static convertAtoms(atoms:string[]) : Atom[]{
+        let convertedAtoms:Atom[] = []
+        for(let i = 0; i< atoms.length; i++){
+            let matches = atoms[i].match(/(\w+)\s*\(([a-zA-Z0-9]+(?:\s*,\s*[a-zA-Z0-9]+)*)\)/m)
+            if(matches!== null){
+                let name = matches[1].replace(/\s/g, "")
+                let literals = matches[2].replace(/\s/g, "")
+                convertedAtoms.push(new Atom(name,literals.split(",")))
+            }
+            else{
+                throw new Error(`can't convert atoms`)
+            }
+        }
+        return convertedAtoms
+    }
 }

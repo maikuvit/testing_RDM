@@ -2,6 +2,7 @@ import { AspTest } from "./asp_test";
 import Ajv, { JTDSchemaType } from "ajv/dist/jtd"
 import { Annotation } from "../../common/interfaces/annotation";
 import { AssertParser } from "./assert_parser";
+import { Atom } from "../../dlv_output_parser/models/atom";
 
 export class TestWrapper extends Annotation {
     constructor(
@@ -23,7 +24,9 @@ export class TestWrapper extends Annotation {
         let tests: AspTest[] = []
         for (let i = 0; i < results.length; i++) {
             let raw_test = TestWrapper.json_parse((results[i]))
-            tests.push(AspTest.generate(raw_test.name, raw_test.scope, raw_test.input, AssertParser.parse(raw_test.assert.toString()), raw_test.file)!)
+            raw_test.assert = AssertParser.parse(raw_test.assert.toString())
+            raw_test.input = Atom.convertAtoms(raw_test.input.split(' '))
+            tests.push(new AspTest(raw_test.name, raw_test.scope, raw_test.input, raw_test.assert, raw_test.file))
         }
         return new TestWrapper(tests)
     }

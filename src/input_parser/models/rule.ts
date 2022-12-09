@@ -29,8 +29,4 @@ export class Rule extends Annotation {
         }
         return new Rule(name, blocks, content)
     }
-
-    /*public override stringify(): string {
-        return `%** @rule(name="`+this.annotationName+`") **%\n`+this.content+``
-    }*/
 }

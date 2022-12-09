@@ -1,6 +1,6 @@
-import { DlvOutputModel } from "../../../dlv_output_parser/interfaces/dlv_model";
+import { Assert } from "../../../common/interfaces/assert";
+import { DlvOutputModel } from "../../../common/interfaces/dlv_model";
 import { Output } from "../../../dlv_output_parser/models/output";
-import { Assert } from "../interfaces/assert";
 
 export class NoAnswerSet extends Assert {
     public preConditions(): any {

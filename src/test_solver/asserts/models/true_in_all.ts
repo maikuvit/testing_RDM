@@ -1,8 +1,8 @@
-import { DlvOutputModel } from "../../../dlv_output_parser/interfaces/dlv_model";
+import { Assert } from "../../../common/interfaces/assert";
+import { DlvOutputModel } from "../../../common/interfaces/dlv_model";
 import { Atom } from "../../../dlv_output_parser/models/atom";
 import { Output } from "../../../dlv_output_parser/models/output";
 import { arrayContainsAll } from "../../../utils/utils";
-import { Assert } from "../interfaces/assert";
 
 export class TrueInAll extends Assert {
     public preConditions(): object {

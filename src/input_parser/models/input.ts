@@ -1,8 +1,9 @@
-import { Annotation } from "../interfaces/annotation";
+import { Annotation } from "../../common/interfaces/annotation";
 import { Rule } from "./rule";
 import { SharedMap } from "./shared_map";
 
 export class Input extends Annotation {
+
     constructor(
         public annotations: SharedMap) {
         super()

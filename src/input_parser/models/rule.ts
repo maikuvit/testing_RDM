@@ -1,4 +1,4 @@
-import { Annotation } from "../interfaces/annotation"
+import { Annotation } from "../../common/interfaces/annotation"
 
 export class Rule extends Annotation {
 

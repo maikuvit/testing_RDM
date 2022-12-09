@@ -1,5 +1,5 @@
+import { DlvOutputModel } from "../../common/interfaces/dlv_model";
 import { areArrayEqualNoOrder, areObjectEqual } from "../../utils/utils";
-import { DlvOutputModel } from "../interfaces/dlv_model";
 import { Atom } from "./atom";
 import { Cost } from "./cost";
 

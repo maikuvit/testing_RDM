@@ -1,7 +1,7 @@
-import { DlvOutputModel } from "../../../dlv_output_parser/interfaces/dlv_model";
+import { Assert } from "../../../common/interfaces/assert";
+import { DlvOutputModel } from "../../../common/interfaces/dlv_model";
 import { Output } from "../../../dlv_output_parser/models/output";
-import { convertedAtoms } from "../../../utils/utils";
-import { Assert } from "../interfaces/assert";
+import { AspTest } from "../../../test_parser/models/asp_test";
 
 export class TrueInExactly extends Assert {
     
@@ -26,7 +26,7 @@ export class TrueInExactly extends Assert {
     protected override validate(output: Output): boolean {
         let count = 0
         for (let j = 0; j < output.answers.length; j++) {
-            if (output.answers[j].containsAllAtoms(convertedAtoms(this.atoms))) {
+            if (output.answers[j].containsAllAtoms(AspTest.convertedAtoms(this.atoms))) {
                 count++
             }
         }

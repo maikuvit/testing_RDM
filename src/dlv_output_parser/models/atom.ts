@@ -1,4 +1,4 @@
-import { DlvOutputModel } from "../interfaces/dlv_model"
+import { DlvOutputModel } from "../../common/interfaces/dlv_model"
 
 export class Atom extends DlvOutputModel {
     constructor(

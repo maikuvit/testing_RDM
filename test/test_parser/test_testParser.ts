@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { Atom } from '../../src/dlv_output_parser/models/atom';
-import { SimpleTest } from '../../src/test_parser/models/simple_test';
-import {TestParser} from '../../src/test_parser/models/test_parser'
+import { AspTest } from '../../src/test_parser/models/asp_test';
+import {TestWrapper} from '../../src/test_parser/models/test_wrapper'
 
 describe('Testing TestParser', function() {
     it('should parse', function() {
@@ -18,9 +18,9 @@ describe('Testing TestParser', function() {
 	"file" : "assets/input2.asp"
    )
 **%`
-        let testsContainer:TestParser = TestParser.parse(input) as TestParser
+        let testsContainer:TestWrapper = TestWrapper.parse(input) as TestWrapper
         assert.equal(testsContainer.tests.length,1)
-        let simpletest:SimpleTest = testsContainer.tests[0]
+        let simpletest:AspTest = testsContainer.tests[0]
         let atoms:Atom[] = simpletest.input
         let expectedAtoms:Atom[] = [new Atom("node",["1"]),new Atom("node",["2"]),new Atom("node",["3"]),new Atom("edge",["1","2"]),new Atom("edge",["1","3"]),new Atom("edge",["2","3"])]
         for(let i=0;i<atoms.length;i++){

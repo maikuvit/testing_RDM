@@ -48,9 +48,9 @@ describe('testing TrueInExactly assertion', function () {
             [],
             true
         )
-        let answers = new Output([answer1, answer2, answer3])
+        let output = new Output([answer1, answer2, answer3])
         let assertion = new TrueInExactly(2, ["atomo(1,2)"])
-        assert.equal(assertion.assert(answers), true)
+        assert.equal(assertion.assert(output), true)
     });
     it('Atom should be contained exactly in 1 answerSet', function () {
         let answer1 = new AnswerSet(

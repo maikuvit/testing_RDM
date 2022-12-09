@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { SharedMap } from '../../input_parser/implementations/sharedMap';
+import { SharedMap } from '../../src/input_parser/models/shared_map';
 
 describe('Testing SharedMap', function() {
     it('should add the rule to the blocks', function() {

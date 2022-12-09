@@ -1,4 +1,4 @@
-import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../../../dlv_output_parser/interfaces/dlv_model";
 
 export abstract class Assert {
 

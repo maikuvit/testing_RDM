@@ -1,7 +1,7 @@
-import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
-import { Atom } from "../../dlv_output_parser/models/atom";
-import { Output } from "../../dlv_output_parser/models/output";
-import { arrayContainsAll } from "../../utils/utils";
+import { DlvOutputModel } from "../../../dlv_output_parser/interfaces/dlv_model";
+import { Atom } from "../../../dlv_output_parser/models/atom";
+import { Output } from "../../../dlv_output_parser/models/output";
+import { arrayContainsAll } from "../../../utils/utils";
 import { Assert } from "../interfaces/assert";
 
 export class TrueInAll extends Assert {
@@ -21,7 +21,7 @@ export class TrueInAll extends Assert {
         public atoms: Atom[]
     ) { super() }
 
-    public validate(output: Output): boolean {
+    protected validate(output: Output): boolean {
         return output.answers.every(ans => arrayContainsAll(ans.atoms, this.atoms))
     }
 }

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Atom } from '../../dlv_output_parser/models/atom';
+import { Atom } from '../../src/dlv_output_parser/models/atom';
 
 describe('Basic atom parsing', function() {
     it('should parse', function() {

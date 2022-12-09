@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { Atom } from '../../dlv_output_parser/models/atom';
-import { SimpleTest } from '../../testing_module/implementations/simpleTest';
-import {TestParser} from '../../testing_module/implementations/testParser'
+import { Atom } from '../../src/dlv_output_parser/models/atom';
+import { SimpleTest } from '../../src/test_parser/models/simple_test';
+import {TestParser} from '../../src/test_parser/models/test_parser'
 
 describe('Testing TestParser', function() {
     it('should parse', function() {

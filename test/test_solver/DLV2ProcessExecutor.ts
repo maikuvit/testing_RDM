@@ -15,7 +15,7 @@ describe("DLV2ProcessExecutor works properly", () => {
         let config = new MockConfigFile("")
         let exec_path = JSON.parse(config.readFromFile())["exe_path"]
         let executor = new DLV2ProcessExecutor(exec_path)
-        let out = executor.exec_solver(path.join(__dirname,"inp_test1.txt"), [])
+        let out = executor.exec_solver(path.join(__dirname,"inp_test1.txt"), "")
         
         // creo answer set ad hoc per l'input presente nel file ... 
         let as = new AnswerSet(

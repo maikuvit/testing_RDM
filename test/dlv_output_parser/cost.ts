@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Cost } from '../../dlv_output_parser/models/cost';
+import { Cost } from '../../src/dlv_output_parser/models/cost';
 
 describe('Basic cost parsing', function() {
     it('should parse', function() {

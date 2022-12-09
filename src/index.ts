@@ -3,8 +3,6 @@
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
-import { TestSolver } from "./test_solver/TestSolver";
-import { TestParser } from "./testing_module/models/test_parser";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();

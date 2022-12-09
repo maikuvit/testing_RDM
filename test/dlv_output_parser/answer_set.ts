@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
-import { Atom } from '../../dlv_output_parser/models/atom';
-import { Cost } from '../../dlv_output_parser/models/cost';
+import { AnswerSet } from '../../src/dlv_output_parser/models/answer_set';
+import { Atom } from '../../src/dlv_output_parser/models/atom';
+import { Cost } from '../../src/dlv_output_parser/models/cost';
 
 describe('Basic answer set parsing', function() {
     it('should parse', function() {

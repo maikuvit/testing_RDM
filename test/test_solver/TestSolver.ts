@@ -1,7 +1,7 @@
 import assert from 'assert';
-import { TestSolver } from '../../../src/test_solver/TestSolver';
-import { TrueInExactly } from '../../asserts/models/trueInExactly';
-import { SimpleTest } from '../../testing_module/implementations/simpleTest';
+import { TrueInExactly } from '../../src/test_solver/asserts/models/true_in_exactly';
+import { TestSolver } from '../../src/test_solver/TestSolver';
+import { SimpleTest } from '../../src/test_parser/models/simple_test';
 
 // ----maiku---- //
 

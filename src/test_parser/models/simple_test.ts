@@ -1,11 +1,11 @@
 //  /%\*\*\s*@test\(\s*name\s*=\s*".+",\s*scope\s*=\s*{\s*"\w+"(?:\s*,\s*"\w+")*\s*},\s*input\s*=\s*".+",\s*assert\s*=\s*{\s*.+(?:,\s*.+)*\s*}\s*\)\s*\*\*%/gm
 
-import { Assert } from "../../asserts/interfaces/assert"
 import { Atom } from "../../dlv_output_parser/models/atom"
 import { Input } from "../../input_parser/models/input"
 import { convertedAtoms } from "../../utils/utils"
 import { TestInterface } from "../interfaces/test"
 import * as fs from 'fs'
+import { Assert } from "../../test_solver/asserts/interfaces/assert"
 
 
 export class SimpleTest extends TestInterface{

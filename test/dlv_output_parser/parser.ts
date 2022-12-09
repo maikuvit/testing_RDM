@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { DlvOutputParser } from '../../dlv_output_parser/dlv_output_parser'
+import { DlvOutputParser } from '../../src/dlv_output_parser/dlv_output_parser'
 
 
 describe('Basic parser functionalities', function() {

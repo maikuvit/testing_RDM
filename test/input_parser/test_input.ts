@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Input } from '../../input_parser/models/input';
+import { Input } from '../../src/input_parser/models/input';
 
 describe('Testing input parsing', function () {
     it('should parse', function () {

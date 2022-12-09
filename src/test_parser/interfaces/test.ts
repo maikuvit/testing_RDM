@@ -1,5 +1,5 @@
-import { Assert } from "../../asserts/interfaces/assert";
 import { Atom } from "../../dlv_output_parser/models/atom";
+import { Assert } from "../../test_solver/asserts/interfaces/assert";
 
 export abstract class TestInterface {
 

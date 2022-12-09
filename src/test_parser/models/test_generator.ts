@@ -1,7 +1,8 @@
-import { Assert } from "../../asserts/interfaces/assert"
-import { NoAnswerSet } from "../../asserts/models/no_answer_set"
-import { TrueInExactly } from "../../asserts/models/true_in_exactly"
+import { Assert } from "../../test_solver/asserts/interfaces/assert"
+import { NoAnswerSet } from "../../test_solver/asserts/models/no_answer_set"
+import { TrueInExactly } from "../../test_solver/asserts/models/true_in_exactly"
 import { SimpleTest } from "./simple_test"
+
 
 export class TestGenerator {
     name: string

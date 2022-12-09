@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Rule } from '../../input_parser/implementations/rule';
+import { Rule } from '../../src/input_parser/models/rule';
 
 describe('Testing rule parsing', function() {
     it('should parse', function() {

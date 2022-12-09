@@ -1,12 +1,12 @@
 import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
 import { Output } from "../../dlv_output_parser/models/output";
-import { DlvAssert } from "../interfaces/dlvAssert";
+import { Assert } from "../interfaces/assert";
 
-export class NoAnswerSet extends DlvAssert {
-    public PreConditions(): any {
+export class NoAnswerSet extends Assert {
+    public preConditions(): any {
         return {};
     }
-    protected override fullfilRequirements(model : Output): DlvOutputModel {
+    protected override fullfilRequirements(model: Output): DlvOutputModel {
         // no requirements at all ...
         return model;
     }
@@ -14,6 +14,6 @@ export class NoAnswerSet extends DlvAssert {
 
         return output.answers.length === 0;
     }
-    
-    
+
+
 }

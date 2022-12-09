@@ -56,8 +56,8 @@ export class TestSolver {
 
             //ho un attimo sclerato venti minuti perchè vscode qua da errore giustamente 
             //ma poi le cose vanno, lascio commento per spiegare che è solo colpa dell'intellisense
-            if (s.PreConditions().options)
-                options = s.PreConditions().options;
+            if (s.preConditions().options)
+                options = s.preConditions().options;
 
             out[index] = s.assert(executor.exec_solver(filepath, options))
             })

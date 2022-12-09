@@ -1,7 +1,7 @@
-import { Annotation } from "../../input_parser/interfaces/annotation";
 import { SimpleTest } from "./simple_test";
 import Ajv, {JTDSchemaType} from "ajv/dist/jtd"
 import { TestGenerator } from "./test_generator";
+import { Annotation } from "../interfaces/annotation";
 
 export class TestParser extends Annotation{
     constructor(

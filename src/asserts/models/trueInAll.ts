@@ -1,4 +1,4 @@
-import { DlvModel } from "../../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Output } from "../../dlv_output_parser/models/output";
 import { arrayContainsAll } from "../../utils/utils";
@@ -11,7 +11,7 @@ export class TrueInAll extends DlvAssert {
             "options" : ["-n0"]
         };
     }
-    protected FullfilRequirements(model: DlvModel): DlvModel {
+    protected fullfilRequirements(model: DlvOutputModel): DlvOutputModel {
         let modcopy = model; 
         
         return modcopy;

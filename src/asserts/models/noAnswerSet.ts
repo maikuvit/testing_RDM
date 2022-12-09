@@ -1,4 +1,4 @@
-import { DlvModel } from "../../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
 import { Output } from "../../dlv_output_parser/models/output";
 import { DlvAssert } from "../interfaces/dlvAssert";
 
@@ -6,7 +6,7 @@ export class NoAnswerSet extends DlvAssert {
     public PreConditions(): any {
         return {};
     }
-    protected override FullfilRequirements(model : Output): DlvModel {
+    protected override fullfilRequirements(model : Output): DlvOutputModel {
         // no requirements at all ...
         return model;
     }

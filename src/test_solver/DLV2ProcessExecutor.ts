@@ -1,7 +1,7 @@
 
 import { execSync } from "child_process";
-import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
-import { Parser } from "../dlv_output_parser/parser";
+import { DlvOutputModel } from "../dlv_output_parser/interfaces/dlv_model";
+import { Parser } from "../dlv_output_parser/dlv_output_parser";
 import { checkFileExist } from "../utils/utils";
 import { ProcessExecutor } from "./ProcessExecutor";
 
@@ -9,7 +9,7 @@ import { ProcessExecutor } from "./ProcessExecutor";
 
 export class DLV2ProcessExecutor extends ProcessExecutor{
 
-    public exec_solver(InputFilePath: string, options : string ): DlvModel {
+    public exec_solver(InputFilePath: string, options : string ): DlvOutputModel {
 
             console.log(this.exePath)
 

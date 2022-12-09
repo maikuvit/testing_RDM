@@ -13,9 +13,9 @@ export class MockConfigFile extends FilesHandler
         return JSON.stringify(
             {
                 //brutto il path, ma si risolve togliendo il mock ...
-            'exe_path' : path.join(__dirname,'../../../../bin/dlv2_linux'),
+            'exe_path' : path.join(__dirname,'../../../../bin/dlv2_windows.exe'),
             'solver_type' : 'DLV2',
-            'temp_file_direcory' : '/home/maiku/Desktop/tempfilesAsp'
+            'temp_file_direcory' : 'C:\\Users\\Kiisa\\Documents\\temp'
             }
         );
     }

@@ -1,10 +1,10 @@
-import { DlvModel } from "../../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
 import { Output } from "../../dlv_output_parser/models/output";
 import { convertedAtoms } from "../../utils/utils";
 import { DlvAssert } from "../interfaces/dlvAssert";
 
 export class TrueInExactly extends DlvAssert {
-    protected override FullfilRequirements(model: DlvModel): DlvModel {
+    protected override fullfilRequirements(model: DlvOutputModel): DlvOutputModel {
         return model;
     }
 

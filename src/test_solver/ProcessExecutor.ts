@@ -1,4 +1,4 @@
-import { DlvModel } from "../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../dlv_output_parser/interfaces/dlv_model";
 
 // ----maiku---- //
 
@@ -10,5 +10,5 @@ export abstract class ProcessExecutor{
     }
 
 
-    public abstract exec_solver(InputFilePath : string, options : string) : DlvModel 
+    public abstract exec_solver(InputFilePath : string, options : string) : DlvOutputModel 
 }

@@ -1,9 +1,9 @@
-import { DlvModel } from "../interfaces/dlv_model";
+import { DlvOutputModel } from "../interfaces/dlv_model";
 
-export class Cost extends DlvModel {
+export class Cost extends DlvOutputModel {
     constructor(
-        public weight : number,
-        public level : number){
+        public weight: number,
+        public level: number) {
         super()
     }
 
@@ -12,8 +12,8 @@ export class Cost extends DlvModel {
     }
 
     protected static override tranform(match: RegExpMatchArray): Cost {
-        let weight : number = Number.parseInt(match[1])
-        let level : number = Number.parseInt(match[2])
+        let weight: number = Number.parseInt(match[1])
+        let level: number = Number.parseInt(match[2])
         return new Cost(weight, level)
     }
 

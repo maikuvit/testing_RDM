@@ -1,6 +1,6 @@
-import { DlvModel } from "../interfaces/dlv_model"
+import { DlvOutputModel } from "../interfaces/dlv_model"
 
-export class Atom extends DlvModel {
+export class Atom extends DlvOutputModel {
     constructor(
         public name: string,
         public literals: string[]) {
@@ -12,8 +12,8 @@ export class Atom extends DlvModel {
     }
 
     protected static override tranform(match: RegExpMatchArray): Atom {
-        let name : string = match[1]
-        let literals : string[] = match[2].split(',')
+        let name: string = match[1]
+        let literals: string[] = match[2].split(',')
         return new Atom(name, literals)
     }
 

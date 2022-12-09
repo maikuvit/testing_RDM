@@ -1,14 +1,14 @@
-import { DlvModel } from "../../dlv_output_parser/interfaces/dlv_model";
+import { DlvOutputModel } from "../../dlv_output_parser/interfaces/dlv_model";
 
 export abstract class DlvAssert {
 
     //Asserts can require different conditions to be satisfied, that will be implemented in this method 
-    protected abstract FullfilRequirements(model : DlvModel) : DlvModel
+    protected abstract fullfilRequirements(model : DlvOutputModel) : DlvOutputModel
 
-    protected abstract validate(model : DlvModel) : boolean
+    protected abstract validate(model : DlvOutputModel) : boolean
 
-    public assert(model : DlvModel): boolean{
-        return this.validate(this.FullfilRequirements(model));
+    public assert(model : DlvOutputModel): boolean{
+        return this.validate(this.fullfilRequirements(model));
     }
 
     public abstract PreConditions() : any

@@ -1,7 +1,7 @@
 import assert from 'assert';
+import { TrueInExactly } from '../../asserts/models/trueInExactly';
 import { AnswerSet } from '../../dlv_output_parser/models/answer_set';
 import { Atom } from '../../dlv_output_parser/models/atom';
-import {TrueInExactly} from '../../asserts/models/trueInExactly';
 import { Output } from '../../dlv_output_parser/models/output';
 
 describe('testing TrueInExactly assertion', function() {

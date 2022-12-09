@@ -2,7 +2,7 @@
 
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
-import { Parser } from "./dlv_output_parser/parser";
+import { Parser } from "./dlv_output_parser/dlv_output_parser";
 import { TestSolver } from "./test_solver/TestSolver";
 import { TestParser } from "./testing_module/implementations/testParser";
 

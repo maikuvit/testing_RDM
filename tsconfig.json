@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2022",                                  
     "module": "commonjs",
-    "rootDir": "src",
+    "rootDirs": ["src","test"],
     "outDir": "dist",
     "lib": ["ES2022", "DOM"],                                
     "esModuleInterop": true,                             
@@ -10,6 +10,6 @@
     "strict": true,                                      
     "skipLibCheck": true                                 
   },
-  "include": ["src/**/*", "src/test"],
-  "exclude": ["node_modules", "dist", "src/test", "assets"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "assets"]
 }

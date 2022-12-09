@@ -1,6 +1,10 @@
 import { Output } from "./models/output";
 import * as fs from 'fs';
 
+//
+// DlvOutputParser prende un output dlv e ne parserizza le annotazioni @rule e @block
+//
+
 export class DlvOutputParser {
     public static parse(raw_output: string): Output {
         return Output.parse(raw_output) as Output

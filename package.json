@@ -7,7 +7,7 @@
     "tasper": "./dist/index.js"
   },
   "scripts": {
-    "test": "ts-mocha ./src/test/**/*.ts",
+    "test": "ts-mocha ./test/**/*.ts",
     "build": "tsc --build",
     "start": "node ./dist/index.js"
   },

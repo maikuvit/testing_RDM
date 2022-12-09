@@ -2,9 +2,9 @@
 
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
-import { Parser } from "./dlv_output_parser/dlv_output_parser";
+import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
 import { TestSolver } from "./test_solver/TestSolver";
-import { TestParser } from "./testing_module/implementations/testParser";
+import { TestParser } from "./testing_module/models/test_parser";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -19,7 +19,7 @@ program
   .description("Parse an ASP output file")
   .argument("<path>", "Path to file")
   .action((path) => {
-    let output = Parser.parse_output_file(path);
+    let output = DlvOutputParser.parse_output_file(path);
     console.log(output);
     console.log(output.stringify());
   });
@@ -39,9 +39,9 @@ program
 .description("Invoke test solver for input file")
 .argument("<path>", "Path to file")
 .action((path) => {
-  let testparser : TestParser = Parser.parse_test_file(path);
-  let solver = new TestSolver();
-  testparser.tests.forEach((test) => console.log(solver.solve(test)))
+  // let testparser : TestParser = TestParser.parse(path);
+  // let solver = new TestSolver();
+  // testparser.tests.forEach((test) => console.log(solver.solve(test)))
 });
 
 program.parse(process.argv);

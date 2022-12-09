@@ -1,5 +1,5 @@
 import path from "path";
-import { SimpleTest } from "../testing_module/implementations/simpleTest";
+import { SimpleTest } from "../test_parser/models/simple_test";
 import { AspFilesHandler } from "../utils/FilesHandler/AspFilesHandler";
 import { MockConfigFile } from "../utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler";
 import { DLV2ProcessExecutor } from "./DLV2ProcessExecutor";

@@ -26,9 +26,6 @@ export class DLV2ProcessExecutor extends ProcessExecutor {
         if (options)
             cmdString = cmdString.concat(options);
 
-            console.log(cmdString);
-            
-
         let out = execSync(cmdString);
         return DlvOutputParser.parse(out.toString());
     }

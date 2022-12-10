@@ -5,6 +5,8 @@ import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
 import { Config } from "./common/config";
 import { DLV2ProcessExecutor } from "./test_solver/exec/dlv2_process_executor";
+import { TestSolver } from "./test_solver/test_solver";
+import { TestParser } from "./test_parser/test_parser";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -38,67 +40,25 @@ program
 });
 
 program
-.command("solve")
-.description("Invoke test solver for input file")
-.argument("<path>", "Path to file")
-.action((path) => {
-  // let testparser : TestParser = TestParser.parse(path);
-  // let solver = new TestSolver();
-  // testparser.tests.forEach((test) => console.log(solver.solve(test)))
-});
-
-program
 .command("reset")
 .description("Reset config file to original")
 .action(() => {
   Config.reset()
 });
 
+program
+.command("test")
+.description("Solve tests contained in a file")
+.argument("<path>", "Path to file")
+.action((path) => {
+  let test_wrapper = TestParser.parse_test_file(path);
+  test_wrapper.tests.forEach(test => {
+    console.log(TestSolver.solve(test))
+  });
+});
+
 program.parse(process.argv);
 
-// const options = program.opts();
-// process.env.VERBOSE = "true";
-
-
-/*
-  PER FEDE STRUTTURA CARTELLA
-  nella cartella avremo:
-
-    project
-    |- input.asp
-    |- configFile.json
-
-  Il configFile.json contiene i parametri necessari
-  ad eseguire il codice. Questi rispettano la forma che sta
-  in utils/FilesHandler/mockHandlers/Mock_ConfigFilesHandler.ts
-
-  Possiamo aggiustare nel prossimo sprint, includendo una gerarchia
-  nei test. Per ora possiamo lasciare mockato e cambiare la classe a mano.
-
-*/
-
-
-
-
-/*mic
-QUESTO SPRINT
-PER FEDE ESEMPI DI COMMAND (single file, config mockati)
-tasper solve <inputFile>.asp 
-
-   prende inputFile, lo passa al codice di Fabio
-   il codice produce un Array di obj SimpleTest
-   su ogni test in SimpleTest viene chiamato il 
-   metodo solve della classe TestSolver che 
-   restituisce un array del tipo 
-    {
-      <index dell'assert> : <true | false>, 
-      ...
-    }
-
-    banalmente per far vedere che le robe funzionano 
-    possiamo giusto stampare questo array nella cmdline
-
-*/
 
 /*
 

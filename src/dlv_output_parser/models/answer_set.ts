@@ -1,5 +1,5 @@
 import { DlvOutputModel } from "../../common/interfaces/dlv_model";
-import { areArrayEqualNoOrder, areObjectEqual } from "../../utils/utils";
+import { areArrayEqualNoOrder } from "../../common/utils";
 import { Atom } from "./atom";
 import { Cost } from "./cost";
 
@@ -28,10 +28,4 @@ export class AnswerSet extends DlvOutputModel {
         let opt: string = this.optimum ? "\nOPTIMUM" : ""
         return `${ans}${cost}${opt}`
     }
-
-    public assertEqualCost(costToAssert: string): boolean {
-        let constInput: Cost[] = costToAssert.split(' ').map((cost_raw: string) => Cost.parse(cost_raw) as Cost) ?? []
-        return areArrayEqualNoOrder(constInput, this.costs);
-    }
-
 }

@@ -1,5 +1,5 @@
 import { DlvOutputModel } from "../../common/interfaces/dlv_model";
-import { areArrayEqualNoOrder, fillMissingValues } from "../../utils/utils";
+import { areArrayEqualNoOrder, fillMissingValues } from "../../common/utils";
 import { AnswerSet } from "./answer_set";
 
 export class Output extends DlvOutputModel {

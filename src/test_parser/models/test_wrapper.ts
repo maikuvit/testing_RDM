@@ -4,6 +4,14 @@ import { Annotation } from "../../common/interfaces/annotation";
 import { AssertParser } from "./assert_parser";
 import { Atom } from "../../dlv_output_parser/models/atom";
 
+interface DataToParse {
+    name: string;
+    scope: string[];
+    input: string;
+    assert: string[];
+    file: string;
+}
+
 export class TestWrapper extends Annotation {
     constructor(
         public tests: AspTest[]) {
@@ -15,34 +23,25 @@ export class TestWrapper extends Annotation {
     }
 
     protected static override tranform(matches: RegExpMatchArray): TestWrapper {
-        let results: string[] = []
-        for (let i = 0; i < matches.length; i++) {
-            let res = matches[i].replace(/%\*\*\s*@test\s*\(/mg, "").replace(/\)\s*\*\*%/mg, "")
-            res = "{" + res + "}"
-            results.push(res)
-        }
-        let tests: AspTest[] = []
-        for (let i = 0; i < results.length; i++) {
-            let raw_test = TestWrapper.json_parse((results[i]))
-            raw_test.assert = AssertParser.parse(raw_test.assert.toString())
-            raw_test.input = Atom.convertAtoms(raw_test.input.split(' '))
-            tests.push(new AspTest(raw_test.name, raw_test.scope, raw_test.input, raw_test.assert, raw_test.file))
-        }
+
+        let adjust_match = (match : string) => match.replace(/%\*\*\s*@test\s*\(/mg, "").replace(/\)\s*\*\*%/mg, "")
+
+        let results: string[] = matches.map(match => `{${adjust_match(match)}}`)
+
+        let tests: AspTest[] = results.map(result => {
+            let raw_test = TestWrapper.json_parse((result))
+            let parsed_assert = AssertParser.parse(raw_test.assert.toString())
+            let parserd_input = Atom.convertAtoms(raw_test.input.split(' '))
+            return new AspTest(raw_test.name, raw_test.scope, parserd_input, parsed_assert, raw_test.file)
+        })
+
         return new TestWrapper(tests)
     }
 
-    private static json_parse(json: string): any {
+    private static json_parse(json: string): DataToParse {
         const ajv = new Ajv()
 
-        interface MyData {
-            name: string;
-            scope: string[];
-            input: string;
-            assert: string[];
-            file: string;
-        }
-
-        const schema: JTDSchemaType<MyData> = {
+        const schema: JTDSchemaType<DataToParse> = {
             properties: {
                 name: { type: "string" },
                 scope: { elements: { type: "string" } },
@@ -53,8 +52,8 @@ export class TestWrapper extends Annotation {
         }
 
         const parse = ajv.compileParser(schema)
-
         const data = parse(json)
+
         if (data === undefined) {
             throw new Error(parse.message + `\nerror position in string: ` + parse.position)
         } else {

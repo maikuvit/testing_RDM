@@ -34,21 +34,4 @@ export class AnswerSet extends DlvOutputModel {
         return areArrayEqualNoOrder(constInput, this.costs);
     }
 
-    public containsAllAtoms(atoms: Atom[]): boolean {
-        for (let i = 0; i < atoms.length; i++) {
-            if (!this.containsAtom(atoms[i])) {
-                return false
-            }
-        };
-        return true
-    }
-
-    public containsAtom(atom: Atom): boolean {
-        for (let i = 0; i < this.atoms.length; i++) {
-            if (atom.stringify() === this.atoms[i].stringify()) {
-                return true
-            }
-        }
-        return false
-    }
 }

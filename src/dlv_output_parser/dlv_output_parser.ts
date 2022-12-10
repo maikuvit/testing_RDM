@@ -1,5 +1,5 @@
+import { readFile } from "../common/file_handler";
 import { Output } from "./models/output";
-import * as fs from 'fs';
 
 //
 // DlvOutputParser prende un output dlv e ne parserizza le annotazioni @rule e @block
@@ -10,7 +10,6 @@ export class DlvOutputParser {
         return Output.parse(raw_output) as Output
     }
     public static parse_output_file(path: string): Output {
-        const file: string = fs.readFileSync(path, { encoding: 'utf-8' })
-        return DlvOutputParser.parse(file)
+        return DlvOutputParser.parse(readFile(path))
     }
 }

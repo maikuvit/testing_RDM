@@ -1,6 +1,6 @@
 import assert from 'assert';
 import {AspTest} from '../../src/test_parser/models/asp_test'
-import {NoAnswerSet} from '../../src/test_solver/asserts/models/no_answer_set'
+import {NoAnswerSet} from '../../src/test_solver/asserts/no_answer_set'
 import { Atom } from '../../src/dlv_output_parser/models/atom';
 
 describe('Testing SimpleTest class', function() {

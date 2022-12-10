@@ -1,5 +1,3 @@
-import { existsSync } from "fs";
-
 export function areObjectEqual<T>(obj1: T, obj2: T): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2)
 }
@@ -30,8 +28,4 @@ export function fillMissingValues<T>(source : T[], target : T[]) : T[] {
 
 export function arrayContainsAll<T>(array : T[], values : T[]) : boolean {
     return values.every(val => array.find(obj => areObjectEqual(obj, val)))
-}
-
-export function checkFileExist(filepath :string) : boolean{
-    return existsSync(filepath);
 }

@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFile } from '../common/file_handler';
 import { Input } from './models/input';
 
 //
@@ -10,7 +10,6 @@ export class InputParser {
         return Input.parse(raw_input) as Input
     }
     public static parse_input_file(path: string): Input {
-        const file: string = fs.readFileSync(path, { encoding: 'utf-8' })
-        return InputParser.parse(file)
+        return InputParser.parse(readFile(path))
     }
 }

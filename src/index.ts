@@ -3,6 +3,7 @@
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
+import { Config } from "./common/config";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -40,6 +41,13 @@ program
   // let testparser : TestParser = TestParser.parse(path);
   // let solver = new TestSolver();
   // testparser.tests.forEach((test) => console.log(solver.solve(test)))
+});
+
+program
+.command("reset")
+.description("Reset config file to original")
+.action(() => {
+  Config.reset()
 });
 
 program.parse(process.argv);

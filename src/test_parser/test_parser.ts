@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFile } from '../common/file_handler';
 import { TestWrapper } from './models/test_wrapper';
 
 //
@@ -10,7 +10,6 @@ export class TestParser {
         return TestWrapper.parse(raw_test) as TestWrapper
     }
     public static parse_test_file(path: string): TestWrapper {
-        const file: string = fs.readFileSync(path, { encoding: 'utf-8' })
-        return TestParser.parse(file)
+        return TestParser.parse((readFile(path)))
     }
 }

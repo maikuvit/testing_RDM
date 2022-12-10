@@ -1,8 +1,8 @@
 import { Assert } from "../../common/interfaces/assert"
 import { Parser } from "../../common/interfaces/parser"
 import { Atom } from "../../dlv_output_parser/models/atom"
-import { NoAnswerSet } from "../../test_solver/asserts/models/no_answer_set"
-import { TrueInExactly } from "../../test_solver/asserts/models/true_in_exactly"
+import { NoAnswerSet } from "../../test_solver/asserts/no_answer_set"
+import { TrueInExactly } from "../../test_solver/asserts/true_in_exactly"
 
 export class AssertParser extends Parser {
 

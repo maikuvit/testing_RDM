@@ -11,10 +11,8 @@ export class TestSolver {
 
     public static solve(test: AspTest): { [id: string]: boolean; } {
 
-        let config: Config = Config.readConfig();
-        let executor: DLV2ProcessExecutor = new DLV2ProcessExecutor(config.exe_path!);
-
         var out: { [id: string]: boolean } = {};
+        
         test.assert.forEach((s, index) => {
 
             let rules : string = test.scope.join('\n')
@@ -24,7 +22,7 @@ export class TestSolver {
 
             let options = s.preConditions()?.options ?? "";
 
-            out[index] = s.assert(executor.exec_solver(TEMP_FILE_PATH, options))
+            out[index] = s.assert(DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options))
 
             // removeFile(TEMP_FILE_PATH)
         })

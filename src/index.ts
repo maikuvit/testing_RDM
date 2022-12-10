@@ -4,6 +4,7 @@ import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
 import { Config } from "./common/config";
+import { DLV2ProcessExecutor } from "./test_solver/exec/dlv2_process_executor";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -15,7 +16,7 @@ program
 
 program
   .command("parse")
-  .description("Parse an ASP output file")
+  .description("Parse a DLV output file")
   .argument("<path>", "Path to file")
   .action((path) => {
     let output = DlvOutputParser.parse_output_file(path);
@@ -28,9 +29,12 @@ program
 .description("Invoke solver for input file")
 .argument("<path>", "Path to file")
 .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2']).makeOptionMandatory())
+.option('-o, --extra [extras...]', 'specify extra solver options (without hyphen)')
 .action((path, options) => {
-  console.log(options);
-  console.log(path);
+  let extras = (options?.extra as string[])?.map(o => `-${o}`).join(' ') ?? "";
+  let output = DLV2ProcessExecutor.exec_solver(path, extras);
+  console.log(output);
+  console.log(output.stringify());
 });
 
 program

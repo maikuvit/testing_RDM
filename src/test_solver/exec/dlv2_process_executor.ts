@@ -1,5 +1,6 @@
 
 import { execSync } from "child_process";
+import { Config } from "../../common/config";
 import { checkFileExist } from "../../common/file_handler";
 import { DlvOutputParser } from "../../dlv_output_parser/dlv_output_parser";
 import { Output } from "../../dlv_output_parser/models/output";
@@ -9,19 +10,18 @@ import { ProcessExecutor } from "./process_executor";
 
 export class DLV2ProcessExecutor extends ProcessExecutor {
 
-    public constructor(public exePath: string) {
-        super(exePath)
-    }
+    public static exec_solver(InputFilePath: string, options: string): Output {
 
-    public exec_solver(InputFilePath: string, options: string): Output {
+        let config: Config = Config.readConfig();
 
-        if (!checkFileExist(this.exePath))
+
+        if (!checkFileExist(config.exe_path!))
             throw new Error("Could not find the path to the exe")
 
         if (!checkFileExist(InputFilePath))
             throw new Error("Could not find the generated input file")
 
-        let cmdString = `${this.exePath} ${InputFilePath} `;
+        let cmdString = `${config.exe_path!} ${InputFilePath} `;
 
         if (options)
             cmdString = cmdString.concat(options);

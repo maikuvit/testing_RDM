@@ -12,16 +12,14 @@ export class DLV2ProcessExecutor extends ProcessExecutor {
 
     public static exec_solver(InputFilePath: string, options: string): Output {
 
-        let config: Config = Config.readConfig();
 
-
-        if (!checkFileExist(config.exe_path!))
+        if (!checkFileExist(Config.exe_path!))
             throw new Error("Could not find the path to the exe")
 
         if (!checkFileExist(InputFilePath))
             throw new Error("Could not find the generated input file")
 
-        let cmdString = `${config.exe_path!} ${InputFilePath} `;
+        let cmdString = `${Config.exe_path!} ${InputFilePath} `;
 
         if (options)
             cmdString = cmdString.concat(options);

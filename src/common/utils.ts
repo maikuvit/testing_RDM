@@ -29,3 +29,7 @@ export function fillMissingValues<T>(source : T[], target : T[]) : T[] {
 export function arrayContainsAll<T>(array : T[], values : T[]) : boolean {
     return values.every(val => array.find(obj => areObjectEqual(obj, val)))
 }
+
+export function throwExpression(errorMessage: string): never {
+    throw new Error(errorMessage);
+  }

@@ -15,6 +15,9 @@ export class TestSolver {
         
         test.assert.forEach((s, index) => {
 
+            //cambiamento da fare: si scrive su file non in base allo scope del test,
+            //ma ai modelli prodotti dalle assert. Metodo public dell'interface assert ...
+
             let rules : string = test.scope.join('\n')
             let input : string = test.input.map(a => a.stringify()).join('\n')
             let to_write = `${rules}\n${input}`

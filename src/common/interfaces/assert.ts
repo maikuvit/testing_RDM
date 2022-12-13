@@ -1,15 +1,14 @@
+import { preConditions } from "../pre_conditions";
 import { DlvOutputModel } from "./dlv_model";
 
 export abstract class Assert {
 
     //Asserts can require different conditions to be satisfied, that will be implemented in this method 
-    public abstract fullfilRequirements(model: DlvOutputModel): DlvOutputModel
+    // nota: passare l'input del test a questo metodo! Non l'intero scope (non logicamente sensato) 
+    public abstract fullfilRequirements(input: DlvOutputModel): [DlvOutputModel]
+    //     public abstract fullfilRequirements(input: Atom[]): [Atom]
 
-    public abstract validate(model: DlvOutputModel): boolean
+    public abstract assert(model: DlvOutputModel): boolean
 
-    public assert(model: DlvOutputModel): boolean {
-        return this.validate(this.fullfilRequirements(model));
-    }
-
-    public abstract preConditions(): any
+    public abstract preConditions(): preConditions
 }

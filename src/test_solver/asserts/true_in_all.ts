@@ -1,5 +1,6 @@
 import { Assert } from "../../common/interfaces/assert";
 import { DlvOutputModel } from "../../common/interfaces/dlv_model";
+import { preConditions } from "../../common/pre_conditions";
 import { arrayContainsAll } from "../../common/utils";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Output } from "../../dlv_output_parser/models/output";
@@ -11,18 +12,16 @@ export class TrueInAll extends Assert {
         public atoms: Atom[]
     ) { super() }
 
-    public preConditions(): object {
-        return {
-            "input": [""], //TO IMPLEMENT: add constraint for each atom in original input ...
-            "options": ["-n0"]
-        };
+    public preConditions(): preConditions {
+        return new preConditions(["EVERY_ATOM_CONSTRAINT"], "-n0", true);
     }
 
-    public fullfilRequirements(model: DlvOutputModel): DlvOutputModel {
-        return model;
+    public fullfilRequirements(model: DlvOutputModel): [DlvOutputModel] {
+        // qui devo generare un 
+        return [model];
     }
 
-    public validate(output: Output): boolean {
-        return output.answers.every(ans => arrayContainsAll(ans.atoms, this.atoms))
+    public assert(output: Output): boolean {
+        return output.answers.length === 0;
     }
 }

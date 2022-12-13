@@ -17,7 +17,7 @@ export class TrueInAll extends Assert {
     }
 
     public fullfilRequirements(model: DlvOutputModel): [DlvOutputModel] {
-        // qui devo generare un 
+        // qui devo generare un set di rules per ogni atomo
         return [model];
     }
 

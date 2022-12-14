@@ -11,9 +11,11 @@ export abstract class Assert {
 
     //restituisco per comodità direttamente array di string 
     //      (non il massimo, ma manca obj che rappresenti gruppo rules/atoms )
-    public abstract fullfilRequirements(input: Atom[], rules : Rule[]): [AspInput]
 
-    public abstract assert(model: DlvOutputModel): boolean
+    //edit: ho creato un obj che rappresenti gruppo rules/atoms (#quickCoding)
+    public abstract fullfilRequirements(rules : Rule[], input: Atom[]): [AspInput]
+
+    public abstract assert(models: DlvOutputModel[]): boolean
 
     public abstract preConditions(): preConditions
 }

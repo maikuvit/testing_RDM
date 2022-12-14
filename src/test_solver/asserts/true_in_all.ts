@@ -8,10 +8,11 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInAll extends Assert {
 
-    public fullfilRequirements(input: Atom[], rules: Rule[]): [AspInput] {
-
+    public fullfilRequirements(rules : Rule[], input: Atom[]): [AspInput] {
         
-        return new AspInput(rules);
+
+        // da finire !
+        return [new AspInput(rules,input)];
     }
 
     public constructor(
@@ -23,7 +24,7 @@ export class TrueInAll extends Assert {
     }
 
 
-    public assert(output: Output): boolean {
-        return output.answers.length === 0;
+    public assert(outputs: [Output]): boolean {
+        return outputs.every((o) => o.answers.length === 0);
     }
 }

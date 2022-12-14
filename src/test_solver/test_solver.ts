@@ -1,4 +1,6 @@
 import { removeFile, writeFile } from "../common/file_handler";
+import { Output } from "../dlv_output_parser/models/output";
+import { AspInput } from "../test_parser/models/asp_input";
 import { AspTest } from "../test_parser/models/asp_test";
 import { DLV2ProcessExecutor } from "./exec/dlv2_process_executor";
 
@@ -24,14 +26,28 @@ export class TestSolver {
 
             //modello in input ...
 
+            //metodo stringify nel asp_input! 
             let rules : string = test.scope.join('\n')
             let input : string = test.input.map(a => a.stringify()).join('\n')
-            let to_write = `${rules}\n${input}`
-            writeFile(TEMP_FILE_PATH, to_write, 'w')
+            let to_write = `${rules}\n${input}`;
+
+            let outModels : Output[] = []
 
             let options = s.preConditions()?.options ?? "";
 
-            out[index] = s.assert(DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options))
+            //qua primo param devono essere le rules!
+            s.fullfilRequirements([],test.input).forEach( (ob : AspInput, index) =>{
+                // run di asp ...
+
+                //aggiungere interpolate! tipo "test1.txt con index"
+                writeFile(TEMP_FILE_PATH, to_write, 'w');
+
+                //outModels[index] = solver call! 
+            }
+            )
+            // out[index] = s.assert(outModels)
+
+            out[index] = s.assert([DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)])
 
             // removeFile(TEMP_FILE_PATH)
         })

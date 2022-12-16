@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  #faccio eseguire i test prima di pubblicare la release
   build-test:
     uses: maikuvit/testing_RDM/.github/workflows/build-and-test.yml@main
 

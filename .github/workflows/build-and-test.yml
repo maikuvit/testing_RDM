@@ -4,12 +4,16 @@ on:
 jobs:
   build-and-test:
     runs-on: ${{matrix.os}}
+    #permette l'esecuzione del workflow su tre sistemi operativi diversi,
+    #per assicurare il corretto funzionamento del progetto su so diversi
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
+      #checkout del progetto sulla macchina locale di github
       - uses: actions/checkout@v3
+      #installo node sulla macchina locale di github
       - name: ${{matrix.os}} - Node.js setup
         uses: actions/setup-node@v3
         with:

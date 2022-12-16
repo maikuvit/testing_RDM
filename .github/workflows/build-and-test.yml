@@ -1,6 +1,6 @@
-name: main
+name: build and test
 on:
-  [push, workflow_dispatch, pull_request]
+  [push, pull_request, workflow_dispatch, workflow_call]
 jobs:
   build-and-test:
     runs-on: ${{matrix.os}}

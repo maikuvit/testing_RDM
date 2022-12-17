@@ -31,7 +31,7 @@ export class TestWrapper extends Annotation {
         let tests: AspTest[] = results.map(result => {
             let raw_test = TestWrapper.json_parse((result))
             let parsed_assert = AssertParser.parse(raw_test.assert.toString())
-            let parserd_input = Atom.convertAtoms(raw_test.input.split(' '))
+            let parserd_input = raw_test.input.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []
             return new AspTest(raw_test.name, raw_test.scope, parserd_input, parsed_assert, raw_test.file)
         })
 

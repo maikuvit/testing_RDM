@@ -1,5 +1,4 @@
-import { Config } from "../common/config";
-import { removeFile, writeFile } from "../common/file_handler";
+import { writeFile } from "../common/file_handler";
 import { AspTest } from "../test_parser/models/asp_test";
 import { DLV2ProcessExecutor } from "./exec/dlv2_process_executor";
 

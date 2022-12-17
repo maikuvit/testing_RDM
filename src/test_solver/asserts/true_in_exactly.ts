@@ -15,7 +15,7 @@ export class TrueInExactly extends Assert {
     }
 
     public fullfilRequirements(model: DlvOutputModel): [DlvOutputModel] {
-        // qui devo generare un 
+         
         return [model];
     }
 

@@ -11,10 +11,10 @@ export class AssertParser extends Parser {
     }
 
     public static assertion(k: string, parsedAssertion: any): Assert {
-        parsedAssertion.atoms =  parsedAssertion.atoms ? Atom.convertAtoms(parsedAssertion.atoms) : []
+        let atoms:Atom[] = parsedAssertion.atoms ? (parsedAssertion.atoms.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []) : []
         let assertions: any = {
             "@noAnswerSet": new NoAnswerSet(),
-            "@trueInExactly": new TrueInExactly(parsedAssertion.number, parsedAssertion.atoms)
+            "@trueInExactly": new TrueInExactly(parsedAssertion.number, atoms)
         }
         return assertions[k]
     }

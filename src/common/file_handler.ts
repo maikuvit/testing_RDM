@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-export function checkFileExist(filepath :string) : boolean{
+export function checkPathExist(filepath :string) : boolean{
     return fs.existsSync(filepath);
 }
 
@@ -14,4 +14,18 @@ export function writeFile(filePath : string, data : string, flag : string){
 
 export function removeFile(filePath : string) {
     return fs.unlinkSync(filePath)
+}
+
+export function isPathDirectory(path : string){
+    return fs.lstatSync(path).isDirectory();
+}
+
+export function isPathFile(path : string){
+    return fs.lstatSync(path).isFile();
+}
+
+export function getDirContent(path : string){
+    if(!isPathDirectory(path))
+        throw new Error(`${path} is not a directory`)
+    return fs.readdirSync(path)
 }

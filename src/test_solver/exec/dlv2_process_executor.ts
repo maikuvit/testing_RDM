@@ -1,7 +1,7 @@
 
 import { execSync } from "child_process";
 import { Config } from "../../common/config";
-import { checkFileExist } from "../../common/file_handler";
+import { checkPathExist } from "../../common/file_handler";
 import { DlvOutputParser } from "../../dlv_output_parser/dlv_output_parser";
 import { Output } from "../../dlv_output_parser/models/output";
 import { ProcessExecutor } from "./process_executor";
@@ -13,10 +13,10 @@ export class DLV2ProcessExecutor extends ProcessExecutor {
     public static exec_solver(InputFilePath: string, options: string): Output {
 
 
-        if (!checkFileExist(Config.exe_path!))
+        if (!checkPathExist(Config.exe_path!))
             throw new Error("Could not find the path to the exe")
 
-        if (!checkFileExist(InputFilePath))
+        if (!checkPathExist(InputFilePath))
             throw new Error("Could not find the generated input file")
 
         let cmdString = `${Config.exe_path!} ${InputFilePath} `;

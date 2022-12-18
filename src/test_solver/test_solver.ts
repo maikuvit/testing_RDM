@@ -6,7 +6,6 @@ import { DLV2ProcessExecutor } from "./exec/dlv2_process_executor";
 
 // ----maiku---- //
 
-const TEMP_FILE_PATH = "temp.txt"
 
 export class TestSolver {
 
@@ -35,21 +34,20 @@ export class TestSolver {
 
             let options = s.preConditions()?.options ?? "";
 
-            //qua primo param devono essere le rules!
-            s.fullfilRequirements([],test.input).forEach( (ob : AspInput, index) =>{
+            //itero su ogni Set di input generato dal fullfilRequirements ...
+            s.fullfilRequirements(test.tempGetScopeAsRules(),test.input).forEach( (ob : AspInput, index) =>{
                 // run di asp ...
 
-                //aggiungere interpolate! tipo "test1.txt con index"
-                writeFile(TEMP_FILE_PATH, to_write, 'w');
+                let TEMP_FILE_PATH = `temp${index}.txt`;
 
-                //outModels[index] = solver call! 
+                writeFile(TEMP_FILE_PATH, ob.stringify(), 'w');
+
+                outModels[index] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
+
+                //removeFile(TEMP_FILE_PATH)
             }
             )
-            // out[index] = s.assert(outModels)
-
-            out[index] = s.assert([DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)])
-
-            // removeFile(TEMP_FILE_PATH)
+            out[index] = s.assert(outModels)
         })
 
         return out;

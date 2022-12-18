@@ -3,16 +3,17 @@ import { Rule } from "../../input_parser/models/rule"
 
 export class AspInput{
 
-    rules : Rule[]
+    rules : string[]
     atoms : Atom[]
 
-    constructor(rules : Rule[], atoms : Atom[] = []){
+    constructor(rules : string[], atoms : Atom[] = []){
         this.rules = rules
         this.atoms = atoms
     }
 
     public stringify() : string {
             let inRules : string = this.rules.join('\n')
+            console.log(inRules)
             let inAtoms : string = this.atoms.map(a => a.stringify()).join('\n')
             return `${inRules}\n${inAtoms}`;
     }

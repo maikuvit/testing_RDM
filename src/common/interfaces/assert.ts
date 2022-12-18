@@ -13,7 +13,7 @@ export abstract class Assert {
     //      (non il massimo, ma manca obj che rappresenti gruppo rules/atoms )
 
     //edit: ho creato un obj che rappresenti gruppo rules/atoms (#quickCoding)
-    public abstract fullfilRequirements(rules : Rule[], input: Atom[]): [AspInput]
+    public abstract fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[]
 
     public abstract assert(models: DlvOutputModel[]): boolean
 

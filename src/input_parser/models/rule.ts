@@ -29,4 +29,8 @@ export class Rule extends Annotation {
         }
         return new Rule(name, blocks, content)
     }
+
+    public stringify(): string {
+        return `${this.content}`
+    }
 }

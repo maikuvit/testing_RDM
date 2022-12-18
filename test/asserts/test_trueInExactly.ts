@@ -4,6 +4,7 @@ import { AnswerSet } from '../../src/dlv_output_parser/models/answer_set';
 import { Output } from '../../src/dlv_output_parser/models/output';
 import { TrueInExactly } from '../../src/test_solver/asserts/true_in_exactly';
 
+/*
 describe('testing TrueInExactly assertion', function () {
     it('should return True', function () {
         let output = new Output([
@@ -108,3 +109,5 @@ describe('testing TrueInExactly assertion', function () {
         assert.equal(assertion.assert(output), false)
     });
 });
+
+*/

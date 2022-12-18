@@ -8,11 +8,22 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInAll extends Assert {
 
-    public fullfilRequirements(rules : Rule[], input: Atom[]): [AspInput] {
-        
+    public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
 
-        // da finire !
-        return [new AspInput(rules,input)];
+        let outp : AspInput[]= []
+
+        let stringRules : string[] = []
+
+        rules.forEach((r) => stringRules.push(r.content))
+
+        console.log(rules)
+        this.atoms.forEach(element => {
+            let tempRules : string[]= stringRules
+            tempRules.push(`:- ${element.stringify()}`)
+            outp.push(new AspInput(tempRules,input))
+        });
+
+        return outp;
     }
 
     public constructor(

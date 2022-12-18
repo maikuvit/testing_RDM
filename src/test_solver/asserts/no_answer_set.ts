@@ -8,7 +8,9 @@ import { AspInput } from "../../test_parser/models/asp_input";
 export class NoAnswerSet extends Assert {
     
     public fullfilRequirements(rules : Rule[], input: Atom[]): [AspInput] {
-        return [new AspInput(rules, input)];
+        let tempRules: string[] = []
+        rules.forEach((r) => tempRules.push(r.content) )
+        return [new AspInput(tempRules, input)];
     }
 
     public assert(outputs: [Output]): boolean {

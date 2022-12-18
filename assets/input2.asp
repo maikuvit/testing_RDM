@@ -8,15 +8,15 @@ col(X,red) | col(X,blue) | col(X,green) :- node(X).
 %** @rule(name=r2, blocks=ToTest) **%
 :- edge(X, Y), col(X,C), col(Y,C).
 
-%**@test(
+%**@test{
 	"name" : "checkRules",
 	"scope" : [ "ToTest" ],
-	"input" : "node(1). node(2). node(3). edge(1,2). edge(1,3). edge(2,3).",
+	"input" : "node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3)",
 	"assert" : [
-	"@trueInExactly{ 'number' : 2, 'atoms' : ['col(1, red).'] }",
-	"@trueInExactly{ 'number' : 1, 'atoms' : ['col(1, red).', 'col(2, blue).'] }",
+	"@trueInExactly{ 'number' : 2, 'atoms' : 'col(1,red)' }",
+	"@trueInExactly{ 'number' : 1, 'atoms' : 'col(1,red) col(2,blue)' }",
 	"@noAnswerSet{}"  
 	],
 	"file" : "assets/input2.asp"
-   )
+	}
 **%

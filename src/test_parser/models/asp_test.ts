@@ -6,6 +6,7 @@ import { InputParser } from "../../input_parser/input_parser"
 export class AspTest {
 
     public inputFile?: Input
+    public fixture?: string
 
     constructor(
         public name: string,
@@ -13,6 +14,10 @@ export class AspTest {
         public input: Atom[],
         public assert: Assert[],
         public file: string,) {
+    
+        }
+
+    public startParsing(){
         this.inputFile = InputParser.parse_input_file(this.file);
         this.scope =  AspTest.extractRulesContent(this.scope, this.inputFile, this.file)
     }

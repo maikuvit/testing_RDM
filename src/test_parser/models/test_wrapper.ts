@@ -5,11 +5,11 @@ import { AssertParser } from "./assert_parser";
 import { Atom } from "../../dlv_output_parser/models/atom";
 
 interface DataToParse {
-    name: string;
-    scope: string[];
-    input: string;
-    assert: string[];
-    file: string;
+    name?: string;
+    scope?: string[];
+    input?: string;
+    assert?: string[];
+    file?: string;
 }
 
 export class TestWrapper extends Annotation {
@@ -19,30 +19,54 @@ export class TestWrapper extends Annotation {
     }
 
     public static override get regex(): RegExp {
-        return /%\*\*\s*@test\s*[^*%]+\s*\*\*%/mg
+        return /%\*\*\s*@(test|fixture)\s*(?:\((\w+)\)){0,1}\{[^*%]+\}\s*\*\*%/mg
     }
 
     protected static override tranform(matches: RegExpMatchArray): TestWrapper {
 
-        let adjust_match = (match : string) => match.replace(/%\*\*\s*@test\s*\(/mg, "").replace(/\)\s*\*\*%/mg, "")
-
-        let results: string[] = matches.map(match => `{${adjust_match(match)}}`)
-
-        let tests: AspTest[] = results.map(result => {
+        let fixtures = new Map<string, AspTest>()
+        let tests: AspTest[] = []
+        matches.map(result => {
+            let groups = result.match(/%\*\*\s*@(test|fixture)\s*(?:\((\w+)\)){0,1}\{[^*%]+\}\s*\*\*%/m)
+            let annotation = groups ? groups[1] : null
+            let fixtureName = groups ? groups[2] : null
+            result = result.replace(/%\*\*\s*@(?:test|fixture)\s*(?:\((\w+)\)){0,1}/mg, "").replace(/\s*\*\*%/mg, "")
             let raw_test = TestWrapper.json_parse((result))
-            let parsed_assert = AssertParser.parse(raw_test.assert.toString())
-            let parserd_input = raw_test.input.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []
-            return new AspTest(raw_test.name, raw_test.scope, parserd_input, parsed_assert, raw_test.file)
+            let parsed_assert = raw_test.assert ? AssertParser.parse(raw_test.assert.toString()) : []
+            let parserd_input = raw_test.input ? (raw_test.input.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []) : []
+            let parsed_name = raw_test.name ?? ""
+            let parsed_scope = raw_test.scope ?? []
+            let parsed_file = raw_test.file ?? ""
+            let currentTest = new AspTest(parsed_name, parsed_scope, parserd_input, parsed_assert, parsed_file)
+            currentTest.fixture = fixtureName ? fixtureName : undefined
+            let operation = annotation === 'test' ? tests.push(currentTest) : (fixtureName ? fixtures.set(fixtureName,currentTest) : undefined)
+            if(operation === undefined)
+            {
+                throw new Error(`you must give a name to the fixture`)
+            }
         })
-
+        tests.forEach(element => {
+            let fixture = element.fixture ? fixtures.get(element.fixture) : undefined
+            element = fixture ?  TestWrapper.injectFixture(fixture,element) : element
+            element.startParsing() 
+        });
         return new TestWrapper(tests)
+    }
+
+    private static injectFixture(fixture:AspTest,target:AspTest):AspTest{
+        target.assert = target.assert.length !== 0 ? target.assert : fixture.assert
+        target.file = target.file !== "" ? target.file : fixture.file
+        target.input = target.input.length !== 0 ? target.input : fixture.input
+        target.name = target.name !== "" ? target.name : fixture.name
+        target.scope = target.scope.length !== 0 ? target.scope : fixture.scope
+        return target
     }
 
     private static json_parse(json: string): DataToParse {
         const ajv = new Ajv()
 
         const schema: JTDSchemaType<DataToParse> = {
-            properties: {
+            optionalProperties: {
                 name: { type: "string" },
                 scope: { elements: { type: "string" } },
                 input: { type: "string" },

@@ -1,3 +1,5 @@
+import { Output } from "../dlv_output_parser/models/output";
+
 export function areObjectEqual<T>(obj1: T, obj2: T): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2)
 }

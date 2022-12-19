@@ -2,6 +2,7 @@ import { Atom } from "../../dlv_output_parser/models/atom"
 import { Input } from "../../input_parser/models/input"
 import { Assert } from "../../common/interfaces/assert"
 import { InputParser } from "../../input_parser/input_parser"
+import { Rule } from "../../input_parser/models/rule"
 
 export class AspTest {
 
@@ -32,6 +33,14 @@ export class AspTest {
             newScope.push(...rules)
         });
         return newScope
+    }
+
+    public tempGetScopeAsRules() : Rule[]{
+        let rules : Rule[] = [];
+        this.scope.forEach((element,index) => {
+            rules.push(new Rule(`r${index}`, new Set<string>,element))
+        });
+        return rules;
     }
 
 

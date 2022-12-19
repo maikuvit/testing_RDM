@@ -8,10 +8,9 @@ import { Rule } from "../../input_parser/models/rule";
 import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInExactly extends Assert {
+    
     public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
 
-
-        console.log("aaaa",this)
         let outp : AspInput[]= []
 
         let stringRules : string[] = []
@@ -23,8 +22,6 @@ export class TrueInExactly extends Assert {
             tempRules.push(`:- not ${element.stringify()}`)
             outp.push(new AspInput(tempRules,input))
         });
-
-        console.log(outp.length)
 
         return outp;
     }

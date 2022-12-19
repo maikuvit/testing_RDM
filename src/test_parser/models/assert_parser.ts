@@ -3,6 +3,8 @@ import { Parser } from "../../common/interfaces/parser"
 import { Atom } from "../../dlv_output_parser/models/atom"
 import { NoAnswerSet } from "../../test_solver/asserts/no_answer_set"
 import { TrueInAll } from "../../test_solver/asserts/true_in_all"
+import { TrueInAtLeast } from "../../test_solver/asserts/true_in_at_least"
+import { TrueInAtMost } from "../../test_solver/asserts/true_in_at_most"
 import { TrueInExactly } from "../../test_solver/asserts/true_in_exactly"
 
 export class AssertParser extends Parser {
@@ -16,7 +18,10 @@ export class AssertParser extends Parser {
         let assertions: any = {
             "@noAnswerSet": new NoAnswerSet(),
             "@trueInExactly": new TrueInExactly(parsedAssertion.number, atoms),
-            "@trueInAll" : new TrueInAll(atoms)
+            "@trueInAll" : new TrueInAll(atoms),
+            "@trueInAtLeast": new TrueInAtLeast(parsedAssertion.number, atoms),
+            "@trueInAtMost": new TrueInAtMost(parsedAssertion.number, atoms),
+
         }
         return assertions[k]
     }

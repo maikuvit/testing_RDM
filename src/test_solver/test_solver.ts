@@ -1,4 +1,4 @@
-import { writeFile } from "../common/file_handler";
+import { removeFile, writeFile } from "../common/file_handler";
 import { Output } from "../dlv_output_parser/models/output";
 import { AspInput } from "../test_parser/models/asp_input";
 import { AspTest } from "../test_parser/models/asp_test";
@@ -39,18 +39,16 @@ export class TestSolver {
             s.fullfilRequirements(test.tempGetScopeAsRules(),test.input).forEach( (ob : AspInput, index) =>{
                 // run di asp ...
 
-                console.log(ob);
-
                 let TEMP_FILE_PATH = `temp${index}.txt`;
 
                 writeFile(TEMP_FILE_PATH, ob.stringify(), 'w');
 
                 outModels[index] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
 
-                //removeFile(TEMP_FILE_PATH)
+                removeFile(TEMP_FILE_PATH)
             }
             )
-            out[index] = s.assert(outModels)
+            out[(s as any).constructor.name] = s.assert(outModels)
         })
 
         return out;

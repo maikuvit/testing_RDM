@@ -13,7 +13,6 @@ export class AspInput{
 
     public stringify() : string {
             let inRules : string = this.rules.join('\n')
-            console.log(inRules)
             let inAtoms : string = this.atoms.map(a => a.stringify()).join('\n')
             return `${inRules}\n${inAtoms}`;
     }

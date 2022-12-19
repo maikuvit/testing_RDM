@@ -16,7 +16,6 @@ export class TrueInAll extends Assert {
 
         rules.forEach((r) => stringRules.push(r.content))
 
-        console.log(rules)
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules
             tempRules.push(`:- ${element.stringify()}`)

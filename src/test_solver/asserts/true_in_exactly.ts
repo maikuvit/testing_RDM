@@ -8,7 +8,6 @@ import { Rule } from "../../input_parser/models/rule";
 import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInExactly extends Assert {
-    
     public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
 
         let outp : AspInput[]= []
@@ -17,7 +16,6 @@ export class TrueInExactly extends Assert {
 
         rules.forEach((r) => stringRules.push(r.content))
 
-        console.log(rules)
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules
             tempRules.push(`:- ${element.stringify()}`)
@@ -26,10 +24,12 @@ export class TrueInExactly extends Assert {
 
         return outp;
     }
+    
 
-    public assert(models: DlvOutputModel[]): boolean {
-        throw new Error("Method not implemented.");
+    public assert(outputs: [Output]): boolean {
+        return outputs.every((o) => o.answers.length === this.number);
     }
+
     public preConditions(): preConditions {
         return new preConditions([""],"-n0");
     }

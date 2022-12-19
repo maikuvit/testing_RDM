@@ -34,6 +34,7 @@ export class TestSolver {
 
             let options = s.preConditions()?.options ?? "";
 
+
             //itero su ogni Set di input generato dal fullfilRequirements ...
             s.fullfilRequirements(test.tempGetScopeAsRules(),test.input).forEach( (ob : AspInput, index) =>{
                 // run di asp ...

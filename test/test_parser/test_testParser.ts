@@ -15,7 +15,7 @@ describe('Testing TestParser', function () {
 	"@trueInExactly{ 'number' : 1, 'atoms' : ['col(1, red).', 'col(2, blue).'] }",
 	"@noAnswerSet{}"  
 	],
-	"file" : "assets/input2.asp"
+	"file" : "assets/input2_tests.tasp"
    )
 **%`
         let testsContainer: TestWrapper = TestWrapper.parse(input) as TestWrapper

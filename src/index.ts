@@ -9,6 +9,7 @@ import { TestSolver } from "./test_solver/test_solver";
 import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile } from "./common/file_handler";
 import path from "path";
+import { Input } from "./input_parser/models/input";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();

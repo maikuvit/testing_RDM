@@ -14,7 +14,8 @@ col(X,red) | col(X,blue) | col(X,green) :- node(X).
 	"input" : "node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3)",
 	"assert" : [
 	"@noAnswerSet{}",
-	"@trueInAll{ 'atoms' : 'node(1)' }"  
+	"@trueInAll{ 'atoms' : 'node(1)' }",
+	"@trueInExactly{ 'number' : 2, 'atoms' : 'col(1,red)' }"  
 	],
 	"file" : "assets/input2.asp"
 	}

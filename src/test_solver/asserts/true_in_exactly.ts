@@ -20,7 +20,7 @@ export class TrueInExactly extends Assert {
 
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules
-            tempRules.push(`:- ${element.stringify()}`)
+            tempRules.push(`:- not ${element.stringify()}`)
             outp.push(new AspInput(tempRules,input))
         });
 

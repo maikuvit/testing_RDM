@@ -1,17 +1,13 @@
 import { Assert } from "../../common/interfaces/assert";
-import { DlvOutputModel } from "../../common/interfaces/dlv_model";
 import { preConditions } from "../../common/pre_conditions";
-import { arrayContainsAll } from "../../common/utils";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Output } from "../../dlv_output_parser/models/output";
 import { Rule } from "../../input_parser/models/rule";
 import { AspInput } from "../../test_parser/models/asp_input";
 
-export class TrueInExactly extends Assert {
+export class TrueInAtLeast extends Assert {
     public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
 
-
-        console.log("aaaa",this)
         let outp : AspInput[]= []
 
         let stringRules : string[] = []
@@ -24,14 +20,12 @@ export class TrueInExactly extends Assert {
             outp.push(new AspInput(tempRules,input))
         });
 
-        console.log(outp.length)
-
         return outp;
     }
     
 
     public assert(outputs: [Output]): boolean {
-        return outputs.every((o) => o.answers.length === this.number);
+        return outputs.every((o) => o.answers.length >= this.number);
     }
 
     public preConditions(): preConditions {

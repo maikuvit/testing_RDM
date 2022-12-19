@@ -39,6 +39,8 @@ export class TestSolver {
             s.fullfilRequirements(test.tempGetScopeAsRules(),test.input).forEach( (ob : AspInput, index) =>{
                 // run di asp ...
 
+                console.log(ob);
+
                 let TEMP_FILE_PATH = `temp${index}.txt`;
 
                 writeFile(TEMP_FILE_PATH, ob.stringify(), 'w');

@@ -13,7 +13,8 @@ col(X,red) | col(X,blue) | col(X,green) :- node(X).
 	"scope" : [ "ToTest" ],
 	"input" : "node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3)",
 	"assert" : [
-	"@noAnswerSet{}"  
+	"@noAnswerSet{}",
+	"@trueInAll{ 'atoms' : 'node(1)' }"  
 	],
 	"file" : "assets/input2.asp"
 	}

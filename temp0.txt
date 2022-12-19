@@ -1,5 +1,6 @@
 col(X,red) | col(X,blue) | col(X,green) :- node(X).
 :- edge(X, Y), col(X,C), col(Y,C).
+:- node(1).
 node(1).
 node(2).
 node(3).

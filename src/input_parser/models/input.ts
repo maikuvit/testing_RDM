@@ -8,12 +8,11 @@ export class Input extends Annotation {
   }
 
   public static override get regex(): RegExp {
-    return /^%\*\*\s*@(rule)\(name\s*=\s*(\w+)(?:\s*,\s*blocks\s*=\s*(\s*\w+\s*(?:,\s*\w+\s*)*))*\)\s*\*\*%\n(.+)|(?:@rule)/gm;
+    return /^%\*\*\s*@(rule)\(labels\s*=\s*(\s*\w+\s*(?:,\s*\w+\s*)*)\)\s*\*\*%\n(.+)|(?:@rule)/mg;
   }
 
   protected static tranform(matches: RegExpMatchArray): Input {
-    let annotations: SharedMap = new SharedMap(new Map<string, Set<string>>());
-    let rulesnames = new Set<string>();
+    let annotations: SharedMap = new SharedMap(new Map<string, Set<Rule>>());
     for (let i = 0; i < matches.length; i++) {
       //if the element doesn't match the rule regex it means
       //that there is a @rule annotation that contains sintax errors
@@ -21,15 +20,7 @@ export class Input extends Annotation {
         throw new Error(`sintax error: annotation ` + matches[i]);
       }
       let rule: Rule = Rule.parse(matches[i]) as Rule;
-      if (rulesnames.has(rule.name)) {
-        throw new Error(
-          `you can't assign the same name to different rules. The name ` +
-            rule.name +
-            ` can't be assigned to different rules`
-        );
-      }
-      rulesnames.add(rule.name);
-      annotations.addRuleToBlocks(rule.content, rule.blocks);
+      annotations.add(rule, rule.labels);
     }
 
     return new Input(annotations);

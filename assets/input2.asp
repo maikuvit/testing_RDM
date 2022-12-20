@@ -2,10 +2,10 @@
 node(1). node(2). node(3).
 edge(1,2). edge(1,3). edge(2,3).
 
-%** @rule(name=r1, blocks=ToTest) **%
+%** @rule(labels=ToTest) **%
 col(X,red) | col(X,blue) | col(X,green) :- node(X).
 
-%** @rule(name=r2, blocks=ToTest) **%
+%** @rule(labels=ToTest) **%
 :- edge(X, Y), col(X,C), col(Y,C).
 
 %**@test{

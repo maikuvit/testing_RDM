@@ -36,7 +36,7 @@ export class TestSolver {
 
 
             //itero su ogni Set di input generato dal fullfilRequirements ...
-            s.fullfilRequirements(test.tempGetScopeAsRules(),test.input).forEach( (ob : AspInput, index) =>{
+            s.fullfilRequirements(test.rules(),test.input).forEach( (ob : AspInput, index) =>{
                 // run di asp ...
 
                 let TEMP_FILE_PATH = `temp${index}.txt`;

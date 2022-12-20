@@ -1,37 +1,33 @@
+import { Rule } from "./rule"
+
 export class SharedMap {
     constructor(
-        public rulesByBlock: Map<string, Set<string>>) {
+        public rulesByLabel: Map<string, Set<Rule>>) {
     }
 
-    public addRuleToBlocks(rule: string, blocks: Set<string>) {
-        if (rule == "") {
-            throw new Error(`rule name is an empty string`)
+    public add(rule: Rule, labels: Set<string>) {
+        if (labels.size == 0) {
+            throw new Error(`A rule must have at least one label`)
         }
-        if (blocks.size == 0) {
-            throw new Error(`A rule can't be added to an empty block`)
+        if (labels.has("")) {
+            throw new Error(`a label can't be an empty string`)
         }
-        if (blocks.has("")) {
-            throw new Error(`block name is an empty string`)
-        }
-        if (blocks.has(rule)) {
-            throw new Error(`block name and rule name are the same, change one of them: rule = ${rule} block = ${rule}`)
-        }
-        for (let currentBlock of blocks) {
-            if (!this.rulesByBlock.has(currentBlock)) {
-                this.rulesByBlock.set(currentBlock, new Set<string>([rule]))
+        for (let currentLabel of labels) {
+            if (!this.rulesByLabel.has(currentLabel)) {
+                this.rulesByLabel.set(currentLabel, new Set<Rule>([rule]))
             }
             else {
-                this.rulesByBlock.get(currentBlock)?.add(rule)
+                this.rulesByLabel.get(currentLabel)?.add(rule)
             }
         }
 
     }
 
     public has(key: string): boolean {
-        return this.rulesByBlock.has(key)
+        return this.rulesByLabel.has(key)
     }
 
-    public get(key: string): Set<string> | undefined {
-        return this.rulesByBlock.get(key)
+    public get(key: string): Set<Rule> | undefined {
+        return this.rulesByLabel.get(key)
     }
 }

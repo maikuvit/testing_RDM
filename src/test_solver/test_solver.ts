@@ -9,9 +9,9 @@ import { DLV2ProcessExecutor } from "./exec/dlv2_process_executor";
 
 export class TestSolver {
 
-    public static solve(test: AspTest): { [id: string]: boolean; } {
+    public static solve(test: AspTest): { [id: string]: string[] | boolean; } {
 
-        var out: { [id: string]: boolean } = {};
+        var out: { [id: string]: string[] | boolean } = {};
         
         //cambiamento da fare: si scrive su file non in base allo scope del test,
         //ma ai modelli prodotti dalle assert. Metodo public dell'interface assert ...
@@ -48,7 +48,8 @@ export class TestSolver {
                 removeFile(TEMP_FILE_PATH)
             }
             )
-            out[(s as any).constructor.name] = s.assert(outModels)
+            let asserted = s.assert(outModels) 
+            out[(s as any).constructor.name] = asserted.length != 0 ? asserted : true 
         })
 
         return out;

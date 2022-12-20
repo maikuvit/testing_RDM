@@ -66,8 +66,8 @@ program
     filePaths.forEach(path => {
       let test_wrapper = TestParser.parse_test_file(path);
       test_wrapper.tests.forEach(test => {
-        //console.log(path,TestSolver.solve(test))
-        console.log(test)
+        console.log(path,TestSolver.solve(test))
+        //console.log(test)
       });
     })
   });

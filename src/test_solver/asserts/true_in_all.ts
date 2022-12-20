@@ -33,8 +33,8 @@ export class TrueInAll extends Assert {
         return new preConditions(["EVERY_ATOM_CONSTRAINT"], "-n0", true);
     }
 
-
-    public assert(outputs: [Output]): boolean {
-        return outputs.every((o) => o.answers.length === 0);
+    public assert(outputs: [Output]): string[] {
+        return (outputs.every((o) => o.answers.length === 0)) ? 
+        [] : ["the atom <inserire atomo> has numero di apparizioni differente tanto l'out lo modifico dai"];
     }
 }

@@ -54,11 +54,11 @@ export class TestWrapper extends Annotation {
     }
 
     private static injectFixture(fixture:AspTest,target:AspTest):AspTest{
-        target.assert = target.assert.length !== 0 ? target.assert : fixture.assert
-        target.file = target.file !== "" ? target.file : fixture.file
-        target.input = target.input.length !== 0 ? target.input : fixture.input
-        target.name = target.name !== "" ? target.name : fixture.name
-        target.scope = target.scope.length !== 0 ? target.scope : fixture.scope
+        for(let property in target){
+            if(property !== "inputFile" && property !== "fixture"){
+                Array.isArray((target as any)[property]) ? (target as any)[property].push(...(fixture as any)[property]) : (target as any)[property].concat((fixture as any)[property])
+            }
+        }
         return target
     }
 

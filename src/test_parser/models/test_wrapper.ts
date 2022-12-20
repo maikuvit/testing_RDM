@@ -48,6 +48,7 @@ export class TestWrapper extends Annotation {
         tests.forEach(element => {
             let fixture = element.fixture ? fixtures.get(element.fixture) : undefined
             element = fixture ?  TestWrapper.injectFixture(fixture,element) : element
+            TestWrapper.validate_test(element)
             element.startParsing() 
         });
         return new TestWrapper(tests)
@@ -60,6 +61,18 @@ export class TestWrapper extends Annotation {
             }
         }
         return target
+    }
+
+    private static validate_test(target:AspTest){
+        for(let property in target){
+            if(property !== "inputFile" && property !== "fixture"){
+                let field_is_valid:boolean = (target as any)[property].length > 0
+                if(!field_is_valid)
+                {
+                    throw new Error(`missing required property '${property}'`)
+                }
+            }
+        }
     }
 
     private static json_parse(json: string): DataToParse {

@@ -13,8 +13,9 @@ export class NoAnswerSet extends Assert {
         return [new AspInput(tempRules, input)];
     }
 
-    public assert(outputs: [Output]): boolean {
-        return outputs.every((o : Output) => o.answers.length === 0);
+    public assert(outputs: [Output]): string[] {
+        return (outputs.every((o : Output) => o.answers.length === 0)) ?
+         [] : ["Test failed: there is an answer set."];
     }
 
     public preConditions(): preConditions {

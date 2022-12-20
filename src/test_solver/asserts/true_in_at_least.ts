@@ -24,9 +24,12 @@ export class TrueInAtLeast extends Assert {
     }
     
 
-    public assert(outputs: [Output]): boolean {
-        return outputs.every((o) => o.answers.length >= this.number);
+
+    public assert(outputs: [Output]): string[] {
+        return (outputs.every((o) => o.answers.length >= this.number)) ? 
+        [] : ["the atom <inserire atomo> has numero di apparizioni differente tanto l'out lo modifico dai"];
     }
+
 
     public preConditions(): preConditions {
         return new preConditions([""],"-n0");

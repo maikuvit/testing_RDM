@@ -1,50 +1,52 @@
 import assert from 'assert';
+import { Rule } from '../../src/input_parser/models/rule';
 import { SharedMap } from '../../src/input_parser/models/shared_map';
 
 describe('Testing SharedMap', function() {
-    it('should add the rule to the blocks', function() {
-        let input = new SharedMap(new Map<string, Set<string>>())
-        input.addRuleToBlocks("r1",new Set<string>(["b1","b2","b3","b4"]))
-        input.addRuleToBlocks("r2",new Set<string>(["b1","b3","b4"]))
-        let expected:Map<string, Set<string>> = new Map<string, Set<string>>()
-        expected.set("b1",new Set<string>(["r1","r2"]))
-        expected.set("b2",new Set<string>(["r1"]))
-        expected.set("b3",new Set<string>(["r1","r2"]))
-        expected.set("b4",new Set<string>(["r1","r2"]))
+    it('should create placeholders for the rules', function() {
+        let input = new SharedMap(new Map<string, Set<Rule>>())
+        let r1 = new Rule(new Set<string>(["b1","b2","b3","b4"]),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
+        input.add(r1,new Set<string>(["b1","b2","b3","b4"]))
+        let r2 = new Rule(new Set<string>(["b1","b3","b4"]),":- edge(X, Y), col(X,C), col(Y,C).")
+        input.add(r2,new Set<string>(["b1","b3","b4"]))
+        let expected:Map<string, Set<Rule>> = new Map<string, Set<Rule>>()
+        expected.set("b1",new Set<Rule>([r1,r2]))
+        expected.set("b2",new Set<Rule>([r1]))
+        expected.set("b3",new Set<Rule>([r1,r2]))
+        expected.set("b4",new Set<Rule>([r1,r2]))
 
-        assert.deepStrictEqual(input.rulesByBlock,expected)
+        assert.deepStrictEqual(input.rulesByLabel,expected)
     });
-    it('should append the rules to the block', function() {
-        let map = new SharedMap(new Map<string, Set<string>>())
-        map.addRuleToBlocks("r1",new Set<string>(["b1"]))
-        map.addRuleToBlocks("r2",new Set<string>(["b1"]))
-        assert.deepStrictEqual(map.rulesByBlock.get("b1"),new Set<string>(["r1","r2"]))
+    it('should append the rules to the placeholder', function() {
+        let map = new SharedMap(new Map<string, Set<Rule>>())
+        let r1 = new Rule(new Set<string>(["b1"]),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
+        map.add(r1,new Set<string>(["b1"]))
+        let r2 = new Rule(new Set<string>(["b1"]),":- edge(X, Y), col(X,C), col(Y,C).")
+        map.add(r2,new Set<string>(["b1"]))
+        assert.deepStrictEqual(map.rulesByLabel.get("b1"),new Set<Rule>([r1,r2]))
     });
-    it('should raise an Error if You try to add a rule to an empty block', function() {
-        let sharedMap = new SharedMap(new Map<string, Set<string>>())
+    it('should raise an Error if You try to use an empty placeholder', function() {
+        let sharedMap = new SharedMap(new Map<string, Set<Rule>>())
+        let r1 = new Rule(new Set<string>(),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
         assert.throws(
-            () => sharedMap.addRuleToBlocks("r1",new Set<string>()),
+            () => sharedMap.add(r1,new Set<string>()),
                Error
         )
     });
-    it('should raise an Error if You try to add a rule to a block with an empty name', function() {
-        let sharedMap = new SharedMap(new Map<string, Set<string>>())
+    it('should raise an Error if You try to use an empty placeholder name', function() {
+        let sharedMap = new SharedMap(new Map<string, Set<Rule>>())
+        let r1 = new Rule(new Set<string>([""]),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
         assert.throws(
-            () => sharedMap.addRuleToBlocks("r1",new Set<string>([""])),
+            () => sharedMap.add(r1,new Set<string>([""])),
                Error
         )
     });
-    it('should raise an Error if You try to add a rule with an empty name to a block', function() {
-        let sharedMap = new SharedMap(new Map<string, Set<string>>())
-        assert.throws(
-            () => sharedMap.addRuleToBlocks("",new Set<string>(["b1","b2"])),
-               Error
-        )
-    });
-    it('should find the rules of a specific block', function() {
-        let input = new SharedMap(new Map<string, Set<string>>())
-        input.addRuleToBlocks("r3",new Set<string>(["b1"]))
-        input.addRuleToBlocks("r1",new Set<string>(["b2"]))
-        assert.deepStrictEqual(input.get("b1"),new Set<string>(["r3"]))
+    it('should find the rules of a specific placeholder', function() {
+        let input = new SharedMap(new Map<string, Set<Rule>>())
+        let r1 = new Rule(new Set<string>(["b2"]),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
+        let r3 = new Rule(new Set<string>(["b1"]),"col(X,red) | col(X,blue) | col(X,green) :- node(X).")
+        input.add(r3,new Set<string>(["b1"]))
+        input.add(r1,new Set<string>(["b2"]))
+        assert.deepStrictEqual(input.get("b1"),new Set<Rule>([r3]))
     });
 });

@@ -9,9 +9,9 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInExactly extends Assert {
     
-    public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
-
-        let outp : AspInput[]= []
+    public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
+    
+        let outp : { [id: string]: AspInput; } = {}
 
         let stringRules : string[] = []
 
@@ -20,16 +20,18 @@ export class TrueInExactly extends Assert {
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules
             tempRules.push(`:- not ${element.stringify()}`)
-            outp.push(new AspInput(tempRules,input))
+            outp[element.stringify()] = (new AspInput(tempRules,input))
         });
 
         return outp;
     }
     
-
-    public assert(outputs: [Output]): string[] {
-        return (outputs.every((o) => o.answers.length === this.number)) ? 
-        [] : ["the atom <inserire atomo> has numero di apparizioni differente tanto l'out lo modifico dai"];
+    public assert(outputs: { [id: string]: Output; }): string[] {
+        let ret : string []= [] 
+        Object.entries(outputs).forEach((o) => {
+            if(o[1].answers.length != this.number) 
+            ret.push(`the atom ${o[0]} appears in a number of answer sets different than ${this.number} (${o[1].answers.length}).`) })
+        return ret;
     }
 
     public preConditions(): preConditions {

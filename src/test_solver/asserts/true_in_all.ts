@@ -7,10 +7,9 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 
 export class TrueInAll extends Assert {
-
-    public fullfilRequirements(rules : Rule[], input: Atom[]): AspInput[] {
-
-        let outp : AspInput[]= []
+    public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
+        
+        let outp : { [id: string]: AspInput; } = {}
 
         let stringRules : string[] = []
 
@@ -19,11 +18,20 @@ export class TrueInAll extends Assert {
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules
             tempRules.push(`:- ${element.stringify()}`)
-            outp.push(new AspInput(tempRules,input))
+            outp[element.stringify()] = (new AspInput(tempRules,input))
         });
 
         return outp;
     }
+
+    public assert(outputs: { [id: string]: Output; }): string[] {
+        let ret : string []= [] 
+        Object.entries(outputs).forEach((o) => {
+            if(o[1].answers.length != 0) 
+            ret.push(`the atom ${o[0]} does not appear in every answer set (${o[1].answers.length} without it).`) })
+        return ret;
+    }
+
 
     public constructor(
         public atoms: Atom[]
@@ -33,8 +41,4 @@ export class TrueInAll extends Assert {
         return new preConditions(["EVERY_ATOM_CONSTRAINT"], "-n0", true);
     }
 
-    public assert(outputs: [Output]): string[] {
-        return (outputs.every((o) => o.answers.length === 0)) ? 
-        [] : ["the atom <inserire atomo> has numero di apparizioni differente tanto l'out lo modifico dai"];
-    }
 }

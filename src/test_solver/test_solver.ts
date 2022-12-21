@@ -22,28 +22,20 @@ export class TestSolver {
 
         test.assert.forEach((s, index) => {
             
-
-            //modello in input ...
-
-            //metodo stringify nel asp_input! 
-            let rules : string = test.scope.join('\n')
-            let input : string = test.input.map(a => a.stringify()).join('\n')
-            let to_write = `${rules}\n${input}`;
-
-            let outModels : Output[] = []
+            let outModels : {[id: string] : Output} = {}
 
             let options = s.preConditions()?.options ?? "";
 
 
             //itero su ogni Set di input generato dal fullfilRequirements ...
-            s.fullfilRequirements(test.rules(),test.input).forEach( (ob : AspInput, index) =>{
+            Object.entries(s.fullfilRequirements(test.rules(),test.input)).forEach( (ob, index) =>{
                 // run di asp ...
 
                 let TEMP_FILE_PATH = `temp${index}.txt`;
 
-                writeFile(TEMP_FILE_PATH, ob.stringify(), 'w');
+                writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
 
-                outModels[index] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
+                outModels[ob[0]] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
 
                 removeFile(TEMP_FILE_PATH)
             }

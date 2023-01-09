@@ -1,37 +1,44 @@
 %**@fixture(atoms){
-	"input" : "node(3) edge(1,2) edge(1,3) edge(2,3)"
+	"input" : " node(3) edge(1,2) edge(1,3) edge(2,3)"
    }
 **%
 
-%**@test(atoms){
+%**@fixture(asserts){
+	"assert" : [
+	"@trueInExactly{ 'number' : 2, 'atoms' : 'col(1,red)' }"  
+	]
+   }
+**%
+
+%**@test{
 	"name" : "Test1",
 	"scope" : [ "ToTest" ],
 	"input" : "node(1) node(2)",
-	"assert" : [
-	"@trueInExactly{ 'number' : 2, 'atoms' : 'col(1,red)' }"  
-	],
-	"file" : "assets/input2.asp"
+	"file" : "assets/input2.asp",
+	"fixtures" : ["atoms","asserts"]
    }
 **%
 
-%**@test(atoms){
+%**@test{
 	"name" : "Test2",
 	"scope" : [ "ToTest" ],
 	"input" : "node(1) node(2)",
 	"assert" : [
 	"@trueInExactly{ 'number' : 1, 'atoms' : 'col(1,red) col(2,blue)' }"  
 	],
-	"file" : "assets/input2.asp"
+	"file" : "assets/input2.asp",
+	"fixtures" : ["atoms"]
    }
 **%
 
-%**@test(atoms){
+%**@test{
 	"name" : "Test3",
 	"scope" : [ "ToTest" ],
 	"input" : "node(1) node(2)",
 	"assert" : [
 	"@noAnswerSet{}"  
 	],
-	"file" : "assets/input2.asp"
+	"file" : "assets/input2.asp",
+	"fixtures" : ["atoms"]
    }
 **%

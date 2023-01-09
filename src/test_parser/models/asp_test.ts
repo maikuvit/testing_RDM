@@ -7,7 +7,6 @@ import { Rule } from "../../input_parser/models/rule"
 export class AspTest {
 
     public inputFile?: Input
-    public fixture?: string
 
     constructor(
         public name: string,
@@ -15,12 +14,8 @@ export class AspTest {
         public input: Atom[],
         public assert: Assert[],
         public file: string,) {
-    
+            this.inputFile = InputParser.parse_input_file(this.file);
         }
-
-    public startParsing(){
-        this.inputFile = InputParser.parse_input_file(this.file);
-    }
 
     private static extractRules(scope: string[], input: Input, file: string): Rule[] {
         let rules: Rule[] = []

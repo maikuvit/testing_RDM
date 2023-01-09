@@ -4,12 +4,13 @@
    }
 **%
 
-%**@test(atoms){
+%**@test{
 	"name" : "Test3",
 	"scope" : [ "ToTest" ],
 	"assert" : [
 	"@noAnswerSet{}"  
 	],
-	"file" : "demo/input2.asp"
+	"file" : "demo/input2.asp",
+	"fixtures" : ["atoms"]
    }
 **%

@@ -3,12 +3,13 @@
    }
 **%
 
-%**@test(atoms){
+%**@test{
 	"name" : "Test1",
 	"scope" : [ "ToTest" ],
 	"assert" : [
 	"@trueInExactly{ 'number' : 1, 'atoms' : 'col(1,red) col(2,blue)' }"  
 	],
-	"file" : "demo/input2.asp"
+	"file" : "demo/input2.asp",
+	"fixtures" : ["atoms"]
    }
 **%

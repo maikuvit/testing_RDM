@@ -8,9 +8,7 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 export class ConstraintInAll extends Assert {
     public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
-        
 
-        console.log(this.constraints)
         let outp : { [id: string]: AspInput; } = {}
 
         let stringRules : string[] = []
@@ -18,9 +16,10 @@ export class ConstraintInAll extends Assert {
         rules.forEach((r) => stringRules.push(r.content))
 
         this.constraints.forEach(element => {
+            if(element == '') return
             let tempRules : string[]= stringRules
-            tempRules.push(`constrAux :- ${element}`)
-            tempRules.push(":- not constrAux.")
+            tempRules.push(`constrAux(1) :- ${element}.`)
+            tempRules.push(":- not constrAux(1).")
             outp[element] = (new AspInput(tempRules,input))
         });
 

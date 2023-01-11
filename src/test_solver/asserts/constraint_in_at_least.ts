@@ -9,8 +9,6 @@ import { AspInput } from "../../test_parser/models/asp_input";
 export class ConstraintInAtLeast extends Assert {
     public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
         
-
-        console.log(this.constraints)
         let outp : { [id: string]: AspInput; } = {}
 
         let stringRules : string[] = []
@@ -18,9 +16,10 @@ export class ConstraintInAtLeast extends Assert {
         rules.forEach((r) => stringRules.push(r.content))
 
         this.constraints.forEach(element => {
+            if(element == '') return
             let tempRules : string[]= stringRules
-            tempRules.push(`constrAux :- ${element}`)
-            tempRules.push(":- not constrAux.")
+            tempRules.push(`constrAux(1) :- ${element}.`)
+            tempRules.push(":- not constrAux(1).")
             outp[element] = (new AspInput(tempRules,input))
         });
 
@@ -30,7 +29,7 @@ export class ConstraintInAtLeast extends Assert {
     public assert(outputs: { [id: string]: Output; }): string[] {
         let ret : string []= [] 
         Object.entries(outputs).forEach((o) => {
-            if(o[1].answers.length <= this.number) 
+            if(o[1].answers.length < this.number) 
             ret.push(`the constraint ${o[0]} is not satisfied in at least ${this.number} answer set (${o[1].answers.length}).`) })
         return ret;
     }

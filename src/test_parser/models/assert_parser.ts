@@ -27,7 +27,7 @@ export class AssertParser extends Parser {
     }
 
     public static override get regex(): RegExp {
-        return /(@\w+)\s*(\{[a-z :0-9,().'\[\]]*\})/gm
+        return /(@\w+)\s*(\{[-a-z :0-9,().'\[\]]*\})/gm
     }
 
     protected static override tranform(match: RegExpMatchArray): Assert[] {

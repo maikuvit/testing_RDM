@@ -33,7 +33,7 @@ export class AssertParser extends Parser {
     protected static override tranform(match: RegExpMatchArray): Assert[] {
         let assertions: Assert[] = []
         for (let i = 0; i < match.length; i++) {
-            let groups = match[i].match(/(@\w+)\s*(\{[a-z :0-9,().'\[\]]*\})/m)
+            let groups = match[i].match(/(@\w+)\s*(\{[-a-z :0-9,().'\[\]]*\})/m)
             if (groups !== null) {
                 let convertedString = groups[2].replace(/'/g, '"')
                 let assertion = AssertParser.assertion(groups[1], JSON.parse(convertedString))

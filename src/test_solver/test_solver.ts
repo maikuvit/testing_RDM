@@ -37,7 +37,7 @@ export class TestSolver {
 
                 outModels[ob[0]] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
 
-                //removeFile(TEMP_FILE_PATH)
+                removeFile(TEMP_FILE_PATH)
             }
             )
             let asserted = s.assert(outModels) 

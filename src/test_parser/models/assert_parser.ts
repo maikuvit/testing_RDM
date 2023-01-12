@@ -1,7 +1,6 @@
 import { Assert } from "../../common/interfaces/assert"
 import { Parser } from "../../common/interfaces/parser"
 import { Atom } from "../../dlv_output_parser/models/atom"
-import { Rule } from "../../input_parser/models/rule"
 import { ConstraintInAll } from "../../test_solver/asserts/constraint_in_all"
 import { ConstraintInAtLeast } from "../../test_solver/asserts/constraint_in_at_least"
 import { ConstraintInAtMost } from "../../test_solver/asserts/constraint_in_at_most"

@@ -8,7 +8,7 @@ import { AspInput } from "../../test_parser/models/asp_input";
 export class NoAnswerSet extends Assert {
     public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
         let tempRules: string[] = []
-        rules.forEach((r) => tempRules.push(r.content) )
+        rules.forEach((r) => tempRules.push(r.content.stringify()) )
         return {"0" : new AspInput(tempRules, input)};
     }
     public assert(outputs: { [id: string]: Output; }): string[] {

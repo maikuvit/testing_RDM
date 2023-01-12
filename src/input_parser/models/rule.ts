@@ -1,10 +1,11 @@
 import { Annotation } from "../../common/interfaces/annotation"
+import { AspRule } from "./asp_rule"
 
 export class Rule extends Annotation {
 
     constructor(
         public labels: Set<string>,
-        public content: string) {
+        public content: AspRule) {
         super()
     }
 
@@ -15,7 +16,8 @@ export class Rule extends Annotation {
     protected static override tranform(match: RegExpMatchArray): Rule {
         let labels = new Set<string>(match[2].split(','))
         let content: string = match[3]
-        return new Rule(labels, content)
+        let asp_rule = new AspRule(content)
+        return new Rule(labels, asp_rule)
     }
 
     public stringify(): string {

@@ -12,7 +12,7 @@ export class TrueInAtMost extends Assert {
 
         let stringRules : string[] = []
 
-        rules.forEach((r) => stringRules.push(r.content))
+        rules.forEach((r) => stringRules.push(r.content.stringify()))
 
         this.atoms.forEach(element => {
             let tempRules : string[]= stringRules

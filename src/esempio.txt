@@ -1,3 +1,0 @@
-:- a(1).
-asasas :- a(1).
-:- not asasas.

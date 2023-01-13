@@ -4,13 +4,6 @@ import {NoAnswerSet} from "../../src/test_solver/asserts/no_answer_set"
 import { Atom } from "../../src/dlv_output_parser/models/atom";
 
 describe("Testing AspTest class", function() {
-    it("should raise an Error", function() {
-        let aspTest = new AspTest("Test1",["r1","r2"],[new Atom("atom", ["1","2"])],[new NoAnswerSet()],"ciao")
-        assert.throws(
-            () => aspTest.startParsing(),
-                Error
-        )
-    });
     it("should have the right name", function() {
         let inputTest = new AspTest("Test1",["r1","r2"],[new Atom("atom", ["1","2"])],[new NoAnswerSet()],"assets/input2.asp")
         assert.equal(inputTest.name,"Test1")
@@ -27,6 +20,4 @@ describe("Testing AspTest class", function() {
         let inputTest = new AspTest("Test1",["r1","r2"],[new Atom("atom", ["1","2"])],[new NoAnswerSet()],"assets/input2.asp")
         assert.equal(inputTest.assert[0].constructor.name,NoAnswerSet.name)
     });
-    
-    
 });

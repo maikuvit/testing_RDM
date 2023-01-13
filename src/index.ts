@@ -4,12 +4,11 @@ import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
 import { Config } from "./common/config";
-import { DLV2ProcessExecutor } from "./test_solver/exec/dlv2_process_executor";
+import { ProcessExecutor } from "./test_solver/process_executor";
 import { TestSolver } from "./test_solver/test_solver";
 import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile } from "./common/file_handler";
 import path from "path";
-import { Input } from "./input_parser/models/input";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -33,22 +32,15 @@ program
   .command("invoke")
   .description("Invoke solver for input file")
   .argument("<path>", "Path to file")
-  .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2']).makeOptionMandatory())
+  .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2','clingo']).makeOptionMandatory())
   .option('-o, --extra [extras...]', 'specify extra solver options (without hyphen)')
   .action((path, options) => {
+    let solver : 'dlv2' | 'clingo' = options.solver!;
     let extras = (options?.extra as string[])?.map(o => `-${o}`).join(' ') ?? "";
-    let output = DLV2ProcessExecutor.exec_solver(path, extras);
+    let output = ProcessExecutor.exec_solver(path, extras, solver);
     console.log(output);
     console.log(output.stringify());
   });
-
-program
-  .command("reset")
-  .description("Reset config file to original")
-  .action(() => {
-    Config.reset()
-  });
-
 
 program
   .command("test")
@@ -66,8 +58,7 @@ program
     filePaths.forEach(path => {
       let test_wrapper = TestParser.parse_test_file(path);
       test_wrapper.tests.forEach(test => {
-        console.log(path,TestSolver.solve(test))
-        //console.log(test)
+        console.log(path, TestSolver.solve(test))
       });
     })
   });

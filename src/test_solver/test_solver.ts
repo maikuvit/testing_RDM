@@ -2,14 +2,14 @@ import { removeFile, writeFile } from "../common/file_handler";
 import { Output } from "../dlv_output_parser/models/output";
 import { AspInput } from "../test_parser/models/asp_input";
 import { AspTest } from "../test_parser/models/asp_test";
-import { DLV2ProcessExecutor } from "./exec/dlv2_process_executor";
+import { ProcessExecutor } from "./process_executor";
 
 // ----maiku---- //
 
 
 export class TestSolver {
 
-    public static solve(test: AspTest): { [id: string]: string[] | boolean; } {
+    public static solve(test: AspTest, solver : 'dlv2' | 'clingo'): { [id: string]: string[] | boolean; } {
 
         var out: { [id: string]: string[] | boolean } = {};
         
@@ -35,7 +35,7 @@ export class TestSolver {
 
                 writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
 
-                outModels[ob[0]] = DLV2ProcessExecutor.exec_solver(TEMP_FILE_PATH, options)
+                outModels[ob[0]] = ProcessExecutor.exec_solver(TEMP_FILE_PATH, options, solver)
 
                 removeFile(TEMP_FILE_PATH)
             }

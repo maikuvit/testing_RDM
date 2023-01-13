@@ -9,6 +9,7 @@ import { TestSolver } from "./test_solver/test_solver";
 import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile } from "./common/file_handler";
 import path from "path";
+import { execSync } from "child_process";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -46,21 +47,26 @@ program
   .command("test")
   .description("Solve all tests contained in a folder/file")
   .argument("<path>", "Path to folder/file")
-  .action((_path) => {
+  .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2','clingo']).makeOptionMandatory())
+  .action((path, options) => {
+    let solver : 'dlv2' | 'clingo' = options.solver!;
     let filePaths: string[] = [];
-    if (!checkPathExist(_path))
-      throw new Error(`${_path} does not exists`)
-    if (isPathFile(_path))
-      filePaths = [_path]
-    if (isPathDirectory(_path))
-      filePaths = getDirContent(_path).map(c => path.join(_path, c));
+    if (!checkPathExist(path))
+      throw new Error(`${path} does not exists`)
+    if (isPathFile(path))
+      filePaths = [path]
+    if (isPathDirectory(path))
+      filePaths = getDirContent(path).map(c => path.join(path, c));
 
     filePaths.forEach(path => {
       let test_wrapper = TestParser.parse_test_file(path);
       test_wrapper.tests.forEach(test => {
-        console.log(path, TestSolver.solve(test))
+        console.log(path, TestSolver.solve(test, solver))
       });
     })
   });
 
 program.parse(process.argv);
+
+
+console.log(execSync("bin\\clingo_windows.exe demo\\input2.asp").toString())

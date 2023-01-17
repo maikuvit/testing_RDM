@@ -28,14 +28,14 @@ export class TestSolver {
 
 
             //itero su ogni Set di input generato dal fullfilRequirements ...
-            Object.entries(s.fullfilRequirements(test.rules(),test.input)).forEach( (ob, index) =>{
+            Object.entries(s.fullfilRequirements(test.rules(),test.input)).forEach( async (ob, index) =>{
                 // run di asp ...
 
                 let TEMP_FILE_PATH = `temp${index}.txt`;
 
                 writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
 
-                outModels[ob[0]] = ProcessExecutor.exec_solver(TEMP_FILE_PATH, options, solver)
+                outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, options, solver)
 
                 removeFile(TEMP_FILE_PATH)
             }

@@ -1,5 +1,6 @@
 
-import { execSync } from "child_process";
+import { exec, execSync } from "child_process";
+import { promisify } from "util";
 import { ClingoOutputMapper } from "../common/clingo_output_mapper";
 import { Config } from "../common/config";
 import { checkPathExist } from "../common/file_handler";
@@ -8,7 +9,7 @@ import { Output } from "../dlv_output_parser/models/output";
 
 export class ProcessExecutor {
 
-    public static exec_solver(InputFilePath: string, options: string, solver : 'dlv2' | 'clingo'): Output {
+    public static async exec_solver(InputFilePath: string, options: string, solver : 'dlv2' | 'clingo'): Promise<Output> {
 
         if (!checkPathExist(Config.getExePath(solver)))
             throw new Error("Could not find the path to the exe")
@@ -17,15 +18,25 @@ export class ProcessExecutor {
             throw new Error("Could not find the generated input file")
 
         let cmdString = `${Config.getExePath(solver)} ${InputFilePath} `;
-
+        
         if (options)
             cmdString = cmdString.concat(options);
 
         console.log(cmdString);
 
-        let out = execSync(cmdString);
-        let raw_output = solver == 'dlv2' ? out.toString() : ClingoOutputMapper.toDlv(out.toString());
+        let raw_output = await this.execPromise(cmdString);
+        let output = solver == 'dlv2' ? raw_output.toString() : ClingoOutputMapper.toDlv(raw_output.toString());
 
-        return DlvOutputParser.parse(raw_output);
+        return DlvOutputParser.parse(output);
+
     }
+
+    static execPromise(cmdString : string){
+        return new Promise<string>((resolve, reject) => {
+            exec(cmdString, (error, stdout, stderr) => {
+                resolve(stdout)
+            })
+        })
+    }
+
 }

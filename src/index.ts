@@ -3,13 +3,11 @@
 import * as figlet from "figlet";
 import { Command, Option } from "commander";
 import { DlvOutputParser } from "./dlv_output_parser/dlv_output_parser";
-import { Config } from "./common/config";
 import { ProcessExecutor } from "./test_solver/process_executor";
 import { TestSolver } from "./test_solver/test_solver";
 import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile } from "./common/file_handler";
-import path from "path";
-import { execSync } from "child_process";
+import { exec } from "child_process";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -35,10 +33,10 @@ program
   .argument("<path>", "Path to file")
   .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2','clingo']).makeOptionMandatory())
   .option('-o, --extra [extras...]', 'specify extra solver options (without hyphen)')
-  .action((path, options) => {
+  .action(async (path, options) => {
     let solver : 'dlv2' | 'clingo' = options.solver!;
-    let extras = (options?.extra as string[])?.map(o => `-${o}`).join(' ') ?? "";
-    let output = ProcessExecutor.exec_solver(path, extras, solver);
+    let extras = new Array(...new Set((solver === 'clingo' ? ['V0'] : []).concat(options?.extra as string[] || [])))?.map(o => `-${o}`).join(' ') ?? "";
+    let output = await ProcessExecutor.exec_solver(path, extras, solver);
     console.log(output);
     console.log(output.stringify());
   });
@@ -67,6 +65,3 @@ program
   });
 
 program.parse(process.argv);
-
-
-console.log(execSync("bin\\clingo_windows.exe demo\\input2.asp").toString())

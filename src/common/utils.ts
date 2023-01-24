@@ -35,3 +35,8 @@ export function arrayContainsAll<T>(array : T[], values : T[]) : boolean {
 export function throwExpression(errorMessage: string): never {
     throw new Error(errorMessage);
   }
+
+export function addDefaultExtrasForSolver(extras: string[], solver : 'dlv2' | 'clingo') : string{
+    let def : string[] = solver === 'dlv2' ? ['silent'] : ['V0'];
+    return new Array(new Set(extras.concat(def))).map(o => `-${o}`).join(' ')
+}

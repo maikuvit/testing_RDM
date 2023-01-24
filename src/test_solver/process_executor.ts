@@ -18,14 +18,15 @@ export class ProcessExecutor {
             throw new Error("Could not find the generated input file")
 
         let cmdString = `${Config.getExePath(solver)} ${InputFilePath} `;
-        
+
         if (options)
             cmdString = cmdString.concat(options);
 
-        console.log(cmdString);
+        let raw_output = (await this.execPromise(cmdString)).toString();
+        let output = solver == 'dlv2' ? raw_output : ClingoOutputMapper.toDlv(raw_output);
 
-        let raw_output = await this.execPromise(cmdString);
-        let output = solver == 'dlv2' ? raw_output.toString() : ClingoOutputMapper.toDlv(raw_output.toString());
+        console.log('output:\n', output);
+        
 
         return DlvOutputParser.parse(output);
 

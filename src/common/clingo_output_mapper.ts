@@ -1,14 +1,24 @@
 export class ClingoOutputMapper{
     static toDlv(raw : string) : string {
-        return raw;
-        return "\
-        DLV 2.1.2\
-        {col(1,green), col(2,blue), col(3,red), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        {col(1,green), col(2,red), col(3,blue), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        {col(1,blue), col(2,green), col(3,red), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        {col(1,red), col(2,green), col(3,blue), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        {col(1,red), col(2,blue), col(3,green), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        {col(1,blue), col(2,red), col(3,green), edge(1,2), edge(1,3), edge(2,3), node(1), node(2), node(3)}\
-        "
+        raw = raw.replace("UNSATISFIABLE", "INCOHERENT");
+        raw = raw.replace("SATISFIABLE", "");
+        raw = raw.replace("OPTIMUM FOUND", "OPTIMUM");
+        raw = raw.replace("Optimization:", "COST");
+
+        let costs = raw.match(/COST\s((?:\d+ *)*)/)
+        if (costs) {
+            let raw_costs = costs[1].trim();
+            let clingo_costs = raw_costs.split(' ');
+            let dlv_costs = clingo_costs.map((weight : string, index: number) => `${weight}@${clingo_costs.length-index}`)
+            raw = raw.replace(/COST\s((?:\d+ *)*)/, `COST ${dlv_costs.join(' ')}`);
+        }
+
+        let lines = raw.split('\n').map(line => line.trim());
+        lines = lines.map(line => {
+            let match = line.match(/^(?:[a-z]\w*\(\w+(?:,\w+)*\) *)+$/)
+            return match ? `{${line.replaceAll(' ', ', ')}}` : line 
+        })
+
+        return lines.join('\n');
     }
 }

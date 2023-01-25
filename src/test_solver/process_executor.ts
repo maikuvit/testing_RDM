@@ -17,19 +17,15 @@ export class ProcessExecutor {
         if (!checkPathExist(InputFilePath))
             throw new Error("Could not find the generated input file")
 
-
         // se sono in clingo aggiungo -V0
         // se servono run multiple aggiungo l'opzione in base al solver
-        let cmdString = `${Config.getExePath(solver)} 
-        ${solver == 'clingo' ? " -V0 " : ""}
-        ${AllAnswerSets == true ? (solver == "dlv2" ? " -n0 ": " --models=0 ") : ""} 
-        ${InputFilePath} `; 
+        let exePath = Config.getExePath(solver);
+        let defaultOpt = solver === 'clingo' ? "-V0 " : "--silent"
+        let allAnswersets = AllAnswerSets == true ? (solver == "dlv2" ? "-n0 ": "--models=0 ") : ""
+        let cmdString = `${exePath} ${InputFilePath} ${defaultOpt} ${allAnswersets}`; 
 
         let raw_output = (await this.execPromise(cmdString)).toString();
         let output = solver == 'dlv2' ? raw_output : ClingoOutputMapper.toDlv(raw_output);
-
-        console.log('output:\n', output);
-        
 
         return DlvOutputParser.parse(output);
 

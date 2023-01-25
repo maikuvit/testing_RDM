@@ -23,7 +23,7 @@ export class ProcessExecutor {
         let defaultOpt = solver === 'clingo' ? "-V0 " : "--silent"
         let allAnswersets = AllAnswerSets == true ? (solver == "dlv2" ? "-n0 ": "--models=0 ") : ""
         let cmdString = `${exePath} ${InputFilePath} ${defaultOpt} ${allAnswersets}`; 
-
+        console.log(cmdString)
         let raw_output = (await this.execPromise(cmdString)).toString();
         let output = solver == 'dlv2' ? raw_output : ClingoOutputMapper.toDlv(raw_output);
 

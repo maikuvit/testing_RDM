@@ -45,7 +45,7 @@ program
   .description("Solve all tests contained in a folder/file")
   .argument("<path>", "Path to folder/file")
   .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2', 'clingo']).makeOptionMandatory())
-  .action((_path, options) => {
+  .action(async (_path, options) => {
     let solver: 'dlv2' | 'clingo' = options.solver!;
     let filePaths: string[] = [];
     if (!checkPathExist(_path))
@@ -54,14 +54,17 @@ program
       filePaths = [_path]
     if (isPathDirectory(_path))
       filePaths = getDirContent(_path).map(c => path.join(_path, c));
-
-    filePaths.forEach(path => {
+    for (let k = 0; k < filePaths.length; k++) {
+      let path = filePaths[k]
       let test_wrapper = TestParser.parse_test_file(path);
-      test_wrapper.tests.forEach(async test => {
+      for (let i = 0; i < test_wrapper.tests.length; i++) {
+        let test = test_wrapper.tests[i]
+        //console.log(test.input)
         console.log(path, await TestSolver.solve(test, solver))
-      });
-    })
+      }
+    }
   });
+
 
 // program
 //   .command("test_clingo")

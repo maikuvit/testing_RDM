@@ -1,6 +1,5 @@
 import { removeFile, writeFile } from "../common/file_handler";
 import { Output } from "../dlv_output_parser/models/output";
-import { AspInput } from "../test_parser/models/asp_input";
 import { AspTest } from "../test_parser/models/asp_test";
 import { ProcessExecutor } from "./process_executor";
 
@@ -24,8 +23,6 @@ export class TestSolver {
             
             let outModels : {[id: string] : Output} = {}
 
-            let options = s.preConditions()?.options ?? "";
-
 
             //itero su ogni Set di input generato dal fullfilRequirements ...
             Object.entries(s.fullfilRequirements(test.rules(),test.input)).forEach( async (ob, index) =>{
@@ -35,7 +32,7 @@ export class TestSolver {
 
                 writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
 
-                outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, options, solver)
+                outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, s.preConditions().AllAnswerSets, solver)
 
                 removeFile(TEMP_FILE_PATH)
             }

@@ -2,14 +2,14 @@
 export class preConditions{
     inputConditions !: [string];
     options!: string;
-    requireMultiRun !: boolean;
+    AllAnswerSets !: boolean;
 
     constructor(inputConditions : [string] = [""],
                 options : string = "",
-                requireMultiRun :boolean = false){
+                AllAnswerSets :boolean = false){
         this.inputConditions = inputConditions
         this.options = options
-        this.requireMultiRun = requireMultiRun
+        this.AllAnswerSets = AllAnswerSets
     }
 
 }

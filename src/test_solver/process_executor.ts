@@ -9,7 +9,7 @@ import { Output } from "../dlv_output_parser/models/output";
 
 export class ProcessExecutor {
 
-    public static async exec_solver(InputFilePath: string, options: string, solver : 'dlv2' | 'clingo'): Promise<Output> {
+    public static async exec_solver(InputFilePath: string , AllAnswerSets : boolean, solver : 'dlv2' | 'clingo'): Promise<Output> {
 
         if (!checkPathExist(Config.getExePath(solver)))
             throw new Error("Could not find the path to the exe")
@@ -17,10 +17,13 @@ export class ProcessExecutor {
         if (!checkPathExist(InputFilePath))
             throw new Error("Could not find the generated input file")
 
-        let cmdString = `${Config.getExePath(solver)} ${InputFilePath} `;
 
-        if (options)
-            cmdString = cmdString.concat(options);
+        // se sono in clingo aggiungo -V0
+        // se servono run multiple aggiungo l'opzione in base al solver
+        let cmdString = `${Config.getExePath(solver)} 
+        ${solver == 'clingo' ? " -V0 " : ""}
+        ${AllAnswerSets == true ? (solver == "dlv2" ? " -n0 ": " --models=0 ") : ""} 
+        ${InputFilePath} `; 
 
         let raw_output = (await this.execPromise(cmdString)).toString();
         let output = solver == 'dlv2' ? raw_output : ClingoOutputMapper.toDlv(raw_output);

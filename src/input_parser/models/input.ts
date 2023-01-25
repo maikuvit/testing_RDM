@@ -20,7 +20,11 @@ export class Input extends Annotation {
         throw new Error(`sintax error: annotation ` + matches[i]);
       }
       let rule: Rule = Rule.parse(matches[i]) as Rule;
-      annotations.add(rule, rule.labels);
+      let content_labels = []
+      for (let label of rule.labels) {
+        content_labels.push(label.stringify())
+      }
+      annotations.add(rule, new Set<string>(content_labels));
     }
 
     return new Input(annotations);

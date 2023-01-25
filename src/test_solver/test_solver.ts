@@ -8,38 +8,24 @@ import { ProcessExecutor } from "./process_executor";
 
 export class TestSolver {
 
-    public static solve(test: AspTest, solver : 'dlv2' | 'clingo'): { [id: string]: string[] | boolean; } {
+    public static async solve(asptest: AspTest, solver: 'dlv2' | 'clingo'): Promise<{ [id: string]: string[] | boolean; }> {
 
         var out: { [id: string]: string[] | boolean } = {};
-        
-        //cambiamento da fare: si scrive su file non in base allo scope del test,
-        //ma ai modelli prodotti dalle assert. Metodo public dell'interface assert ...
 
-        
-        //per ogni assert genero i modelli di input, lo scrivo su un file ...
-        // scrivo su file ogni modello e runno, poi verifico che ogni assert abbia true su tutti i modelli ...
-
-        test.assert.forEach((s, index) => {
-            
-            let outModels : {[id: string] : Output} = {}
-
-
-            //itero su ogni Set di input generato dal fullfilRequirements ...
-            Object.entries(s.fullfilRequirements(test.rules(),test.input)).forEach( async (ob, index) =>{
-                // run di asp ...
-
-                let TEMP_FILE_PATH = `temp${index}.txt`;
-
+        for (let i = 0; i < asptest.assert.length; i++) {
+            const assert = asptest.assert[i];
+            let outModels: { [id: string]: Output } = {}
+            let nestedArray = Object.entries(assert.fullfilRequirements(asptest.rules(), asptest.input))
+            for (let j = 0; j < nestedArray.length; j++) {
+                const ob = nestedArray[j];
+                let TEMP_FILE_PATH = `temp${j}.txt`;
                 writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
-
-                outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, s.preConditions().AllAnswerSets, solver)
-
+                outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, assert.preConditions().AllAnswerSets, solver)
                 removeFile(TEMP_FILE_PATH)
             }
-            )
-            let asserted = s.assert(outModels) 
-            out[(s as any).constructor.name] = asserted.length != 0 ? asserted : true 
-        })
+            let asserted = assert.assert(outModels)
+            out[(assert as any).constructor.name] = asserted.length != 0 ? asserted : true
+        }
 
         return out;
     }

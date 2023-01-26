@@ -2,8 +2,9 @@ import { Label } from "../domain_primitives/label"
 import { Rule } from "../domain_primitives/rule"
 
 export class SharedMap {
-    constructor(
-        private rulesByLabel: Map<string, Set<Rule>>) {
+    private rulesByLabel: Map<string, Set<Rule>>
+    constructor() {
+        this.rulesByLabel = new Map<string, Set<Rule>>()
     }
 
     public addRuleToLabels(rule: Rule, labels: Set<Label>){

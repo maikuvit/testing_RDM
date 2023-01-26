@@ -12,7 +12,7 @@ export class Input extends Annotation {
   }
 
   protected static tranform(matches: RegExpMatchArray): Input {
-    let annotations: SharedMap = new SharedMap(new Map<string, Set<Rule>>());
+    let annotations: SharedMap = new SharedMap();
     for (let i = 0; i < matches.length; i++) {
       //if the element doesn't match the rule regex it means
       //that there is a @rule annotation that contains sintax errors

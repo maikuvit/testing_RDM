@@ -2,9 +2,9 @@ import { Atom } from "../../dlv_output_parser/models/atom"
 import { Input } from "../../input_parser/models/input"
 import { Assert } from "../../common/interfaces/assert"
 import { InputParser } from "../../input_parser/input_parser"
-import { Rule } from "../../input_parser/models/rule"
+import { Rule } from "../../input_parser/domain_primitives/rule"
 import { TestName } from "../domain_primitives/test_name"
-import { Label } from "../../input_parser/models/label"
+import { Label } from "../../input_parser/domain_primitives/label"
 import { GenericPath } from "../domain_primitives/generic_path"
 
 export class AspTest {

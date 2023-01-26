@@ -1,5 +1,5 @@
-import { Label } from "./label"
-import { Rule } from "./rule"
+import { Label } from "../domain_primitives/label"
+import { Rule } from "../domain_primitives/rule"
 
 export class SharedMap {
     constructor(

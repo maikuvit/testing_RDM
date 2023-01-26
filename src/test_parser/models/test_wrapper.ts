@@ -5,7 +5,7 @@ import { AssertParser } from "./assert_parser";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Assert } from "../../common/interfaces/assert";
 import { TestName } from "../domain_primitives/test_name";
-import { Label } from "../../input_parser/models/label";
+import { Label } from "../../input_parser/domain_primitives/label";
 import { GenericPath } from "../domain_primitives/generic_path";
 
 interface DataToParse {

@@ -1,11 +1,20 @@
+import { Label } from "./label"
 import { Rule } from "./rule"
 
 export class SharedMap {
     constructor(
-        public rulesByLabel: Map<string, Set<Rule>>) {
+        private rulesByLabel: Map<string, Set<Rule>>) {
     }
 
-    public add(rule: Rule, labels: Set<string>) {
+    public addRuleToLabels(rule: Rule, labels: Set<Label>){
+        let raw_labels:string[] = []
+        for (let label of labels) {
+            raw_labels.push(label.stringify())
+        }
+        this.add(rule,new Set<string>(raw_labels))
+    }
+
+    private add(rule: Rule, labels: Set<string>) {
         if (labels.size == 0) {
             throw new Error(`A rule must have at least one label`)
         }
@@ -23,11 +32,11 @@ export class SharedMap {
 
     }
 
-    public has(key: string): boolean {
-        return this.rulesByLabel.has(key)
+    public has(key: Label): boolean {
+        return this.rulesByLabel.has(key.stringify())
     }
 
-    public get(key: string): Set<Rule> | undefined {
-        return this.rulesByLabel.get(key)
+    public get(key: Label): Set<Rule> | undefined {
+        return this.rulesByLabel.get(key.stringify())
     }
 }

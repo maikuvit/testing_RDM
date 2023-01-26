@@ -4,6 +4,9 @@ import { Annotation } from "../../common/interfaces/annotation";
 import { AssertParser } from "./assert_parser";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Assert } from "../../common/interfaces/assert";
+import { TestName } from "../domain_primitives/test_name";
+import { Label } from "../../input_parser/models/label";
+import { GenericPath } from "../domain_primitives/generic_path";
 
 interface DataToParse {
     name?: string;
@@ -86,12 +89,16 @@ export class TestWrapper extends Annotation {
                 throw new Error(`missing required property '${property}'`)
             }
         }
-        let testName = test_to_be_validated.name ?? ""
-        let testScope = test_to_be_validated.scope ?? []
+        let raw_testName = test_to_be_validated.name ?? ""
+        let raw_testScope = test_to_be_validated.scope ?? []
+        let testScope:Label[] = []
+        raw_testScope.forEach(raw_label => {
+            testScope.push(new Label(raw_label))
+        });
         let parserd_input:Atom[] = test_to_be_validated.input ? (test_to_be_validated.input.length > 0 ? (test_to_be_validated.input.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []) : []) : []
         let parsed_assert:Assert[] = test_to_be_validated.assert ? (test_to_be_validated.assert.length > 0 ? AssertParser.parse(test_to_be_validated.assert.toString()) : []) : []
         let testFile = test_to_be_validated.file ?? ""
-        return new AspTest(testName,testScope,parserd_input,parsed_assert,testFile)
+        return new AspTest(new TestName(raw_testName),testScope,parserd_input,parsed_assert,new GenericPath(testFile))
     }
 
     private static json_parse(json: string): DataToParse {

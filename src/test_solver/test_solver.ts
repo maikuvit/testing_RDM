@@ -24,7 +24,7 @@ export class TestSolver {
                 let TEMP_FILE_PATH = `temp${i}${j}.txt`;
                 writeFile(TEMP_FILE_PATH, ob[1].stringify(), 'w');
                 outModels[ob[0]] = await ProcessExecutor.exec_solver(TEMP_FILE_PATH, assert.preConditions().AllAnswerSets, solver)
-                //removeFile(TEMP_FILE_PATH)
+                removeFile(TEMP_FILE_PATH)
             }
             let asserted = assert.assert(outModels)
             out[`${i + 1}_${(assert as any).constructor.name}`] = asserted.length != 0 ? asserted : true

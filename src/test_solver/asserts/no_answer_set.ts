@@ -24,6 +24,6 @@ export class NoAnswerSet extends Assert {
     }
     
     public preConditions(): preConditions {
-        return new preConditions([""],"-n0");
+        return new preConditions([""],"-n0",true);
     }
 }

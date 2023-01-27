@@ -16,7 +16,7 @@ export class TrueInAtLeast extends Assert {
         rules.forEach((r) => stringRules.push(r.content.stringify()))
 
         this.atoms.forEach(element => {
-            let tempRules : string[]= stringRules
+            let tempRules : string[]= Object.assign([], stringRules);
             tempRules.push(`:- not ${element.stringify()}`)
             outp[element.stringify()] = (new AspInput(tempRules,input))
         });
@@ -34,7 +34,7 @@ export class TrueInAtLeast extends Assert {
 
 
     public preConditions(): preConditions {
-        return new preConditions([""],"-n0");
+        return new preConditions([""],"-n0",true);
     }
     
     public constructor(

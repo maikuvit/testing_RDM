@@ -16,7 +16,7 @@ export class TrueInAll extends Assert {
         rules.forEach((r) => stringRules.push(r.content.stringify()))
 
         this.atoms.forEach(element => {
-            let tempRules : string[]= stringRules
+            let tempRules : string[]= Object.assign([], stringRules);
             tempRules.push(`:- ${element.stringify()}`)
             outp[element.stringify()] = (new AspInput(tempRules,input))
         });

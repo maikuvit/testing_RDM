@@ -4,7 +4,7 @@ import { areArrayEqualNoOrder } from "../../common/utils";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Cost } from "../../dlv_output_parser/models/cost";
 import { Output } from "../../dlv_output_parser/models/output";
-import { Rule } from "../../input_parser/domain_primitives/rule";
+import { Rule } from "../../input_parser/models/rule";
 import { AspInput } from "../../test_parser/models/asp_input";
 
 export class BestModelCost extends Assert {

@@ -1,5 +1,5 @@
 import { Atom } from "../../dlv_output_parser/models/atom"
-import { Rule } from "../../input_parser/domain_primitives/rule"
+import { Rule } from "../../input_parser/models/rule"
 
 export class AspInput{
 

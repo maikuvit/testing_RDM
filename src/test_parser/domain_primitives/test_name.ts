@@ -13,7 +13,7 @@ export class TestName {
         if (raw_content.length >= TestName.min_size && raw_content.length <= TestName.max_size) {
             return raw_content
         }
-        throw new Error(`The name of the test must be a string between 1 and 100`)
+        throw new Error(`The name of the test must be a string between ${TestName.min_size} and ${TestName.max_size}`)
     }
 
     private validContent(content:string) : string{

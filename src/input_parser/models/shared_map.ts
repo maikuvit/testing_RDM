@@ -1,5 +1,5 @@
 import { Label } from "../domain_primitives/label"
-import { Rule } from "../domain_primitives/rule"
+import { Rule } from "./rule"
 
 export class SharedMap {
     private rulesByLabel: Map<string, Set<Rule>>

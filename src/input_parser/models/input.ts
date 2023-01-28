@@ -1,5 +1,5 @@
 import { Annotation } from "../../common/interfaces/annotation";
-import { Rule } from "../domain_primitives/rule";
+import { Rule } from "./rule";
 import { SharedMap } from "./shared_map";
 
 export class Input extends Annotation {

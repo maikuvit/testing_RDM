@@ -4,7 +4,7 @@ import { preConditions } from "../../common/pre_conditions";
 import { arrayContainsAll } from "../../common/utils";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Output } from "../../dlv_output_parser/models/output";
-import { Rule } from "../../input_parser/domain_primitives/rule";
+import { Rule } from "../../input_parser/models/rule";
 import { AspInput } from "../../test_parser/models/asp_input";
 
 export class TrueInExactly extends Assert {

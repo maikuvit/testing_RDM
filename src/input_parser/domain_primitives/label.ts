@@ -13,7 +13,7 @@ export class Label {
         if (raw_content.length >= Label.min_size && raw_content.length <= Label.max_size) {
             return raw_content
         }
-        throw new Error(`The label must be a string between 1 and 100`)
+        throw new Error(`The label must be a string between ${Label.min_size} and ${Label.max_size}`)
     }
 
     private validContent(content:string) : string{

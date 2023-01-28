@@ -1,6 +1,6 @@
 import { Annotation } from "../../common/interfaces/annotation"
-import { AspRule } from "../models/asp_rule"
-import { Label } from "./label"
+import { AspRule } from "../domain_primitives/asp_rule"
+import { Label } from "../domain_primitives/label"
 
 export class Rule extends Annotation {
 

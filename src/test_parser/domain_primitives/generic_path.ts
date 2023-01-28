@@ -14,7 +14,7 @@ export class GenericPath {
         if (raw_content.length >= GenericPath.min_size && raw_content.length <= GenericPath.max_size) {
             return raw_content
         }
-        throw new Error(`path must be a string between 1 and 100`)
+        throw new Error(`path must be a string between ${GenericPath.min_size} and ${GenericPath.max_size}`)
     }
 
     private validContent(content:string) : string{

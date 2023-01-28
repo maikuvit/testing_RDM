@@ -25,7 +25,7 @@ export class AspTest {
         scope.forEach(label => {
             let partial_rules = input.annotations.get(label)
             if (partial_rules === undefined) {
-                throw new Error(`The label ${label} is not used in the file ${path.stringify()}`)
+                throw new Error(`The label ${label.stringify()} is not used in the file ${path.stringify()}`)
             }
             rules.push(...partial_rules)
         });

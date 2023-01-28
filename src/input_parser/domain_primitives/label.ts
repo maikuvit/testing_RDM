@@ -1,7 +1,7 @@
 export class Label {
     private static readonly min_size:number = 1
     private static readonly max_size:number = 100
-    private static readonly regex:RegExp = /[a-zA-Z0-9_-]+/m
+    private static readonly regex:RegExp = /^[a-zA-Z0-9_-]+$/
     constructor(
         private content: string) {
         this.content = this.validSize(content)

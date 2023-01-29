@@ -18,23 +18,22 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - name: ${{matrix.os}} - install dependencies
-    - run: npm ci
-    
-    - name: ${{matrix.os}} - build project
-    - run: npm run build
-    
-    - name: ${{matrix.os}} - execute tests
-    - run: npm run test
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: ${{matrix.os}} - install dependencies
+      - run: npm ci
+
+      - name: ${{matrix.os}} - build project
+      - run: npm run build
+
+      - name: ${{matrix.os}} - execute tests
+      - run: npm run test
     
     
     
@@ -43,14 +42,13 @@ jobs:
     runs-on: [ubuntu-latest]
     
     steps:
-  
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: pushing to release
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        create_branch: true
-        branch: release
+      - name: pushing to release
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          create_branch: true
+          branch: release
           
     
     

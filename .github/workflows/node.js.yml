@@ -27,13 +27,13 @@ jobs:
           cache: 'npm'
 
       - name: ${{matrix.os}} - install dependencies
-      - run: npm ci
+        run: npm ci
 
       - name: ${{matrix.os}} - build project
-      - run: npm run build
+        run: npm run build
 
       - name: ${{matrix.os}} - execute tests
-      - run: npm run test
+        run: npm run test
     
     
     

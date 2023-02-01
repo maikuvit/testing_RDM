@@ -51,9 +51,10 @@ program
     if (!checkPathExist(_path))
       throw new Error(`${_path} does not exists`)
     if (isPathFile(_path))
-      filePaths = [_path]
+      filePaths = [path.resolve(_path)]
     if (isPathDirectory(_path))
-      filePaths = getDirContent(_path).map(c => path.join(_path, c));
+      filePaths = getDirContent(_path).map(c => path.resolve(path.join(_path, c)) );
+
     for (let k = 0; k < filePaths.length; k++) {
       let path = filePaths[k]
       let test_wrapper = TestParser.parse_test_file(path);

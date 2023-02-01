@@ -19,6 +19,6 @@ col(X,red) | col(X,blue) | col(X,green) :- node(X).
 	"@trueInExactly{ 'number' : 1, 'atoms' : 'col(1,red) col(2,blue)' }"  
 
 	],
-	"file" : "demo/input2.asp"
+	"file" : "/home/maiku/Documents/RDM/progetto/demo/input2.asp"
 	}
 **%

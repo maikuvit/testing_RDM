@@ -14,7 +14,7 @@
 	"name" : "Test1",
 	"scope" : [ "ToTest" ],
 	"input" : "node(1) node(2)",
-	"file" : "demo/input2.asp",
+	"file" : "/home/maiku/Documents/RDM/progetto/demo/input2.asp",
 	"fixtures" : ["atoms","asserts"]
    }
 **%
@@ -26,7 +26,7 @@
 	"assert" : [
 	"@trueInExactly{ 'number' : 1, 'atoms' : 'col(1,red) col(2,blue)' }"  
 	],
-	"file" : "demo/input2.asp",
+	"file" : "/home/maiku/Documents/RDM/progetto/demo/input2.asp",
 	"fixtures" : ["atoms"]
    }
 **%
@@ -38,7 +38,7 @@
 	"assert" : [
 	"@noAnswerSet{}"  
 	],
-	"file" : "demo/input2.asp",
+	"file" : "/home/maiku/Documents/RDM/progetto/demo/input2.asp",
 	"fixtures" : ["atoms"]
    }
 **%

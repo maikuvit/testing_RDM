@@ -7,6 +7,7 @@ import { Assert } from "../../common/interfaces/assert";
 import { TestName } from "../domain_primitives/test_name";
 import { Label } from "../../input_parser/domain_primitives/label";
 import { GenericPath } from "../domain_primitives/generic_path";
+import path from "path";
 
 interface DataToParse {
     name?: string;
@@ -45,6 +46,7 @@ export class TestWrapper extends Annotation {
                 throw new Error(`you must give a name to the fixture`)
             }
         })
+
         raw_tests.forEach(raw_test => {
             let fixtures_used_by_test = raw_test.fixtures ?? []
             fixtures_used_by_test.forEach(fixtureName => {
@@ -92,6 +94,7 @@ export class TestWrapper extends Annotation {
         let raw_testName = test_to_be_validated.name ?? ""
         let raw_testScope = test_to_be_validated.scope ?? []
         let testScope:Label[] = []
+
         raw_testScope.forEach(raw_label => {
             testScope.push(new Label(raw_label))
         });

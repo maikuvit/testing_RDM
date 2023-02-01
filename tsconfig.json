@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022",                                  
-    "module": "commonjs",
+    "module": "Node16",
     "outDir": "dist",
     "rootDirs": ["src", "test"],
     "lib": ["ES2022", "DOM"],                                

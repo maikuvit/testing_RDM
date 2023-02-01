@@ -1,0 +1,20 @@
+%** @rule(labels=ruleblock) **%
+a(X) | b(X) :- c(X).
+
+a(1). c(2). c(3).
+
+%** @rule(labels=ruleblock) **%
+:~ a(X), c(X). [1@1]
+%** @rule(labels=ruleblock) **%
+:~ b(X), c(X). [1@2]
+
+%**@test{
+	"name" : "Test1",
+	"scope" : [ "ruleblock" ],
+	"assert" : [
+    "@bestModelCost{cost ="1@2,2@3"}",
+    "@constraintInAll{ constraints = ":- a(1). :- b(2)."}"
+	],
+	"file" : "demo/input3.tasp"
+   }
+**%

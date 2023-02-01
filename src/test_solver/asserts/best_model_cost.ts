@@ -22,8 +22,13 @@ export class BestModelCost extends Assert {
 
         Object.entries(outputs).forEach((o) => {
             o[1].answers.forEach(as => {
-                if(!this.equalToCost(as.costs))
-                    ret.push(`Model has a different cost ${as.costs.toString()}`) 
+                if(!this.equalToCost(as.costs)){
+                    let raw_costs = []
+                    for(let i=0;i<as.costs.length;i++){
+                        raw_costs.push(as.costs[i].stringify())
+                    }
+                    ret.push(`Model has a different cost ${raw_costs.toString()}`) 
+                }
             });
         })
         return ret;

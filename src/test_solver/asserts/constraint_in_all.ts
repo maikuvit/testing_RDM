@@ -18,8 +18,9 @@ export class ConstraintInAll extends Assert {
         this.constraints.forEach(element => {
             if(element == '') return
             let tempRules : string[]= Object.assign([], stringRules);
-            tempRules.push(`constrAux(1) :- ${element}.`)
+            tempRules.push(`constrAux(1) ${element}.`)
             tempRules.push(":- not constrAux(1).")
+            console.log(tempRules)
             outp[element] = (new AspInput(tempRules,input))
         });
 

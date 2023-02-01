@@ -11,9 +11,10 @@ a(1). c(2). c(3).
 %**@test{
 	"name" : "Test1",
 	"scope" : [ "ruleblock" ],
+	"input" : "a(1) c(2) c(3)",
 	"assert" : [
-    "@bestModelCost{cost ="1@2,2@3"}",
-    "@constraintInAll{ constraints = ":- a(1). :- b(2)."}"
+    "@bestModelCost{ 'cost' : '1@2 2@3'}",
+    "@constraintInAll{ 'constraints' : ':- a(1). :- b(2).'}"
 	],
 	"file" : "demo/input3.tasp"
    }

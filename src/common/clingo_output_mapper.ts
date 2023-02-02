@@ -1,5 +1,5 @@
-export class ClingoOutputMapper{
-    static toDlv(raw : string) : string {
+export class OutputMapper{
+    static clingoToDlv(raw : string) : string {
         raw = raw.replace("UNSATISFIABLE", "INCOHERENT");
         raw = raw.replace("SATISFIABLE", "");
         raw = raw.replace("OPTIMUM FOUND", "OPTIMUM");

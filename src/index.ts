@@ -9,7 +9,7 @@ import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile, readFile } from "./common/file_handler";
 import { addDefaultExtrasForSolver } from "./common/utils";
 import path from "path";
-import { ClingoOutputMapper } from "./common/clingo_output_mapper";
+import { OutputMapper } from "./common/clingo_output_mapper";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();
@@ -23,11 +23,11 @@ program
   .command("parse")
   .description("Parse a DLV output file")
   .argument("<path>", "Path to file")
-  .addOption(new Option('-s, --solver <solver>', 'invoke specified solver').choices(['dlv2', 'clingo']).makeOptionMandatory())
+  .addOption(new Option('-p, --parser <solver>', 'parser option').choices(['dlv2', 'clingo']).makeOptionMandatory())
   .action((path, options) => {
-    let solver: 'dlv2' | 'clingo' = options.solver!;
+    let parser: 'dlv2' | 'clingo' = options.parser!;
     let raw_content = readFile(path);
-    let content = raw_content === 'clingo' ? ClingoOutputMapper.toDlv(raw_content) : raw_content;
+    let content = parser === 'clingo' ? OutputMapper.clingoToDlv(raw_content) : raw_content;
     let output = DlvOutputParser.parse(content);
     console.log(output);
     console.log(output.stringify());

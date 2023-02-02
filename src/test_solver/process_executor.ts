@@ -1,7 +1,7 @@
 
 import { exec, execSync } from "child_process";
 import { promisify } from "util";
-import { ClingoOutputMapper } from "../common/clingo_output_mapper";
+import { OutputMapper } from "../common/clingo_output_mapper";
 import { Config } from "../common/config";
 import { checkPathExist } from "../common/file_handler";
 import { DlvOutputParser } from "../dlv_output_parser/dlv_output_parser";
@@ -25,7 +25,7 @@ export class ProcessExecutor {
         let cmdString = `${exePath} ${InputFilePath} ${defaultOpt} ${allAnswersets}`; 
         // console.log(cmdString)
         let raw_output = (await this.execPromise(cmdString)).toString();
-        let output = solver == 'dlv2' ? raw_output : ClingoOutputMapper.toDlv(raw_output);
+        let output = solver == 'dlv2' ? raw_output : OutputMapper.clingoToDlv(raw_output);
 
         return DlvOutputParser.parse(output);
 

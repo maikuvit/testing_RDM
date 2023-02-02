@@ -1,7 +1,7 @@
 
 import { exec, execSync } from "child_process";
 import { promisify } from "util";
-import { OutputMapper } from "../common/clingo_output_mapper";
+import { OutputMapper } from "../dlv_output_parser/output_mapper";
 import { Config } from "../common/config";
 import { checkPathExist } from "../common/file_handler";
 import { DlvOutputParser } from "../dlv_output_parser/dlv_output_parser";

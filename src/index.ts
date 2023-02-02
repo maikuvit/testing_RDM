@@ -9,7 +9,7 @@ import { TestParser } from "./test_parser/test_parser";
 import { checkPathExist, getDirContent, isPathDirectory, isPathFile, readFile } from "./common/file_handler";
 import { addDefaultExtrasForSolver } from "./common/utils";
 import path from "path";
-import { OutputMapper } from "./common/clingo_output_mapper";
+import { OutputMapper } from "./dlv_output_parser/output_mapper";
 
 console.log(figlet.textSync("TASPER"));
 const program = new Command();

@@ -33,7 +33,7 @@ export class BestModelCost extends Assert {
                 for(let i=0;i<bestAS.costs.length;i++){
                     raw_costs.push(bestAS.costs[i].stringify())
                 }
-                ret.push(`Model has a different cost ${raw_costs.toString()}`) 
+                ret.push(`Model has a different cost (${raw_costs.toString()})`) 
             }
             }
         })

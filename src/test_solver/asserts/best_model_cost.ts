@@ -10,7 +10,7 @@ import { AspInput } from "../../test_parser/models/asp_input";
 
 export class BestModelCost extends Assert {
 
-    private equalToCost = (arr: Cost[]) => { return areArrayEqualNoOrder(arr,this.cost) }
+    private equalToCost = (arr: Cost[]) => { return areArrayEqualNoOrder(arr,this.costs) }
     public fullfilRequirements(rules: Rule[], input: Atom[]): { [id: string]: AspInput; } {
         let tempRules: string[] = []
         rules.forEach((r) => tempRules.push(r.content.stringify()) )
@@ -28,6 +28,9 @@ export class BestModelCost extends Assert {
             if(!bestAS)
                 ret.push('No optimum produced.')
             else{
+
+                console.log(bestAS.costs)
+                console.log(this.costs)
             if(!this.equalToCost(bestAS.costs)){
                 let raw_costs = []
                 for(let i=0;i<bestAS.costs.length;i++){
@@ -44,6 +47,9 @@ export class BestModelCost extends Assert {
     }
 
     public constructor(
-        public cost: Cost[]
-    ) { super() }
+        public costs: Cost[]
+
+    ) { super()
+        console.log("aaa" + this.costs)
+    }
 }

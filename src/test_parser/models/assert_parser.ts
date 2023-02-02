@@ -23,6 +23,7 @@ export class AssertParser extends Parser {
         let atoms:Atom[] = parsedAssertion.atoms ? (parsedAssertion.atoms.split(' ').map((atom_raw: string) => Atom.parse(atom_raw) as Atom) ?? []) : []
         let constraints:string[] = parsedAssertion.constraints ? (parsedAssertion.constraints.replace(" ","").split('.')) ?? [] : []
         let costs:Cost[] = parsedAssertion.costs ? (parsedAssertion.costs.split(' ').map((raw_cost: string) => Cost.parse(raw_cost) as Cost) ?? []) : []
+
         let assertions: any = {
             "@noAnswerSet": new NoAnswerSet(),
             "@trueInExactly": new TrueInExactly(parsedAssertion.number, atoms),

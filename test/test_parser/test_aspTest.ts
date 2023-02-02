@@ -6,6 +6,7 @@ import { TestName } from "../../src/test_parser/domain_primitives/test_name";
 import { Label } from "../../src/input_parser/domain_primitives/label";
 import { GenericPath } from "../../src/test_parser/domain_primitives/generic_path";
 import { Assert } from "../../src/common/interfaces/assert";
+import path from "path";
 
 describe("Testing AspTest class", function() {
     it("should have the right name", function() {
@@ -13,8 +14,8 @@ describe("Testing AspTest class", function() {
         let scope:Label[] = [new Label("r1"),new Label("r2")]
         let atoms:Atom[] = [new Atom("atom", ["1","2"])]
         let asserts:Assert[] = [new NoAnswerSet()]
-        let path = new GenericPath("demo/input2.asp")
-        let inputTest = new AspTest(name,scope,atoms,asserts,path)
+        let pathh = new GenericPath(path.resolve("demo/input2.asp"))
+        let inputTest = new AspTest(name,scope,atoms,asserts,pathh)
         assert.equal(inputTest.name.stringify(),"Test1")
     });
     it("should have the right scope", function() {
@@ -22,8 +23,8 @@ describe("Testing AspTest class", function() {
         let scope:Label[] = [new Label("r1"),new Label("r2")]
         let atoms:Atom[] = [new Atom("atom", ["1","2"])]
         let asserts:Assert[] = [new NoAnswerSet()]
-        let path = new GenericPath("demo/input2.asp")
-        let inputTest = new AspTest(name,scope,atoms,asserts,path)
+        let pathh = new GenericPath(path.resolve("demo/input2.asp"))
+        let inputTest = new AspTest(name,scope,atoms,asserts,pathh)
         assert.deepStrictEqual(inputTest.scope,scope)
     });
     it("should have the right input", function() {
@@ -31,8 +32,8 @@ describe("Testing AspTest class", function() {
         let scope:Label[] = [new Label("r1"),new Label("r2")]
         let atoms:Atom[] = [new Atom("atom", ["1","2"])]
         let asserts:Assert[] = [new NoAnswerSet()]
-        let path = new GenericPath("demo/input2.asp")
-        let inputTest = new AspTest(name,scope,atoms,asserts,path)
+        let pathh = new GenericPath(path.resolve("demo/input2.asp"))
+        let inputTest = new AspTest(name,scope,atoms,asserts,pathh)
         assert.deepStrictEqual(inputTest.input,atoms)
     });
     it("should have the right types of assertions", function() {
@@ -40,8 +41,8 @@ describe("Testing AspTest class", function() {
         let scope:Label[] = [new Label("r1"),new Label("r2")]
         let atoms:Atom[] = [new Atom("atom", ["1","2"])]
         let asserts:Assert[] = [new NoAnswerSet()]
-        let path = new GenericPath("demo/input2.asp")
-        let inputTest = new AspTest(name,scope,atoms,asserts,path)
+        let pathh = new GenericPath(path.resolve("demo/input2.asp"))
+        let inputTest = new AspTest(name,scope,atoms,asserts,pathh)
         assert.deepStrictEqual(inputTest.assert,asserts)
     });
 });

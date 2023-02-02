@@ -1,3 +1,7 @@
+%fix1: sono tutti ottimi
+%fix2: hanno tutti lo stesso costo
+%logica: dall'ultimo che ha un costo fino in fondo hanno tutti lo stesso costo e sono tutti ottimi
+
 {a(2), a(1), b(3), d(2), d(1), c(2,1), c(1,2), c(3,3), c(1,2)}
 COST 3@3 1@2 2@1
 {a(2), a(1), b(3), d(2), d(1), c(2,1), c(1,2), c(3,3), c(1,2)}

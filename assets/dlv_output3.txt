@@ -1,4 +1,4 @@
-%last two answer set are the same, cost and optimality are split
+%fix1: il secondo ed il terzo as sono uguali, devono essere fusi
 
 {b(1), b(2), a(3), c(1), c(2), c(3)}
 COST 3@1

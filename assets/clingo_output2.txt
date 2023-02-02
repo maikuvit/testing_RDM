@@ -1,1 +1,7 @@
-UNSATISFIABLE
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(2,green) col(1,red) col(3,blue)
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(2,blue) col(1,red) col(3,green)
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(1,green) col(2,red) col(3,blue)
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(2,blue) col(1,green) col(3,red)
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(1,blue) col(2,green) col(3,red)
+node(1) node(2) node(3) edge(1,2) edge(1,3) edge(2,3) col(1,blue) col(2,red) col(3,green)
+SATISFIABLE

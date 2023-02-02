@@ -1,4 +1,5 @@
 export class OutputMapper{
+    
     static clingoToDlv(raw : string) : string {
         raw = raw.replace("UNSATISFIABLE", "INCOHERENT");
         raw = raw.replace("SATISFIABLE", "");
@@ -9,7 +10,7 @@ export class OutputMapper{
         if (costs) {
             let raw_costs = costs[1].trim();
             let clingo_costs = raw_costs.split(' ');
-            let dlv_costs = clingo_costs.map((weight : string, index: number) => `${weight}@${clingo_costs.length-index}`)
+            let dlv_costs = clingo_costs.map((w : string, i: number) => `${w}@${clingo_costs.length-i}`)
             raw = raw.replace(/COST\s((?:\d+ *)*)/, `COST ${dlv_costs.join(' ')}`);
         }
 

@@ -19,6 +19,8 @@ export class Output extends DlvOutputModel {
 
         let answer_sets: AnswerSet[] = matches.map((raw_answer: string) => AnswerSet.parse(raw_answer) as AnswerSet)
 
+        if(answer_sets.length <= 1) new Output(answer_sets);
+
         for (let i = 0; i < answer_sets.length; i++) {
             for (let j = i + 1; j < answer_sets.length; j++) {
                 let first = answer_sets[i]
@@ -34,16 +36,14 @@ export class Output extends DlvOutputModel {
             }
         }
 
-        //propaga ottimalità e costi in caso di piu answer_set (significa che ha weak ed è stato lanciato con -n0)
-        //se ho piu di un answer_set sono tutti ottimi e hanno tutto lo stesso costo
-        if (answer_sets.length > 1) {
-            let propagation_answer: AnswerSet | undefined = answer_sets.find((ans) => ans.costs.length > 0)
-            if (propagation_answer) {
-                answer_sets = answer_sets.map(answer => {
-                    answer.costs = propagation_answer?.costs || []
-                    answer.optimum = true
-                    return answer;
-                })
+        //'dall'ultimo che ha un costo fino in fondo hanno tutti lo stesso costo e sono tutti ottimi
+        let ultimoConCosto : number | undefined = Output.getUltimoConCosto(answer_sets);
+        if(ultimoConCosto !== undefined){
+            let propagator : AnswerSet = answer_sets[ultimoConCosto];
+            for (let i = ultimoConCosto; i < answer_sets.length; i++) {
+                const as = answer_sets[i];
+                as.optimum = true;
+                as.costs = propagator.costs;
             }
         }
 
@@ -53,4 +53,14 @@ export class Output extends DlvOutputModel {
     public override stringify(): string {
         return `${this.answers.map(ans => ans.stringify()).join("\n\n")}`
     }
+
+    private static getUltimoConCosto(answers : AnswerSet[]) : number | undefined {
+        for (let i = answers.length-1; i > -1; i--) {
+            const answer = answers[i];
+            if(answer.costs.length > 0)
+                return i;
+        }
+        return undefined;
+    }
+
 }

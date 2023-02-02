@@ -29,8 +29,6 @@ export class BestModelCost extends Assert {
                 ret.push('No optimum produced.')
             else{
 
-                console.log(bestAS.costs)
-                console.log(this.costs)
             if(!this.equalToCost(bestAS.costs)){
                 let raw_costs = []
                 for(let i=0;i<bestAS.costs.length;i++){
@@ -50,6 +48,5 @@ export class BestModelCost extends Assert {
         public costs: Cost[]
 
     ) { super()
-        console.log("aaa" + this.costs)
     }
 }

@@ -16,6 +16,6 @@ a(1). c(2). c(3).
     "@bestModelCost{ 'cost' : '1@2 2@3'}",
     "@constraintInAll{ 'constraints' : ':- a(1). :- b(2).'}"
 	],
-	"file" : "/home/maiku/Documents/RDM/progetto/demo/input3.tasp"
+	"file" : "./demo/input3.tasp"
    }
 **%

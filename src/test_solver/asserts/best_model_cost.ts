@@ -1,6 +1,7 @@
 import { Assert } from "../../common/interfaces/assert";
 import { preConditions } from "../../common/pre_conditions";
 import { areArrayEqualNoOrder } from "../../common/utils";
+import { AnswerSet } from "../../dlv_output_parser/models/answer_set";
 import { Atom } from "../../dlv_output_parser/models/atom";
 import { Cost } from "../../dlv_output_parser/models/cost";
 import { Output } from "../../dlv_output_parser/models/output";
@@ -21,15 +22,20 @@ export class BestModelCost extends Assert {
         if (Object.keys(outputs).length== 0) return ["No answer sets produced"] 
 
         Object.entries(outputs).forEach((o) => {
-            o[1].answers.forEach(as => {
-                if(!this.equalToCost(as.costs)){
-                    let raw_costs = []
-                    for(let i=0;i<as.costs.length;i++){
-                        raw_costs.push(as.costs[i].stringify())
-                    }
-                    ret.push(`Model has a different cost ${raw_costs.toString()}`) 
+    
+            let bestAS : AnswerSet | undefined = o[1].answers.find(e => e.optimum);
+
+            if(!bestAS)
+                ret.push('No optimum produced.')
+            else{
+            if(!this.equalToCost(bestAS.costs)){
+                let raw_costs = []
+                for(let i=0;i<bestAS.costs.length;i++){
+                    raw_costs.push(bestAS.costs[i].stringify())
                 }
-            });
+                ret.push(`Model has a different cost ${raw_costs.toString()}`) 
+            }
+            }
         })
         return ret;
     }

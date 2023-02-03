@@ -25,7 +25,15 @@ export class ProcessExecutor {
         let cmdString = `${exePath} ${InputFilePath} ${defaultOpt} ${allAnswersets}`; 
         // console.log(cmdString)
         let raw_output = (await this.execPromise(cmdString)).toString();
+
+        if(raw_output.trim() === ""){
+            return new Output([])
+        }
+
         let output = solver == 'dlv2' ? raw_output : OutputMapper.clingoToDlv(raw_output);
+
+        console.log(output);
+        
 
         return DlvOutputParser.parse(output);
 
